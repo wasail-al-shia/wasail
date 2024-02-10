@@ -1,0 +1,110 @@
+defmodule WasailWeb.Graphql.Types do
+  use Absinthe.Schema.Notation
+
+  object :mutation_response do
+    field :status, :string
+    field :message, :string
+  end
+
+  object :user_info do
+    field :uid, :string
+    field :name, :string
+    field :email, :string
+    field :avatar_url, :string
+    field :is_admin, :boolean
+  end
+
+  object :book do
+    field :id, non_null(:integer)
+    field :name_eng, non_null(:string)
+    field :author_eng, non_null(:string)
+    field :volume_no, non_null(:integer)
+    field :library_seq_no, non_null(:integer)
+    field :description, :string
+
+    field :sections, list_of(:section)
+  end
+
+  object :section do
+    field :id, non_null(:integer)
+    field :book_id, non_null(:string)
+    field :section_no, non_null(:integer)
+    field :name_eng, non_null(:string)
+    field :name_arb, :string
+    field :desc_eng, :string
+    field :desc_arb, :string
+    field :book, non_null(:book)
+
+    field :chapters, list_of(:chapter)
+  end
+
+  object :chapter do
+    field :id, non_null(:integer)
+    field :section_id, non_null(:integer)
+    field :chapter_no, non_null(:integer)
+    field :name_eng, non_null(:string)
+    field :name_arb, :string
+    field :desc_eng, :string
+    field :desc_arb, :string
+    field :section, non_null(:section)
+
+    field :reports, list_of(:report)
+  end
+
+  object :tag do
+    field :tag_name, non_null(:string)
+    field :report_id, non_null(:integer)
+    field :report, :report
+  end
+
+  object :report do
+    field :id, non_null(:integer)
+    field :chapter_id, non_null(:integer)
+    field :report_no, non_null(:integer)
+    field :heading_eng, :string
+    field :texts, list_of(:text)
+    field :comments, list_of(:comment)
+    field :tags, list_of(:tag)
+  end
+
+  object :text do
+    field :id, non_null(:integer)
+    field :report_id, non_null(:integer)
+    field :fragment_no, non_null(:integer)
+    field :text_eng, non_null(:string)
+    field :text_arb, non_null(:string)
+  end
+
+  object :comment do
+    field :id, non_null(:integer)
+    field :report_id, non_null(:integer)
+    field :comment_seq_no, non_null(:integer)
+    field :comment_eng, non_null(:string)
+  end
+
+  object :article do
+    field :article_id, non_null(:integer)
+    field :title, non_null(:string)
+    field :article_seq_no, non_null(:integer)
+    field :description, :string
+    field :article_comments, :string
+    field :reports, non_null(list_of(:report))
+  end
+
+  object :search_result do
+    field :text, :text
+    field :report, :report
+    field :chapter, :chapter
+    field :section, :section
+    field :book, :book
+  end
+
+  input_object :book_input do
+    field :id, :integer
+    field :name_eng, :string
+    field :author_eng, :string
+    field :volume_no, :integer
+    field :library_seq_no, :integer
+    field :description, :string
+  end
+end

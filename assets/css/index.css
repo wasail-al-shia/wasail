@@ -1,0 +1,27 @@
+/* Main application CSS */
+html {
+  font-size: 16px;
+  background-color: #efecea;
+}
+
+mark {
+  background-color: #ffffdb;
+}
+
+@media (width <=900px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (width <=600px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (width <=300px) {
+  html {
+    font-size: 9px;
+  }
+}

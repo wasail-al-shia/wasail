@@ -1,0 +1,31 @@
+{
+    "scripts": {
+        "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@fontsource-variable/noto-naskh-arabic": "^5.0.18",
+        "@fontsource-variable/overpass": "^5.0.17",
+        "@fontsource-variable/radio-canada": "^5.0.19",
+        "@mui/icons-material": "^5.14.11",
+        "@mui/material": "^5.14.5",
+        "axios": "^1.5.1",
+        "copy-to-clipboard": "^3.3.3",
+        "html-react-parser": "^5.1.1",
+        "json-to-graphql-query": "^2.2.5",
+        "lodash": "^4.17.21",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-hook-form": "^7.49.2",
+        "react-number-format": "^5.3.1",
+        "react-query": "^3.39.3",
+        "react-router-dom": "^6.16.0"
+    },
+    "devDependencies": {
+        "esbuild": "^0.15.14",
+        "esbuild-plugin-svgr": "^1.0.1",
+        "eslint": "^8.54.0",
+        "eslint-plugin-react": "^7.33.2"
+    }
+}

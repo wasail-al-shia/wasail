@@ -1,0 +1,11 @@
+version: "3"
+services:
+  wasail:
+    build: 
+      context: .
+      args:
+        - MIX_ENV=prod
+    ports:
+        - "4000:4000"
+    image: "537213935442.dkr.ecr.us-east-1.amazonaws.com/wasail-ecr:latest"
+    tty: true
