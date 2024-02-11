@@ -72,11 +72,9 @@ export default () => {
       <Typography variant="h4" component="div">
         {report.headingEng}
       </Typography>
-      <Stack direction="row">
-        <CopyToClipboardButton
-          textToCopy={generatePlainText({ book, section, chapter, report })}
-        />
-      </Stack>
+      <CopyToClipboardButton
+        textToCopy={generatePlainText({ book, section, chapter, report })}
+      />
     </Stack>
   );
 

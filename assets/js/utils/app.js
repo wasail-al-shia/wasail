@@ -31,4 +31,4 @@ export const generatePlainText = ({ book, section, chapter, report }) => {
 export const navBookLink = (bookId) => `/b/${bookId}`;
 export const navChapterLink = (chapterId) => `/c/${chapterId}`;
 export const navReportLink = (reportId) => `/r/${reportId}`;
-export const navSearchReultsLink = (searchStr) => `/s/${searchStr}`;
+export const navSearchReultsLink = (queryStr) => `/q/${queryStr}`;

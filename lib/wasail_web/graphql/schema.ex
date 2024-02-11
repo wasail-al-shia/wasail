@@ -7,8 +7,7 @@ defmodule WasailWeb.Graphql.Schema do
     SectionResolver,
     ChapterResolver,
     ReportResolver,
-    TextResolver,
-    SearchResolver
+    TextResolver
   }
 
   import_types(WasailWeb.Graphql.Types)
@@ -71,10 +70,13 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&ReportResolver.report_by_id/2)
     end
 
-    @desc "Search"
-    field :search, :search_result do
-      arg(:search_str, non_null(:string))
-      resolve(&SearchResolver.search/2)
+    @desc "Search Results"
+    field :search_results, non_null(list_of(non_null(:search_result))) do
+      arg(:query_str, non_null(:string))
+
+      resolve(fn %{query_str: query_str}, _info ->
+        Wasail.Search.search(query_str)
+      end)
     end
   end
 

@@ -66,9 +66,9 @@ export default function Header() {
             spacing={3}
             direction="row"
           >
-            <SearchInput
+            {/* <SearchInput
               onEnter={(searchStr) => navigate(navSearchReultsLink(searchStr))}
-            />
+            /> */}
             {loggedIn ? (
               <Tooltip title={`Logout ${name}`}>
                 <Box

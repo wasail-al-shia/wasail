@@ -94,11 +94,8 @@ defmodule WasailWeb.Graphql.Types do
   end
 
   object :search_result do
-    field :text, :text
-    field :report, :report
-    field :chapter, :chapter
-    field :section, :section
-    field :book, :book
+    field :report_id, non_null(:integer)
+    field :matching_text, non_null(:string)
   end
 
   input_object :book_input do
