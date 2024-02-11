@@ -1,25 +1,102 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import MainWrapper from "./MainWrapper";
+import Stack from "@mui/material/Stack";
+import parse from "html-react-parser";
+import { useNavigate, useLocation } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import { bookName, navReportLink } from "../utils/app";
+import Spinner from "../kmui/Spinner";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
   request(`{
     searchResults(queryStr: "${queryStr}") {
-      reportId
       matchingText
+      reportId
+      reportHeading
+      chapterNo
+      chapterName
+      sectionNo
+      sectionName
+      bookName
+      volumeNo
     }
   }`).then(({ searchResults }) => searchResults);
 
 export default function () {
-  const { queryStr } = useParams();
-  const { data: searchResults = [], isFetching: searching } = useQuery(
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryStr = location.state?.searchStr;
+  const { data: searchResults = [], isFetching } = useQuery(
     ["search", queryStr],
     fetchSearchResults
   );
 
-  console.log("searchResults=", searchResults);
-
-  return <MainWrapper>{searchResults.map((r) => r.matchingText)}</MainWrapper>;
+  return (
+    <Spinner open={isFetching}>
+      <MainWrapper>
+        {searchResults.length == 0 ? (
+          <Stack alignItems="center">
+            <Box
+              sx={{
+                padding: 15,
+                backgroundColor: "#fff",
+                borderRadius: 1,
+                maxWidth: "60vw",
+                minWidth: "60vw",
+              }}
+            >
+              <Typography align="center" variant="h4">
+                No results found!
+              </Typography>
+            </Box>
+          </Stack>
+        ) : (
+          <>
+            <Typography variant="h5">Search Results:</Typography>
+            <Stack spacing={2}>
+              {searchResults.map((r, idx) => (
+                <Box
+                  key={idx}
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: 1,
+                    border: "1px solid gray",
+                    padding: 5,
+                    "&:hover": {
+                      border: "2px solid gray",
+                      cursor: "pointer",
+                      backgroundColor: "primary.paper",
+                    },
+                  }}
+                  onClick={() =>
+                    navigate(navReportLink(r.reportId), {
+                      state: { fromSearchResults: true },
+                    })
+                  }
+                  spacing={5}
+                  direction="column"
+                >
+                  <Typography variant="h4">
+                    {bookName({ nameEng: r.bookName, volumeNo: r.volumeNo })}
+                  </Typography>
+                  <Typography variant="h5">
+                    {`Section ${r.sectionNo}: ${r.sectionName}`}
+                  </Typography>
+                  <Typography variant="h6">
+                    {`Chapter ${r.chapterNo}: ${r.chapterName}`}
+                  </Typography>
+                  <Divider sx={{ mb: 3 }} />
+                  <Typography variant="h6">{parse(r.matchingText)}</Typography>
+                </Box>
+              ))}
+            </Stack>
+          </>
+        )}
+      </MainWrapper>
+    </Spinner>
+  );
 }

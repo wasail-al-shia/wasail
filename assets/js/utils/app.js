@@ -12,8 +12,7 @@ export const generateReference = ({ book, section, chapter, report }) =>
 export const reportHyperLink = (reportId) => {
   const p = window.location.protocol;
   const h = window.location.hostname;
-  const port = window.location.port;
-  return `${p}://${h}:${port}/r/${reportId}`;
+  return `${p}//${h}/r/${reportId}`;
 };
 
 export const generatePlainText = ({ book, section, chapter, report }) => {

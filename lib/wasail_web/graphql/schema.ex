@@ -75,7 +75,7 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:query_str, non_null(:string))
 
       resolve(fn %{query_str: query_str}, _info ->
-        Wasail.Search.search(query_str)
+        {:ok, Wasail.Search.search(query_str)}
       end)
     end
   end

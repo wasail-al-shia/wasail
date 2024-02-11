@@ -1,8 +1,9 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import Spinner from "../kmui/Spinner";
 import BreadCrumbs from "../kmui/BreadCrumbs";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import { generatePlainText, generateReference } from "../utils/app";
@@ -12,6 +13,7 @@ import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import MainWrapper from "./MainWrapper";
 import { MAX_WIDTH_CONTENT } from "../consts";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   navBookLink,
   navChapterLink,
@@ -50,6 +52,8 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
 
 export default () => {
   const { reportId } = useParams();
+  const location = useLocation();
+  const fromSearchResults = location.state?.fromSearchResults;
   const { data: report, isFetching: fetchingReport } = useQuery({
     queryKey: ["report", reportId],
     queryFn: fetchReport,
@@ -100,6 +104,16 @@ export default () => {
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper hasBreadcrumbs={true}>
+        {fromSearchResults && (
+          <Button
+            size="small"
+            startIcon={<ArrowBackIosIcon size="small" />}
+            variant="outlined"
+            onClick={() => history.back()}
+          >
+            Back to Search Results
+          </Button>
+        )}
         <Stack alignItems="center">
           <Stack>
             <Typography align="center" variant="h5">

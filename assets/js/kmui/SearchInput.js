@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 
-export default function SearchInput({ onEnter, clearOnEnter = true }) {
+export default function SearchInput({ onEnter, clearOnEnter = false }) {
   const [searchStr, setSearchStr] = React.useState("");
 
   return (
