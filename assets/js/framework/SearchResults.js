@@ -80,17 +80,20 @@ export default function () {
                   spacing={5}
                   direction="column"
                 >
-                  <Typography variant="h4">
+                  <Typography variant="h5">
                     {bookName({ nameEng: r.bookName, volumeNo: r.volumeNo })}
                   </Typography>
-                  <Typography variant="h5">
+                  <Typography variant="h6">
                     {`Section ${r.sectionNo}: ${r.sectionName}`}
                   </Typography>
                   <Typography variant="h6">
                     {`Chapter ${r.chapterNo}: ${r.chapterName}`}
                   </Typography>
                   <Divider sx={{ mb: 3 }} />
-                  <Typography variant="h6">{parse(r.matchingText)}</Typography>
+                  <Typography variant="h6">{r.reportHeading}</Typography>
+                  <Typography variant="h6">
+                    ...&nbsp;{parse(r.matchingText)}&nbsp;...
+                  </Typography>
                 </Box>
               ))}
             </Stack>
