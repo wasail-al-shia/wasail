@@ -62,6 +62,8 @@ defmodule WasailWeb.Graphql.Types do
     field :chapter_id, non_null(:integer)
     field :report_no, non_null(:integer)
     field :heading_eng, :string
+    field :chapter, non_null(:chapter)
+
     field :texts, list_of(:text)
     field :comments, list_of(:comment)
     field :tags, list_of(:tag)

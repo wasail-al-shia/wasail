@@ -10,7 +10,8 @@ const Theme = createTheme({
       main: "#274472",
       header: "#b7aca4",
       header2: "#d9d3cf",
-      breadcrumb: "#e3e0dd",
+      breadcrumb: "#dbd1cc",
+      breadcrumb2: "#e3e0dd",
       paper: "#fcf9f6",
       backdrop: "#efecea",
 
@@ -33,11 +34,16 @@ const Theme = createTheme({
     lineHeight: 1.2,
 
     siteHeader: {
-      fontSize: "1.2rem",
+      fontSize: "1.1rem",
       fontWeight: 700,
-      color: "#fff",
       textTransform: "uppercase",
       wordSpacing: "0.2rem",
+    },
+    siteHeaderSmall: {
+      fontSize: "0.9rem",
+      fontWeight: 500,
+      textTransform: "uppercase",
+      wordSpacing: "0.1rem",
     },
     h4: {
       fontSize: "1.2rem",
@@ -57,8 +63,8 @@ const Theme = createTheme({
       fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
     },
     breadcrumb: {
-      fontSize: "1.1rem",
-      fontWeight: 500,
+      fontSize: "1.0rem",
+      fontWeight: 400,
     },
     footer: {
       fontSize: "1.0rem",

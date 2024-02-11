@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import { backend } from "../utils/axiosConfig";
 import { SessionContext } from "../context/SessionContext";
 import IconButton from "@mui/material/IconButton";
@@ -13,10 +13,17 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { HEADER_HEIGHT } from "../consts";
 import SearchInput from "../kmui/SearchInput";
 import { navSearchReultsLink } from "../utils/app";
+import { useHotkeys } from "react-hotkeys-hook";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Header() {
   const navigate = useNavigate();
   const { name, avatarUrl, logout } = React.useContext(SessionContext);
+  const onSmallScreen = useMediaQuery("(max-width:600px)");
+  useHotkeys("ctrl+a", () => {
+    console.log("ctrl+a");
+    redirect("/auth/google");
+  });
 
   const loggedIn = name != null;
   const renderLogo = () => (
@@ -27,9 +34,12 @@ export default function Header() {
         height: "1.75rem",
         paddingTop: 0,
         paddingBottom: 0,
-        backgroundColor: "primary.main",
+        borderRadius: 1,
+        padding: 0,
+        margin: 0,
+        backgroundColor: "primary.paper",
       }}
-      src={"/images/wasail_al_shia.png"}
+      src={"/images/books_logo.png"}
       onClick={() => navigate("/")}
     />
   );
@@ -41,12 +51,21 @@ export default function Header() {
           sx={{ minHeight: HEADER_HEIGHT, maxHeight: HEADER_HEIGHT }}
           variant="dense"
         >
-          {renderLogo()}
+          {!onSmallScreen && renderLogo()}
           <Box m={3} />
-          <Typography mt={2} variant="siteHeader">
+          <Typography
+            mt={2}
+            sx={{ color: "primary.paper" }}
+            variant={onSmallScreen ? "siteHeaderSmall" : "siteHeader"}
+          >
             Wasail Al Shia
           </Typography>
-          <Stack sx={{ marginLeft: "auto" }} spacing={5} direction="row">
+          <Stack
+            sx={{ marginLeft: "auto" }}
+            alignItems="center"
+            spacing={3}
+            direction="row"
+          >
             <SearchInput
               onEnter={(searchStr) => navigate(navSearchReultsLink(searchStr))}
             />
@@ -55,8 +74,8 @@ export default function Header() {
                 <Box
                   component="img"
                   sx={{
-                    height: 30,
-                    width: 30,
+                    height: "1.5rem",
+                    width: "1.5rem",
                     borderRadius: "50%",
                   }}
                   alt="Avatar"

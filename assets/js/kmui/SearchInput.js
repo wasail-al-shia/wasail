@@ -1,5 +1,5 @@
 import React from "react";
-import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
@@ -8,37 +8,35 @@ export default function SearchInput({ onEnter, clearOnEnter = true }) {
   const [searchStr, setSearchStr] = React.useState("");
 
   return (
-    <>
-      <Paper
-        sx={{
-          border: "1px solid",
-          borderColor: "primary.dark",
-          borderRadius: "5px",
-          height: "30px",
-          ml: 10,
-          p: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          width: 250,
-          boxShadow: "none",
+    <Box
+      sx={{
+        border: "1px solid",
+        borderColor: "primary.dark",
+        backgroundColor: "#fff",
+        borderRadius: 2,
+        height: "2rem",
+        p: "2px 2px",
+        display: "flex",
+        alignItems: "center",
+        width: "15rem",
+        boxShadow: "none",
+      }}
+    >
+      <IconButton sx={{ color: "primary.main" }} size="small">
+        <SearchIcon />
+      </IconButton>
+      <InputBase
+        value={searchStr}
+        onChange={(event) => setSearchStr(event.target.value)}
+        onKeyPress={(event) => {
+          if (event.key === "Enter" && searchStr.trim().length > 2) {
+            onEnter(searchStr);
+            if (clearOnEnter) setSearchStr("");
+          }
         }}
-      >
-        <IconButton size="small">
-          <SearchIcon />
-        </IconButton>
-        <InputBase
-          value={searchStr}
-          onChange={(event) => setSearchStr(event.target.value)}
-          onKeyPress={(event) => {
-            if (event.key === "Enter" && searchStr.trim().length > 2) {
-              onEnter(searchStr);
-              if (clearOnEnter) setSearchStr("");
-            }
-          }}
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Search"
-        />
-      </Paper>
-    </>
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search"
+      />
+    </Box>
   );
 }

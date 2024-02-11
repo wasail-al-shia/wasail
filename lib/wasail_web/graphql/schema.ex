@@ -65,6 +65,12 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&ReportResolver.reports_by_chapter_id/2)
     end
 
+    @desc "Get report"
+    field :report, non_null(:report) do
+      arg(:report_id, non_null(:integer))
+      resolve(&ReportResolver.report_by_id/2)
+    end
+
     @desc "Search"
     field :search, :search_result do
       arg(:search_str, non_null(:string))

@@ -8,6 +8,7 @@ import { HEADER_HEIGHT } from "../consts";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import InfoIcon from "@mui/icons-material/Info";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -22,6 +23,18 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 export default function ({ crumbDefs }) {
+  const onSmallScreen = useMediaQuery("(max-width:600px)");
+  const Crumb = ({ def }) => (
+    <Typography
+      key={def.crumbName}
+      component={def.to ? Link : null}
+      variant="breadcrumb"
+      underline={def.to ? "hover" : "none"}
+      to={def.to}
+    >
+      {def.crumbName}
+    </Typography>
+  );
   return (
     <Breadcrumbs
       sx={{
@@ -30,12 +43,15 @@ export default function ({ crumbDefs }) {
         zIndex: 100,
         padding: 3,
         position: "fixed",
-        backgroundColor: "primary.header",
+        backgroundColor: "primary.breadcrumb",
         width: "100%",
+        ".MuiBreadcrumbs-separator": {
+          margin: 2,
+        },
       }}
       separator={<NavigateNextIcon />}
     >
-      {crumbDefs.map((def) =>
+      {crumbDefs.slice(onSmallScreen ? -3 : 0).map((def) =>
         def.toolTip ? (
           <HtmlTooltip key={def.crumbName} title={def.toolTip}>
             <Stack
@@ -47,22 +63,14 @@ export default function ({ crumbDefs }) {
               backgroundColor="primary.header2"
               spacing={3}
             >
-              <Typography variant="breadcrumb">{def.crumbName}</Typography>
+              <Crumb def={def} />
               <InfoIcon size="small" />
             </Stack>
           </HtmlTooltip>
         ) : (
-          <Typography
-            key={def.crumbName}
-            component={def.to ? Link : null}
-            variant="breadcrumb"
-            underline={def.to ? "hover" : "none"}
-            to={def.to}
-          >
-            {def.crumbName}
-          </Typography>
+          <Crumb key={def.crumbName} def={def} />
         )
-      )}{" "}
+      )}
     </Breadcrumbs>
   );
 }

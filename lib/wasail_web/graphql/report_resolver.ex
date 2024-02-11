@@ -2,6 +2,10 @@ defmodule WasailWeb.Graphql.ReportResolver do
   require Logger
   alias Wasail.Report, as: Report
 
+  def report_by_id(%{report_id: report_id}, _info) do
+    {:ok, Report.get(report_id)}
+  end
+
   def reports_by_chapter_id(%{chapter_id: chapter_id}, _info) do
     {:ok, Report.get_by_chapter_id(chapter_id)}
   end

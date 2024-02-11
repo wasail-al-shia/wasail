@@ -9,7 +9,7 @@ import BreadCrumbs from "../kmui/BreadCrumbs";
 import { DialogContext } from "../context/DialogContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
-import { bookName, lastCrumb, navBookLink } from "../utils/app";
+import { bookName, chapterCrumb, navBookLink } from "../utils/app";
 import MainWrapper from "./MainWrapper";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
@@ -95,7 +95,7 @@ export default () => {
       crumbName: bookName(chapter.section.book),
     },
     {
-      crumbName: lastCrumb(chapter.section.sectionNo, chapter.chapterNo),
+      crumbName: chapterCrumb(chapter.section.sectionNo, chapter.chapterNo),
       toolTip: (
         <Stack>
           <Typography variant="h5">{chapter.section.nameEng}</Typography>

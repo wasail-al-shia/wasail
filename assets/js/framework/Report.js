@@ -9,6 +9,8 @@ import AddIcon from "@mui/icons-material/Add";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
+import { Link } from "react-router-dom";
+import { navReportLink } from "../utils/app";
 import { MAX_WIDTH_CONTENT } from "../consts";
 
 export default ({ report, book, section, chapter, onEdit }) => {
@@ -63,7 +65,13 @@ export default ({ report, book, section, chapter, onEdit }) => {
 
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
-      <Typography variant="h4" component="div">
+      <Typography
+        sx={{ color: "primary.dark" }}
+        to={navReportLink(report.id)}
+        underline={"hover"}
+        component={Link}
+        variant="h4"
+      >
         {report.headingEng}
       </Typography>
       <Stack direction="row">
@@ -119,7 +127,7 @@ export default ({ report, book, section, chapter, onEdit }) => {
                 onClick={() =>
                   openDialog("dataEntry", {
                     key: report.id,
-                    title: "Update Text",
+                    title: `Update Text: ${report.headingEng}`,
                     dataQueryKeys: ["reports"],
                     fields: textFields,
                     mutationApi: "updateText",

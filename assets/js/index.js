@@ -9,8 +9,8 @@ import Main from "./framework/Main";
 import Library from "./framework/Library";
 import Toc from "./framework/Toc";
 import Chapter from "./framework/Chapter";
+import ViewReport from "./framework/ViewReport";
 import SearchResults from "./framework/SearchResults";
-import { Outlet } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -22,22 +22,20 @@ const router = createBrowserRouter([
         element: <Library />,
       },
       {
-        path: "s/:searchStr",
-        element: <SearchResults />,
+        path: "b/:bookId",
+        element: <Toc />,
       },
       {
-        path: "b/:bookId",
-        element: <Outlet />,
-        children: [
-          {
-            index: true,
-            element: <Toc />,
-          },
-          {
-            path: "c/:chapterId",
-            element: <Chapter />,
-          },
-        ],
+        path: "c/:chapterId",
+        element: <Chapter />,
+      },
+      {
+        path: "r/:reportId",
+        element: <ViewReport />,
+      },
+      {
+        path: "q/:queryStr",
+        element: <SearchResults />,
       },
     ],
   },

@@ -3,7 +3,11 @@ defmodule Wasail.Report do
   alias Wasail.Repo
   alias Wasail.Schema.Report, as: Report
 
-  def get(id), do: Repo.get(Report, id)
+  def get(id),
+    do:
+      Repo.get(Report, id)
+      |> Repo.preload(chapter: [section: [:book]])
+      |> Repo.preload([:texts, :comments])
 
   def get_by_chapter_id(chapter_id) do
     Report
