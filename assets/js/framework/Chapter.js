@@ -11,6 +11,7 @@ import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { bookName, chapterCrumb, navBookLink } from "../utils/app";
 import MainWrapper from "./MainWrapper";
+import { replace } from "../utils/obj";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -41,6 +42,7 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
       chapterId
       reportNo
       headingEng
+      review
       texts {
         id
         fragmentNo
@@ -83,6 +85,23 @@ export default () => {
       fullWidth: true,
       rules: { required: true },
     },
+    {
+      name: "review",
+      label: "Needs review?",
+      type: "radio",
+      defaultValue: "yes",
+      md: 6,
+      options: [
+        {
+          value: "yes",
+          label: "Yes",
+        },
+        {
+          value: "no",
+          label: "No",
+        },
+      ],
+    },
   ];
 
   const crumbDefs = !fetchingChapter && [
@@ -124,8 +143,12 @@ export default () => {
                   dataQueryKeys: ["reports"],
                   fields: reportFields,
                   mutationApi: "updateReport",
-                  defaultValues: report,
+                  defaultValues: {
+                    ...report,
+                    review: report.review ? "yes" : "no",
+                  },
                   basePayload: { reportId: report.id },
+                  transformPayload,
                   deleteApi: "deleteReport",
                   deletePayload: {
                     reportId: report.id,
@@ -145,8 +168,17 @@ export default () => {
           dataQueryKeys: ["reports"],
           mutationApi: "addReport",
           basePayload: { chapterId: chapter.id },
+          transformPayload,
         }}
       />
     </Spinner>
   );
 };
+
+const transformPayload = (payload) =>
+  replace(payload, [
+    {
+      key: "review",
+      value: payload.review == "yes" ? true : false,
+    },
+  ]);

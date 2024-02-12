@@ -9,7 +9,7 @@ import Config
 
 config :wasail,
   ecto_repos: [Wasail.Repo],
-  admin_uids: ["113405576099734332839"]
+  admin_uids: ["113405576099734332839", "108485062904594919718"]
 
 # Configures the endpoint
 config :wasail, WasailWeb.Endpoint,
