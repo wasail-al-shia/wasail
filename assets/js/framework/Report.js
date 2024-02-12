@@ -108,7 +108,8 @@ export default ({ report, book, section, chapter, onEdit }) => {
         minWidth: `min(99vw, ${MAX_WIDTH_CONTENT}px)`,
         border: "1px solid gray",
         borderRadius: 1,
-        backgroundColor: report.review ? "primary.review" : "primary.paper",
+        backgroundColor:
+          isAdmin && report.review ? "primary.review" : "primary.paper",
         padding: 6,
       }}
     >
