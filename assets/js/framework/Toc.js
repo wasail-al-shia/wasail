@@ -301,7 +301,7 @@ export default () => {
       direction="column"
     >
       <Typography variant="h6">
-        Chapter {chapter.chapterNo}: {chapter.nameEng}
+        <strong>Chapter {chapter.chapterNo}:</strong> {chapter.nameEng}
         {isAdmin && (
           <EditNoteIcon
             sx={{ marginRight: 3 }}
@@ -358,7 +358,7 @@ export default () => {
         ))}
       </MainWrapper>
       <FabAddButton
-        buttonText="Add Section"
+        buttonText="Section"
         dataEntryProps={{
           key: nextSectionNo,
           title: "Add Section",

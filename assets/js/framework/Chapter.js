@@ -74,16 +74,7 @@ export default () => {
       sx: { width: 100 },
       defaultValue: nextSeqNo,
       rules: { required: true },
-      md: 12,
-    },
-    {
-      name: "headingEng",
-      label: "Heading Eng",
-      type: "text",
-      size: "small",
-      md: 12,
-      fullWidth: true,
-      rules: { required: true },
+      md: 6,
     },
     {
       name: "review",
@@ -101,6 +92,49 @@ export default () => {
           label: "No",
         },
       ],
+    },
+    {
+      name: "headingEng",
+      label: "Heading Eng",
+      type: "text",
+      size: "small",
+      md: 12,
+      fullWidth: true,
+      rules: { required: true },
+    },
+  ];
+
+  const reportFragFields = [
+    {
+      name: "textArb",
+      label: "Text Arabic",
+      type: "text",
+      size: "small",
+      inputProps: {
+        dir: "rtl",
+        style: {
+          lineHeight: 1.5,
+          fontSize: "1.5rem",
+          fontFamily: "Noto Naskh Arabic Variable",
+        },
+      },
+      fullWidth: true,
+      multiline: true,
+      rows: 10,
+      md: 12,
+    },
+    {
+      name: "textEng",
+      label: "Text English",
+      size: "small",
+      type: "text",
+      fullWidth: true,
+      inputProps: {
+        style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
+      },
+      multiline: true,
+      rows: 10,
+      md: 12,
     },
   ];
 
@@ -160,14 +194,16 @@ export default () => {
         </Stack>
       </MainWrapper>
       <FabAddButton
-        buttonText="Add Report"
+        buttonText="Report + Frag"
         dataEntryProps={{
           key: "addreport",
           title: "Add report",
-          fields: reportFields,
+          fields: reportFields.concat(reportFragFields),
           dataQueryKeys: ["reports"],
-          mutationApi: "addReport",
+          onlyDirty: false,
+          mutationApi: "addReportFrag",
           basePayload: { chapterId: chapter.id },
+          defaultValues: { headingEng: "Hadith " + nextSeqNo },
           transformPayload,
         }}
       />

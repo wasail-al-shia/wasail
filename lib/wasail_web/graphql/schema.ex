@@ -175,6 +175,19 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&ReportResolver.add_report/2)
     end
 
+    @desc "Add Report with Fragment"
+    field :add_report_frag, :mutation_response do
+      arg(:chapter_id, non_null(:integer))
+      arg(:report_no, non_null(:integer))
+      arg(:heading_eng, non_null(:string))
+      arg(:approved, :boolean)
+      arg(:review, :boolean)
+      arg(:text_eng, non_null(:string))
+      arg(:text_arb, non_null(:string))
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&ReportResolver.add_report_frag/2)
+    end
+
     @desc "Update Report"
     field :update_report, :mutation_response do
       arg(:report_id, non_null(:integer))

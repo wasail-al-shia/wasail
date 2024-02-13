@@ -32,14 +32,14 @@ export default function Header() {
       sx={{
         cursor: "pointer",
         height: "1.75rem",
+        width: "2.0rem",
         paddingTop: 0,
         paddingBottom: 0,
         borderRadius: 1,
         padding: 0,
         margin: 0,
-        backgroundColor: "primary.paper",
       }}
-      src={"/images/books_logo.png"}
+      src={"/images/ya_allah_logo.png"}
       onClick={() => navigate("/")}
     />
   );
@@ -51,7 +51,7 @@ export default function Header() {
           sx={{ minHeight: HEADER_HEIGHT, maxHeight: HEADER_HEIGHT }}
           variant="dense"
         >
-          {!onSmallScreen && renderLogo()}
+          {renderLogo()}
           <Box m={3} />
           <Typography
             mt={2}

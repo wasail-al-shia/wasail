@@ -112,7 +112,7 @@ export default () => {
         </Grid>
       </MainWrapper>
       <FabAddButton
-        buttonText="Add Book"
+        buttonText="Book"
         dataEntryProps={{
           key: nextVolSeqNo,
           title: "Add Book",

@@ -14,7 +14,7 @@ const Theme = createTheme({
       breadcrumb2: "#e3e0dd",
       paper: "#fcf9f6",
       backdrop: "#efecea",
-      review: "#ffdada",
+      review: "#fff2f2",
 
       dark: "#474645",
       light: "#9c9a98",

@@ -1,10 +1,8 @@
 import React from "react";
 import ConfirmDialog from "../kmui/ConfirmDialog";
-import ContentDialog from "../dialogs/ContentDialog";
 import DataEntry from "../dialogs/DataEntry";
 
 const dialogMapping = {
-  contentDialog: ContentDialog,
   confirmDialog: ConfirmDialog,
   dataEntry: DataEntry,
 };

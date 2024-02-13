@@ -29,6 +29,33 @@ defmodule WasailWeb.Graphql.ReportResolver do
     end
   end
 
+  def add_report_frag(
+        %{
+          chapter_id: _chapter_id,
+          report_no: _report_no,
+          heading_eng: _heading_eng,
+          review: _review,
+          text_eng: _text_eng,
+          text_arb: _text_arb
+        } = params,
+        _info
+      ) do
+    with {:ok, report} <- Report.insert(params),
+         {:ok, text} <-
+           Wasail.Text.insert(Map.merge(params, %{report_id: report.id, fragment_no: 1})) do
+      {:ok,
+       %{
+         status: :ok,
+         message: "Added report #{report.id}, no. #{report.report_no}, frag text #{text.id}"
+       }}
+    else
+      {:error, changeset} ->
+        message = "Could not add report and fragment: #{inspect(error_details(changeset))}"
+        Logger.error(message)
+        {:error, message: message}
+    end
+  end
+
   def update_report(
         %{report_id: report_id} = params,
         _info

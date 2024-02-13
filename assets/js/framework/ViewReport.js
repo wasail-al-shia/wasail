@@ -114,15 +114,15 @@ export default () => {
             Back to Search Results
           </Button>
         )}
+        <Stack spacing={2} sx={{ padding: 5 }}>
+          <Typography variant="h5">
+            {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
+          </Typography>
+          <Typography variant="h6">
+            {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
+          </Typography>
+        </Stack>
         <Stack alignItems="center">
-          <Stack>
-            <Typography align="center" variant="h5">
-              {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
-            </Typography>
-            <Typography align="center" variant="h6">
-              {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
-            </Typography>
-          </Stack>
           <Stack
             sx={{
               maxWidth: MAX_WIDTH_CONTENT,
