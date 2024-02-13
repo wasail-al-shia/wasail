@@ -4,14 +4,17 @@ import ToolTip from "@mui/material/Tooltip";
 import { SnackContext } from "../context/SnackContext";
 import copy from "copy-to-clipboard";
 
-export default function ({ textToCopy, snackMessage = "Copied to clipboard" }) {
+export default function ({
+  retrieveTextToCopy,
+  snackMessage = "Copied to clipboard",
+}) {
   const { createSnack } = React.useContext(SnackContext);
 
   const handleClick = () => {
     //the foll doesn't work on safari, so have to use the library
     //navigator.clipboard.writeText(textToCopy);
 
-    copy(textToCopy);
+    copy(retrieveTextToCopy());
     createSnack(snackMessage);
   };
 

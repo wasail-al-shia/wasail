@@ -13,6 +13,7 @@ const fetchBooks = () =>
     books {
       id 
       nameEng
+      code
       authorEng
       librarySeqNo
       volumeNo
@@ -41,6 +42,15 @@ export default () => {
     {
       name: "nameEng",
       label: "Book Name",
+      type: "text",
+      fullWidth: true,
+      size: "small",
+      rules: { required: true },
+      md: 6,
+    },
+    {
+      name: "code",
+      label: "Book Code",
       type: "text",
       fullWidth: true,
       size: "small",

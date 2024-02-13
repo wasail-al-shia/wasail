@@ -22,6 +22,7 @@ defmodule Wasail.Book do
     book
     |> Ecto.Changeset.cast(attrs, [
       :name_eng,
+      :code,
       :author_eng,
       :desc_eng,
       :volume_no,

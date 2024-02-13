@@ -24,6 +24,7 @@ const fetchBook = ({ queryKey: [_, bookId] }) =>
     book(bookId: ${bookId}) {
       id
       nameEng
+      code
       authorEng
       volumeNo
     }

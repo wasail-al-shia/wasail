@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { navReportLink } from "../utils/app";
 import { MAX_WIDTH_CONTENT } from "../consts";
 
-export default ({ report, book, section, chapter, onEdit }) => {
+export default ({ report, onEdit }) => {
   const { isAdmin } = React.useContext(SessionContext);
   const { openDialog } = React.useContext(DialogContext);
   const nextSeqNo =
@@ -96,7 +96,7 @@ export default ({ report, book, section, chapter, onEdit }) => {
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
         <CopyToClipboardButton
-          textToCopy={generatePlainText({ book, section, chapter, report })}
+          retrieveTextToCopy={() => generatePlainText(report)}
         />
       </Stack>
     </Stack>
@@ -146,7 +146,7 @@ export default ({ report, book, section, chapter, onEdit }) => {
         </Stack>
       ))}
       <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
-        ({generateReference({ book, section, chapter, report })})
+        ({generateReference(report)})
       </Typography>
     </Stack>
   );

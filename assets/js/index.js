@@ -10,6 +10,7 @@ import Library from "./framework/Library";
 import Toc from "./framework/Toc";
 import Chapter from "./framework/Chapter";
 import ViewReport from "./framework/ViewReport";
+import WasReport from "./framework/WasReport";
 import SearchResults from "./framework/SearchResults";
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "r/:reportId",
         element: <ViewReport />,
+      },
+      {
+        path: "w/:reportNo",
+        element: <WasReport />,
       },
       {
         path: "q/:queryStr",

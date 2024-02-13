@@ -26,6 +26,7 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
     report(reportId: ${reportId}) {
       id
       headingEng
+      reportNo
       texts {
         id
         fragmentNo
@@ -43,6 +44,7 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
           book {
             id
             nameEng
+            code
             volumeNo
           }
         }
@@ -50,8 +52,8 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
     }
   }`).then(({ report }) => report);
 
-export default () => {
-  const { reportId } = useParams();
+export default ({ wasReportId }) => {
+  const reportId = wasReportId || useParams().reportId;
   const location = useLocation();
   const fromSearchResults = location.state?.fromSearchResults;
   const { data: report, isFetching: fetchingReport } = useQuery({
@@ -67,7 +69,6 @@ export default () => {
     },
   });
 
-  const book = report.chapter.section.book;
   const section = report.chapter.section;
   const chapter = report.chapter;
 
@@ -77,7 +78,7 @@ export default () => {
         {report.headingEng}
       </Typography>
       <CopyToClipboardButton
-        textToCopy={generatePlainText({ book, section, chapter, report })}
+        retrieveTextToCopy={() => generatePlainText(report)}
       />
     </Stack>
   );

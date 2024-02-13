@@ -6,6 +6,10 @@ defmodule WasailWeb.Graphql.ReportResolver do
     {:ok, Report.get(report_id)}
   end
 
+  def get_was_report_id(%{report_no: report_no}, _info) do
+    {:ok, Report.get_was_report_id(report_no)}
+  end
+
   def reports_by_chapter_id(%{chapter_id: chapter_id}, _info) do
     {:ok, Report.get_by_chapter_id(chapter_id)}
   end

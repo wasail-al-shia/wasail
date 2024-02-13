@@ -4,26 +4,36 @@ export const bookName = (book) =>
 export const chapterCrumb = (sectionNo, chapterNo) =>
   `Section ${sectionNo}, Chapter ${chapterNo}`;
 
-export const generateReference = ({ book, section, chapter, report }) =>
-  `${bookName(book)}, Section ${section.sectionNo}, Chapter ${
+export const generateReference = (report) => {
+  const chapter = report.chapter;
+  const section = chapter.section;
+  const book = section.book;
+  return `${bookName(book)}, Section ${section.sectionNo}, Chapter ${
     chapter.chapterNo
   }, ${report.headingEng}`;
-
-export const reportHyperLink = (reportId) => {
-  const p = window.location.protocol;
-  const h = window.location.hostname;
-  return `${p}//${h}/r/${reportId}`;
 };
 
-export const generatePlainText = ({ book, section, chapter, report }) => {
+export const reportHyperLink = (report) => {
+  const p = window.location.protocol;
+  const h = window.location.hostname;
+  return report.chapter.section.book.code == "WAS"
+    ? `${p}//${h}/w/${report.reportNo}`
+    : `${p}//${h}/r/${report.id}`;
+};
+
+export const generatePlainText = (report) => {
+  const chapter = report.chapter;
+  const section = chapter.section;
+  const book = section.book;
   const texts = report.texts
     ?.map((text) => [text.textArb, text.textEng])
     .flat(Infinity);
+
   return [
     report.headingEng,
     ...texts,
     generateReference({ book, section, chapter, report }),
-    reportHyperLink(report.id),
+    reportHyperLink(report),
   ].join("\n");
 };
 

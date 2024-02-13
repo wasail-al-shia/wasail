@@ -46,8 +46,8 @@ defmodule Wasail.Repo.Migrations.CoreTables do
       add :report_no, :integer, null: false
       add :heading_eng, :text
       add :heading_arb, :text
-      add :hide, :boolean, default: false
       add :review, :boolean, default: false
+      add :hide, :boolean, default: false
       add :notes, :text
       timestamps()
     end

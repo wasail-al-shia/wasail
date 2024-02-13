@@ -29,6 +29,7 @@ const fetchChapter = ({ queryKey: [, chapterId] }) =>
         book {
           id
           nameEng
+          code
           volumeNo
         }
       }
@@ -59,10 +60,15 @@ export default () => {
     ["reports", chapterId],
     fetchReports
   );
-  const { data: chapter = {}, isFetching: fetchingChapter } = useQuery(
-    ["chapter", chapterId],
-    fetchChapter
-  );
+  const { data: chapter, isFetching: fetchingChapter } = useQuery({
+    queryKey: ["chapter", chapterId],
+    queryFn: fetchChapter,
+    placeholderData: {
+      section: {
+        book: {},
+      },
+    },
+  });
   const nextSeqNo = Math.max(...reports.map((r) => r.reportNo)) + 1;
 
   const reportFields = [
@@ -166,10 +172,7 @@ export default () => {
           {reports.map((report) => (
             <Report
               key={report.id}
-              report={report}
-              section={chapter.section || {}}
-              book={chapter.section?.book || {}}
-              chapter={chapter}
+              report={{ ...report, chapter }}
               onEdit={() =>
                 openDialog("dataEntry", {
                   key: report.id,

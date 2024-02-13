@@ -3,6 +3,7 @@ defmodule Wasail.Schema.Book do
 
   schema "book" do
     field :name_eng, :string
+    field :code, :string
     field :author_eng, :string
     field :desc_eng, :string
     field :name_arb, :string

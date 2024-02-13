@@ -15,12 +15,13 @@ export default function ({ book, onEdit }) {
       alignItems="center"
       onClick={() => navigate(navBookLink(book.id))}
       sx={{
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 5,
-        paddingRight: 5,
-        width: 200,
-        height: 200 * 1.3,
+        paddingTop: "2rem",
+        paddingBottom: "1rem",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        height: "18rem",
+        width: "14rem",
+        borderRadius: 1,
         border: "1px solid gray",
         backgroundColor: "primary.main",
         color: "#fff",
@@ -39,7 +40,7 @@ export default function ({ book, onEdit }) {
           Vol. {book.volumeNo}
         </Typography>
       )}
-      <Typography variant="h5">{book.authorEng}</Typography>
+      <Typography variant="h6">{book.authorEng}</Typography>
       {isAdmin && (
         <Stack direction="row">
           <EditNoteIcon

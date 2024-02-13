@@ -17,6 +17,7 @@ defmodule WasailWeb.Graphql.Types do
   object :book do
     field :id, non_null(:integer)
     field :name_eng, non_null(:string)
+    field :code, non_null(:string)
     field :author_eng, non_null(:string)
     field :volume_no, non_null(:integer)
     field :library_seq_no, non_null(:integer)
@@ -109,6 +110,7 @@ defmodule WasailWeb.Graphql.Types do
   input_object :book_input do
     field :id, :integer
     field :name_eng, :string
+    field :code, :string
     field :author_eng, :string
     field :volume_no, :integer
     field :library_seq_no, :integer
