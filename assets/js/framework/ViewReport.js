@@ -1,5 +1,6 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Spinner from "../kmui/Spinner";
 import BreadCrumbs from "../kmui/BreadCrumbs";
@@ -115,14 +116,6 @@ export default ({ wasReportId }) => {
             Back to Search Results
           </Button>
         )}
-        <Stack spacing={2} sx={{ padding: 5 }}>
-          <Typography variant="h5">
-            {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
-          </Typography>
-          <Typography variant="h6">
-            {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
-          </Typography>
-        </Stack>
         <Stack alignItems="center">
           <Stack
             sx={{
@@ -135,6 +128,13 @@ export default ({ wasReportId }) => {
             }}
           >
             <ReportHeading />
+            <Typography variant="h5">
+              {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
+            </Typography>
+            <Typography variant="h6">
+              {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
+            </Typography>
+            <Box mt={3} />
             {report &&
               report.texts?.map((text) => (
                 <Stack key={text.id} spacing={5}>

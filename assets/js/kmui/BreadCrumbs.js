@@ -43,7 +43,7 @@ export default function ({ crumbDefs }) {
         zIndex: 100,
         padding: 3,
         position: "fixed",
-        backgroundColor: "primary.breadcrumb",
+        backgroundColor: "primary.header2",
         width: "100%",
         ".MuiBreadcrumbs-separator": {
           margin: 2,
