@@ -6,11 +6,9 @@ export const chapterCrumb = (sectionNo, chapterNo) =>
   `Section ${sectionNo}, Chapter ${chapterNo}`;
 
 export const generateReference = (report) => {
-  console.log("in generateref", report);
   const chapter = report.chapter;
   const section = chapter.section;
   const book = section.book;
-  console.log("report.headingENg=", report.headingEng);
   return `${bookName(book)}, Section ${section.sectionNo}, Chapter ${
     chapter.chapterNo
   }, ${report.headingEng}`;

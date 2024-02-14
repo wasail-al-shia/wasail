@@ -14,31 +14,7 @@ config :wasail, WasailWeb.Endpoint,
   debug_errors: true,
   check_origin: false
 
-config :logger,
-  backends: [
-    :console,
-    {LoggerFileBackend, :debug},
-    {LoggerFileBackend, :info},
-    {LoggerFileBackend, :error}
-  ],
-  sync_threshold: 150,
-  discard_threshold: 1000
-
-config :logger, :debug,
-  path: "log/debug.log",
-  level: :info,
-  format: "$date $time [$level] <$metadata> $message\n",
-  metadata: [:module, :function, :request_id, :trade_id, :weight_by, :entity_id, :security_id]
-
-config :logger, :info,
-  path: "log/info.log",
-  level: :info,
-  format: "$date $time [$level] <$metadata> $message\n",
-  metadata: [:module, :function, :request_id, :trade_id, :weight_by, :entity_id, :security_id]
-
-config :logger, :error,
-  path: "log/error.log",
-  level: :error,
+config :logger, :console,
   format: "$date $time [$level] <$metadata> $message\n",
   metadata: [:module, :function, :request_id]
 

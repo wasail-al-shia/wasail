@@ -10,7 +10,8 @@ import Config
 config :wasail,
   ecto_repos: [Wasail.Repo],
   bk_cd_ws: "ws",
-  admin_uids: ["113405576099734332839", "108485062904594919718"]
+  #                  shuaybi                tasneemshoeb             wasail.al.shia
+  admin_uids: ["113405576099734332839", "108485062904594919718", "115106629340710687706"]
 
 # Configures the endpoint
 config :wasail, WasailWeb.Endpoint,
