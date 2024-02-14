@@ -9,6 +9,7 @@ import Config
 
 config :wasail,
   ecto_repos: [Wasail.Repo],
+  bk_cd_ws: "ws",
   admin_uids: ["113405576099734332839", "108485062904594919718"]
 
 # Configures the endpoint

@@ -70,10 +70,10 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&ReportResolver.report_by_id/2)
     end
 
-    @desc "Get WAS report id from report no"
-    field :was_report_id, :integer do
+    @desc "Get WS report id from report no"
+    field :ws_report_id, :integer do
       arg(:report_no, non_null(:integer))
-      resolve(&ReportResolver.get_was_report_id/2)
+      resolve(&ReportResolver.get_ws_report_id/2)
     end
 
     @desc "Search Results"

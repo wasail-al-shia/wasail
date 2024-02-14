@@ -53,8 +53,8 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
     }
   }`).then(({ report }) => report);
 
-export default ({ wasReportId }) => {
-  const reportId = wasReportId || useParams().reportId;
+export default ({ wsReportId }) => {
+  const reportId = wsReportId || useParams().reportId;
   const location = useLocation();
   const fromSearchResults = location.state?.fromSearchResults;
   const { data: report, isFetching: fetchingReport } = useQuery({
@@ -148,15 +148,7 @@ export default ({ wasReportId }) => {
                 </Stack>
               ))}
             <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
-              (
-              {report &&
-                generateReference({
-                  book: report.chapter.section.book,
-                  section: report.chapter.section,
-                  chapter: report.chapter,
-                  report,
-                })}
-              )
+              ({report && generateReference(report)})
             </Typography>
           </Stack>
         </Stack>

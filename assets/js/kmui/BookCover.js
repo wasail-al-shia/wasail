@@ -20,15 +20,16 @@ export default function ({ book, onEdit }) {
         paddingLeft: "0.5rem",
         paddingRight: "0.5rem",
         height: "18rem",
-        width: "14rem",
+        width: "13rem",
         borderRadius: 1,
-        border: "1px solid gray",
         backgroundColor: "primary.main",
-        color: "#fff",
+        color: "primary.paper",
         transition: "transform 0.15s ease-in-out",
         "&:hover": {
           transform: "scale3d(1.05, 1.05, 1.05)",
           cursor: "pointer",
+          filter: "brightness(110%)",
+          //backgroundImage: "linear-gradient(rgb(0 0 0/20%) 0 0)",
         },
       }}
     >

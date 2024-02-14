@@ -9,7 +9,9 @@ defmodule Wasail.Report do
       |> Repo.preload(chapter: [section: [:book]])
       |> Repo.preload([:texts, :comments])
 
-  def get_was_report_id(report_no) do
+  def get_ws_report_id(report_no) do
+    bk_cd = Application.get_env(:wasail, :bk_cd_ws)
+
     query =
       from(r in Report,
         join: c in Chapter,
@@ -18,7 +20,9 @@ defmodule Wasail.Report do
         on: c.section_id == s.id,
         join: b in Book,
         on: s.book_id == b.id,
-        where: r.report_no == ^report_no and b.code == "WAS"
+        where:
+          r.report_no == ^report_no and
+            b.code == ^bk_cd
       )
 
     case Repo.one(query) do
