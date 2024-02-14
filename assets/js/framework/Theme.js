@@ -72,13 +72,13 @@ const Theme = createTheme({
       fontWeight: 300,
     },
     textEng: {
-      fontSize: "1.15rem",
-      lineHeight: "1.5rem",
+      fontSize: "1.0rem",
+      lineHeight: "1.2rem",
       fontWeight: 400,
     },
     textArb: {
       fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
-      fontSize: "1.5rem",
+      fontSize: "1.3rem",
       fontWeight: 400,
     },
   },

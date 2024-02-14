@@ -1,5 +1,6 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import { generatePlainText, generateReference } from "../utils/app";
 import Typography from "@mui/material/Typography";
 import { DialogContext } from "../context/DialogContext";
@@ -70,7 +71,7 @@ export default ({ report, onEdit }) => {
         to={navReportLink(report.id)}
         underline={"hover"}
         component={Link}
-        variant="h4"
+        variant="h5"
       >
         {report.headingEng}
       </Typography>
@@ -101,6 +102,39 @@ export default ({ report, onEdit }) => {
       </Stack>
     </Stack>
   );
+
+  const Fragment = ({ text, hasMultiple }) => (
+    <Stack spacing={5}>
+      <Typography dir="rtl" align="justify" variant="textArb">
+        {text.textArb}
+      </Typography>
+      {!hasMultiple && <Divider />}
+      <Typography align="justify" variant="textEng">
+        {parse(text.textEng)}
+        {isAdmin && (
+          <EditNoteIcon
+            size="small"
+            onClick={() =>
+              openDialog("dataEntry", {
+                key: report.id,
+                title: `Update Text: ${report.headingEng}`,
+                dataQueryKeys: ["reports"],
+                fields: textFields,
+                mutationApi: "updateText",
+                defaultValues: text,
+                basePayload: { textId: text.id },
+                deleteApi: "deleteText",
+                deletePayload: {
+                  textId: text.id,
+                },
+              })
+            }
+          />
+        )}
+      </Typography>
+    </Stack>
+  );
+
   return (
     <Stack
       sx={{
@@ -114,37 +148,17 @@ export default ({ report, onEdit }) => {
       }}
     >
       <ReportHeading />
-      {report.texts?.map((text) => (
-        <Stack key={text.id} spacing={5}>
-          <Typography dir="rtl" align="justify" variant="textArb">
-            {text.textArb}
-          </Typography>
-          <Divider />
-          <Typography align="justify" variant="textEng">
-            {parse(text.textEng)}
-            {isAdmin && (
-              <EditNoteIcon
-                size="small"
-                onClick={() =>
-                  openDialog("dataEntry", {
-                    key: report.id,
-                    title: `Update Text: ${report.headingEng}`,
-                    dataQueryKeys: ["reports"],
-                    fields: textFields,
-                    mutationApi: "updateText",
-                    defaultValues: text,
-                    basePayload: { textId: text.id },
-                    deleteApi: "deleteText",
-                    deletePayload: {
-                      textId: text.id,
-                    },
-                  })
-                }
-              />
-            )}
-          </Typography>
-        </Stack>
-      ))}
+      <Stack spacing={5}>
+        {report.texts
+          ?.map((text) => (
+            <Fragment
+              hasMultiple={report.texts.length > 1}
+              key={text.id}
+              text={text}
+            />
+          ))
+          .flatMap((el, i) => (i == 0 ? [el] : [<Divider key={i} />, el]))}
+      </Stack>
       <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
         ({generateReference(report)})
       </Typography>

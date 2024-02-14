@@ -102,6 +102,18 @@ export default ({ wsReportId }) => {
     },
   ];
 
+  const Fragment = ({ text, hasMultiple }) => (
+    <Stack spacing={5}>
+      <Typography dir="rtl" align="justify" variant="textArb">
+        {text.textArb}
+      </Typography>
+      {!hasMultiple && <Divider />}
+      <Typography align="justify" variant="textEng">
+        {parse(text.textEng)}
+      </Typography>
+    </Stack>
+  );
+
   return (
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
@@ -128,25 +140,34 @@ export default ({ wsReportId }) => {
             }}
           >
             <ReportHeading />
-            <Typography variant="h5">
-              {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
-            </Typography>
-            <Typography variant="h6">
-              {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
-            </Typography>
-            <Box mt={3} />
-            {report &&
-              report.texts?.map((text) => (
-                <Stack key={text.id} spacing={5}>
-                  <Typography dir="rtl" align="justify" variant="textArb">
-                    {text.textArb}
-                  </Typography>
-                  <Divider />
-                  <Typography align="justify" variant="textEng">
-                    {parse(text.textEng)}
-                  </Typography>
-                </Stack>
-              ))}
+            <Box
+              sx={{
+                marginBottom: 5,
+                padding: 3,
+                backgroundColor: "primary.backdrop",
+              }}
+            >
+              <Typography variant="h5">
+                {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
+              </Typography>
+              <Typography variant="h6">
+                {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
+              </Typography>
+            </Box>
+            <Stack spacing={5}>
+              {report &&
+                report.texts
+                  ?.map((text) => (
+                    <Fragment
+                      key={text.id}
+                      text={text}
+                      hasMultiple={report.texts.length > 1}
+                    />
+                  ))
+                  .flatMap((el, i) =>
+                    i == 0 ? [el] : [<Divider key={i} />, el]
+                  )}
+            </Stack>
             <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
               ({report && generateReference(report)})
             </Typography>

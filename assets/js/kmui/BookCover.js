@@ -28,7 +28,7 @@ export default function ({ book, onEdit }) {
         "&:hover": {
           transform: "scale3d(1.05, 1.05, 1.05)",
           cursor: "pointer",
-          filter: "brightness(110%)",
+          filter: "brightness(120%)",
           //backgroundImage: "linear-gradient(rgb(0 0 0/20%) 0 0)",
         },
       }}

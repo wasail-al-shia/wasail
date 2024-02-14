@@ -15,8 +15,8 @@ config :wasail, WasailWeb.Endpoint,
   check_origin: false
 
 config :logger, :console,
-  format: "$date $time [$level] <$metadata> $message\n",
-  metadata: [:module, :function, :request_id]
+  format: "[$level] <$metadata> $message\n",
+  metadata: [:module, :function]
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
