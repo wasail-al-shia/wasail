@@ -1,50 +1,49 @@
-defmodule Wasail.Text do
+defmodule Wasail.Comment do
   alias Wasail.Repo
-  alias Wasail.Schema.Text, as: Text
+  alias Wasail.Schema.Comment, as: Comment
   alias Wasail.Util.Query, as: QueryUtil
 
-  def get(id), do: Repo.get(Text, id)
+  def get(id), do: Repo.get(Comment, id)
 
   def get_by_report_id(report_id) do
-    Text
+    Comment
     |> QueryUtil.put_filters(report_id: report_id)
-    |> QueryUtil.put_sort(asc: :fragment_no)
+    |> QueryUtil.put_sort(asc: :comment_seq_no)
     |> Repo.all()
   end
 
   def insert(rec),
     do:
-      %Text{}
+      %Comment{}
       |> changeset(rec)
       |> Repo.insert()
 
-  def update(text_id, changes = %{}) do
-    text_id
+  def update(comment_id, changes = %{}) do
+    comment_id
     |> get()
     |> changeset(changes)
     |> Repo.update()
   end
 
-  def changeset(%Text{} = text, attrs \\ %{}) do
-    text
+  def changeset(%Comment{} = comment, attrs \\ %{}) do
+    comment
     |> Ecto.Changeset.cast(attrs, [
       :report_id,
-      :fragment_no,
-      :text_eng,
-      :text_arb
+      :comment_seq_no,
+      :comment_eng,
+      :comment_arb
     ])
     |> Ecto.Changeset.validate_required([
       :report_id,
-      :fragment_no,
-      :text_eng,
-      :text_arb
+      :comment_seq_no,
+      :comment_eng
     ])
   end
 
   def delete(id) do
     get(id)
     |> case do
-      %Text{} = t -> Repo.delete(t)
+      %Comment{} = c -> Repo.delete(c)
       nil -> nil
     end
   end

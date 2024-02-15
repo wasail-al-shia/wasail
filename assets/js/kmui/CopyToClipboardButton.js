@@ -1,5 +1,6 @@
 import React from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import IconButton from "@mui/material/IconButton";
 import ToolTip from "@mui/material/Tooltip";
 import { SnackContext } from "../context/SnackContext";
 import copy from "copy-to-clipboard";
@@ -20,11 +21,9 @@ export default function ({
 
   return (
     <ToolTip title="Copy To Clipboard">
-      <ContentCopyIcon
-        sx={{ fontSize: "1.2rem" }}
-        size="small"
-        onClick={handleClick}
-      />
+      <IconButton onClick={handleClick}>
+        <ContentCopyIcon sx={{ fontSize: "1.2rem" }} size="small" />
+      </IconButton>
     </ToolTip>
   );
 }

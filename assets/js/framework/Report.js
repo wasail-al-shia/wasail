@@ -1,12 +1,15 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import { generatePlainText, generateReference } from "../utils/app";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import Tooltip from "@mui/material/Tooltip";
 import AddIcon from "@mui/icons-material/Add";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
@@ -64,6 +67,50 @@ export default ({ report, onEdit }) => {
     },
   ];
 
+  const commentFields = [
+    {
+      name: "commentSeqNo",
+      label: "Seq. No",
+      type: "number",
+      size: "small",
+      sx: { width: 100 },
+      rules: { required: true },
+      md: 6,
+    },
+    {
+      name: "commentArbkk",
+      label: "Comment Arabic",
+      type: "text",
+      size: "small",
+      inputProps: {
+        dir: "rtl",
+        style: {
+          lineHeight: 1.5,
+          fontSize: "1.5rem",
+          fontFamily: "Noto Naskh Arabic Variable",
+        },
+      },
+      fullWidth: true,
+      multiline: true,
+      rows: 10,
+      md: 12,
+    },
+    {
+      name: "commentEng",
+      label: "Comment English",
+      size: "small",
+      type: "text",
+      rules: { required: true },
+      fullWidth: true,
+      inputProps: {
+        style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
+      },
+      multiline: true,
+      rows: 10,
+      md: 12,
+    },
+  ];
+
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
       <Typography
@@ -75,7 +122,7 @@ export default ({ report, onEdit }) => {
       >
         {report.headingEng}
       </Typography>
-      <Stack direction="row">
+      <Stack direction="row" alignItems="center">
         {isAdmin && (
           <AddIcon
             size="small"
@@ -94,8 +141,30 @@ export default ({ report, onEdit }) => {
           />
         )}
         {isAdmin && (
+          <ChatBubbleOutlineIcon
+            size="small"
+            onClick={() =>
+              openDialog("dataEntry", {
+                key: "addComment",
+                title: "Add Comment",
+                fields: commentFields,
+                onlyDirty: false,
+                dataQueryKeys: ["reports"],
+                mutationApi: "addComment",
+                defaultValues: { reportId: report.id },
+                basePayload: { reportId: report.id },
+              })
+            }
+          />
+        )}
+        {isAdmin && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
+        <Tooltip title="Standalone View">
+          <IconButton component={Link} to={navReportLink(report.id)}>
+            <OpenInNewIcon sx={{ fontSize: "1.2rem" }} size="small" />
+          </IconButton>
+        </Tooltip>
         <CopyToClipboardButton
           retrieveTextToCopy={() => generatePlainText(report)}
         />
@@ -135,6 +204,34 @@ export default ({ report, onEdit }) => {
     </Stack>
   );
 
+  const Comment = ({ comment }) => (
+    <Stack sx={{ backgroundColor: "primary.backdrop", padding: 5 }} spacing={5}>
+      <Typography align="justify" variant="comment">
+        Comment: {parse(comment.commentEng)}
+        {isAdmin && (
+          <EditNoteIcon
+            size="small"
+            onClick={() =>
+              openDialog("dataEntry", {
+                key: report.id,
+                title: `Update Comment: ${report.headingEng}`,
+                dataQueryKeys: ["reports"],
+                fields: commentFields,
+                mutationApi: "updateComment",
+                defaultValues: comment,
+                basePayload: { commentId: comment.id },
+                deleteApi: "deleteComment",
+                deletePayload: {
+                  commentId: comment.id,
+                },
+              })
+            }
+          />
+        )}
+      </Typography>
+    </Stack>
+  );
+
   return (
     <Stack
       sx={{
@@ -158,6 +255,13 @@ export default ({ report, onEdit }) => {
             />
           ))
           .flatMap((el, i) => (i == 0 ? [el] : [<Divider key={i} />, el]))}
+        {report.comments?.map((comment) => (
+          <Comment
+            hasMultiple={report.comments.length > 1}
+            key={comment.id}
+            comment={comment}
+          />
+        ))}
       </Stack>
       <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
         ({generateReference(report)})

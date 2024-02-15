@@ -84,6 +84,7 @@ defmodule WasailWeb.Graphql.Types do
     field :report_id, non_null(:integer)
     field :comment_seq_no, non_null(:integer)
     field :comment_eng, non_null(:string)
+    field :comment_arb, :string
   end
 
   object :article do

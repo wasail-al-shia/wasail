@@ -34,6 +34,12 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
         textEng
         textArb
       }
+      comments {
+        id
+        commentSeqNo
+        commentEng
+        commentArb
+      }
       chapter {
         id
         chapterNo
@@ -114,6 +120,14 @@ export default ({ wsReportId }) => {
     </Stack>
   );
 
+  const Comment = ({ comment }) => (
+    <Stack sx={{ backgroundColor: "primary.backdrop", padding: 5 }} spacing={5}>
+      <Typography align="justify" variant="comment">
+        Comment: {parse(comment.commentEng)}
+      </Typography>
+    </Stack>
+  );
+
   return (
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
@@ -171,6 +185,14 @@ export default ({ wsReportId }) => {
                   .flatMap((el, i) =>
                     i == 0 ? [el] : [<Divider key={i} />, el]
                   )}
+              {report &&
+                report.comments?.map((comment) => (
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    hasMultiple={report.comments.length > 1}
+                  />
+                ))}
             </Stack>
             <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
               ({report && generateReference(report)})

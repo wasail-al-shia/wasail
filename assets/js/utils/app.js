@@ -30,6 +30,10 @@ export const generatePlainText = (report) => {
   const chapter = report.chapter;
   const section = chapter.section;
   const book = section.book;
+  const comment =
+    report.comments.length > 0
+      ? `Comment: ${report.comments[0].commentEng}`
+      : null;
 
   const sectionName = `Section ${section.sectionNo}: ${section.nameEng}`;
   const chapterName = `Chapter ${chapter.chapterNo}: ${chapter.nameEng}`;
@@ -43,9 +47,10 @@ export const generatePlainText = (report) => {
     "Full Text:",
     ...texts,
     "\n",
-    generateReference(report),
-    generateReportHyperLink(report),
-  ].join("\n");
+  ]
+    .concat(comment ? [comment, "\n"] : [])
+    .concat([generateReference(report), generateReportHyperLink(report)])
+    .join("\n");
 };
 
 export const navBookLink = (bookId) => `/b/${bookId}`;

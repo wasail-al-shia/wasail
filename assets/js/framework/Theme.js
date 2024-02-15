@@ -76,6 +76,11 @@ const Theme = createTheme({
       lineHeight: "1.4rem",
       fontWeight: 400,
     },
+    comment: {
+      fontSize: "1.0rem",
+      lineHeight: "1.1rem",
+      fontWeight: 300,
+    },
     textArb: {
       fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
       fontSize: "1.4rem",

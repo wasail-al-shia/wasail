@@ -7,7 +7,8 @@ defmodule WasailWeb.Graphql.Schema do
     SectionResolver,
     ChapterResolver,
     ReportResolver,
-    TextResolver
+    TextResolver,
+    CommentResolver
   }
 
   import_types(WasailWeb.Graphql.Types)
@@ -246,6 +247,33 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:text_id, non_null(:integer))
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&TextResolver.delete_text/2)
+    end
+
+    @desc "Add Comment"
+    field :add_comment, :mutation_response do
+      arg(:report_id, non_null(:integer))
+      arg(:comment_seq_no, non_null(:integer))
+      arg(:comment_eng, non_null(:string))
+      arg(:comment_arb, :string)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&CommentResolver.add_comment/2)
+    end
+
+    @desc "Update Comment"
+    field :update_comment, :mutation_response do
+      arg(:comment_id, non_null(:integer))
+      arg(:comment_seq_no, :integer)
+      arg(:comment_eng, :string)
+      arg(:comment_arb, :string)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&CommentResolver.update_comment/2)
+    end
+
+    @desc "Delete Comment"
+    field :delete_comment, :mutation_response do
+      arg(:comment_id, non_null(:integer))
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&CommentResolver.delete_comment/2)
     end
   end
 end

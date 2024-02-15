@@ -50,6 +50,12 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
         textEng
         textArb
       }
+      comments {
+        id
+        commentSeqNo
+        commentEng
+        commentArb
+      }
     }
   }`).then(({ reports }) => reports);
 
