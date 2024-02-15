@@ -31,8 +31,8 @@ export default function Header() {
       component="img"
       sx={{
         cursor: "pointer",
-        height: "1.75rem",
-        width: "2.0rem",
+        height: "1.5rem",
+        width: "1.8rem",
         paddingTop: 0,
         paddingBottom: 0,
         borderRadius: 1,

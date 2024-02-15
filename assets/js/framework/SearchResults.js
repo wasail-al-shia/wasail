@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import MainWrapper from "./MainWrapper";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import parse from "html-react-parser";
 import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { bookName, navReportLink } from "../utils/app";
 import Spinner from "../kmui/Spinner";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { MAX_WIDTH_CONTENT } from "../consts";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
@@ -39,15 +39,9 @@ export default function () {
   );
 
   const BackButton = () => (
-    <Button
-      size="small"
-      startIcon={<ArrowBackIosIcon size="small" />}
-      variant="outlined"
-      onClick={() => history.back()}
-      sx={{ marginBottom: 5 }}
-    >
-      Back
-    </Button>
+    <IconButton size="small" onClick={() => history.back()}>
+      <ArrowBackIcon />
+    </IconButton>
   );
 
   return (
@@ -72,8 +66,17 @@ export default function () {
           </Stack>
         ) : (
           <>
-            <BackButton />
-            <Typography variant="h5">Search Results:</Typography>
+            <Stack
+              alignItems="center"
+              direction="row"
+              justifyContent="space-between"
+            >
+              <BackButton />
+              <Typography align="center" variant="h5">
+                Reports matching "{queryStr}"
+              </Typography>
+              <Box />
+            </Stack>
             <Stack spacing={2}>
               {searchResults.map((r, idx) => (
                 <Box
@@ -89,11 +92,7 @@ export default function () {
                       backgroundColor: "primary.paper",
                     },
                   }}
-                  onClick={() =>
-                    navigate(navReportLink(r.reportId), {
-                      state: { fromSearchResults: true },
-                    })
-                  }
+                  onClick={() => navigate(navReportLink(r.reportId))}
                   spacing={5}
                   direction="column"
                 >

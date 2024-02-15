@@ -68,7 +68,7 @@ const Theme = createTheme({
       fontWeight: 400,
     },
     footer: {
-      fontSize: "1.0rem",
+      fontSize: "0.9rem",
       fontWeight: 300,
     },
     textEng: {
@@ -77,7 +77,7 @@ const Theme = createTheme({
       fontWeight: 400,
     },
     comment: {
-      fontSize: "1.0rem",
+      fontSize: "0.9rem",
       lineHeight: "1.1rem",
       fontWeight: 300,
     },

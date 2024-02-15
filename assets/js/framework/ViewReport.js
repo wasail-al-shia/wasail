@@ -2,6 +2,7 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Spinner from "../kmui/Spinner";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import { useLocation, useParams } from "react-router-dom";
@@ -10,6 +11,7 @@ import { request } from "../utils/graph-ql";
 import { generatePlainText, generateReference } from "../utils/app";
 import Typography from "@mui/material/Typography";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import MainWrapper from "./MainWrapper";
@@ -61,8 +63,6 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
 
 export default ({ wsReportId }) => {
   const reportId = wsReportId || useParams().reportId;
-  const location = useLocation();
-  const fromSearchResults = location.state?.fromSearchResults;
   const { data: report, isFetching: fetchingReport } = useQuery({
     queryKey: ["report", reportId],
     queryFn: fetchReport,
@@ -132,17 +132,9 @@ export default ({ wsReportId }) => {
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper hasBreadcrumbs={true}>
-        {fromSearchResults && (
-          <Button
-            size="small"
-            startIcon={<ArrowBackIosIcon size="small" />}
-            variant="outlined"
-            onClick={() => history.back()}
-            sx={{ marginBottom: 3 }}
-          >
-            Back to Search Results
-          </Button>
-        )}
+        <IconButton onClick={() => history.back()}>
+          <ArrowBackIcon />
+        </IconButton>
         <Stack alignItems="center">
           <Stack
             sx={{

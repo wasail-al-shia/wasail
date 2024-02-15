@@ -13,8 +13,8 @@ export default function SearchInput({ onEnter, clearOnEnter = false }) {
         border: "1px solid",
         borderColor: "primary.dark",
         backgroundColor: "#fff",
-        borderRadius: 2,
-        height: "2rem",
+        borderRadius: 1,
+        height: "1.8rem",
         p: "2px 2px",
         display: "flex",
         alignItems: "center",
@@ -34,7 +34,7 @@ export default function SearchInput({ onEnter, clearOnEnter = false }) {
             if (clearOnEnter) setSearchStr("");
           }
         }}
-        sx={{ ml: 1, flex: 1 }}
+        sx={{ mt: 1, ml: 1, flex: 1 }}
         placeholder="Search"
       />
     </Box>
