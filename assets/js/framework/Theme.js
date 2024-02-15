@@ -14,7 +14,7 @@ const Theme = createTheme({
       breadcrumb2: "#e3e0dd",
       paper: "#fcf9f6",
       backdrop: "#efecea",
-      review: "#fff2f2",
+      review: "#edd5d5",
 
       dark: "#474645",
       light: "#9c9a98",
@@ -28,8 +28,8 @@ const Theme = createTheme({
   },
   typography: {
     fontFamily: [
-      "Radio Canada Variable",
       "Overpass Variable",
+      "Radio Canada Variable",
       "Noto Sans",
     ].join(", "),
     lineHeight: 1.2,
@@ -72,13 +72,13 @@ const Theme = createTheme({
       fontWeight: 300,
     },
     textEng: {
-      fontSize: "1.0rem",
-      lineHeight: "1.2rem",
+      fontSize: "1.1rem",
+      lineHeight: "1.4rem",
       fontWeight: 400,
     },
     textArb: {
       fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
-      fontSize: "1.3rem",
+      fontSize: "1.4rem",
       fontWeight: 400,
     },
   },
