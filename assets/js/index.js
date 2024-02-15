@@ -12,7 +12,6 @@ import Chapter from "./framework/Chapter";
 import ViewReport from "./framework/ViewReport";
 import WsReport from "./framework/WsReport";
 import SearchResults from "./framework/SearchResults";
-import { BK_CD_WS } from "./consts";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +35,7 @@ const router = createBrowserRouter([
         element: <ViewReport />,
       },
       {
-        path: `${BK_CD_WS}/:reportNo`,
+        path: "h/:reportNo",
         element: <WsReport />,
       },
       {
