@@ -288,12 +288,11 @@ export default () => {
   const ChapterCard = ({ chapter }) => (
     <Stack
       sx={{
-        backgroundColor: "primary.paper",
+        backgroundColor: "primary.backdrop",
         borderRadius: 1,
-        border: "1px solid gray",
         padding: 5,
         "&:hover": {
-          border: "2px solid gray",
+          backgroundColor: "primary.paper",
           cursor: "pointer",
         },
       }}
@@ -351,9 +350,11 @@ export default () => {
               <SectionCard section={section} />
             </AccordionSummary>
             <AccordionDetails>
-              {section.chapters.map((chapter) => (
-                <ChapterCard key={chapter.id} chapter={chapter} />
-              ))}
+              <Stack spacing={3}>
+                {section.chapters.map((chapter) => (
+                  <ChapterCard key={chapter.id} chapter={chapter} />
+                ))}
+              </Stack>
             </AccordionDetails>
           </Accordion>
         ))}

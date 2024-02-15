@@ -1,7 +1,7 @@
 defmodule Wasail.Book do
   import Ecto.Query
   alias Wasail.Repo
-  alias Wasail.Schema.Book, as: Book
+  alias Wasail.Schema.{Report, Chapter, Section, Book}
 
   def get(id), do: Repo.get(Book, id)
 
@@ -10,6 +10,31 @@ defmodule Wasail.Book do
     |> order_by(asc: :library_seq_no, asc: :volume_no)
     |> Repo.all()
     |> Repo.preload(sections: :chapters)
+  end
+
+  def percent_complete(book_id) do
+    case book_id do
+      1 ->
+        count_reports_query =
+          from(b in Book,
+            join: s in Section,
+            on: s.book_id == b.id,
+            join: c in Chapter,
+            on: c.section_id == s.id,
+            join: r in Report,
+            on: r.chapter_id == c.id,
+            where: b.id == ^book_id,
+            select: count(r.id)
+          )
+
+        n = Repo.one(count_reports_query)
+        # total reports in ws volume 1
+        t = 1299
+        n / t * 100
+
+      _ ->
+        0
+    end
   end
 
   def insert(rec) do

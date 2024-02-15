@@ -84,6 +84,15 @@ defmodule WasailWeb.Graphql.Schema do
         {:ok, Wasail.Search.search(query_str)}
       end)
     end
+
+    @desc "Get percent complete"
+    field :percent_complete, non_null(:float) do
+      arg(:book_id, non_null(:integer))
+
+      resolve(fn %{book_id: book_id}, _info ->
+        {:ok, Wasail.Book.percent_complete(book_id)}
+      end)
+    end
   end
 
   mutation do

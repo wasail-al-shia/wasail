@@ -2,13 +2,24 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { request } from "../utils/graph-ql";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { navBookLink } from "../utils/app";
 
+const fetchPercentComplete = ({ queryKey: [_, bookId] }) =>
+  request(`{
+    percentComplete(bookId: ${bookId})
+  }`).then(({ percentComplete }) => percentComplete);
+
 export default function ({ book, onEdit }) {
   const navigate = useNavigate();
   const { isAdmin } = React.useContext(SessionContext);
+  const { data: percentComplete = 0 } = useQuery(
+    ["percentComplete", book.id],
+    fetchPercentComplete
+  );
   return (
     <Stack
       justifyContent="space-between"
@@ -41,6 +52,7 @@ export default function ({ book, onEdit }) {
           Vol. {book.volumeNo}
         </Typography>
       )}
+      {isAdmin && `${percentComplete.toFixed(4)}%`}
       <Typography variant="h6">{book.authorEng}</Typography>
       {isAdmin && (
         <Stack direction="row">

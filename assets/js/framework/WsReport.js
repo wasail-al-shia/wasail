@@ -6,8 +6,8 @@ import ViewReport from "./ViewReport";
 
 const fetchReportId = ({ queryKey: [, reportNo] }) =>
   request(`{
-    ws_report_id(reportNo: ${reportNo})
-  }`).then(({ ws_report_id }) => ws_report_id);
+    wsReportId(reportNo: ${reportNo})
+  }`).then(({ wsReportId }) => wsReportId);
 
 export default function () {
   const { reportNo } = useParams();

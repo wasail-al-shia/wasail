@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import MainWrapper from "./MainWrapper";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import parse from "html-react-parser";
 import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -10,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { bookName, navReportLink } from "../utils/app";
 import Spinner from "../kmui/Spinner";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { MAX_WIDTH_CONTENT } from "../consts";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
   request(`{
@@ -35,6 +38,18 @@ export default function () {
     fetchSearchResults
   );
 
+  const BackButton = () => (
+    <Button
+      size="small"
+      startIcon={<ArrowBackIosIcon size="small" />}
+      variant="outlined"
+      onClick={() => history.back()}
+      sx={{ marginBottom: 5 }}
+    >
+      Back
+    </Button>
+  );
+
   return (
     <Spinner open={isFetching}>
       <MainWrapper>
@@ -45,10 +60,11 @@ export default function () {
                 padding: 15,
                 backgroundColor: "#fff",
                 borderRadius: 1,
-                maxWidth: "60vw",
-                minWidth: "60vw",
+                minWidth: `min(99vw, ${MAX_WIDTH_CONTENT}px)`,
+                maxWidth: MAX_WIDTH_CONTENT,
               }}
             >
+              <BackButton />
               <Typography align="center" variant="h4">
                 No results found!
               </Typography>
@@ -56,6 +72,7 @@ export default function () {
           </Stack>
         ) : (
           <>
+            <BackButton />
             <Typography variant="h5">Search Results:</Typography>
             <Stack spacing={2}>
               {searchResults.map((r, idx) => (

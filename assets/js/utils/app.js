@@ -18,7 +18,7 @@ const generateReportHyperLink = (report) => {
   const p = window.location.protocol;
   const h = window.location.hostname;
   return report.chapter.section.book.code == BK_CD_WS
-    ? `${p}//${h}/${BK_CD_WS}/${report.reportNo}`
+    ? `${p}//${h}/h/${report.reportNo}`
     : `${p}//${h}/r/${report.id}`;
 };
 

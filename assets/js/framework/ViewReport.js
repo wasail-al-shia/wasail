@@ -124,6 +124,7 @@ export default ({ wsReportId }) => {
             startIcon={<ArrowBackIosIcon size="small" />}
             variant="outlined"
             onClick={() => history.back()}
+            sx={{ marginBottom: 3 }}
           >
             Back to Search Results
           </Button>
@@ -148,6 +149,9 @@ export default ({ wsReportId }) => {
               }}
             >
               <Typography variant="h5">
+                {bookName(chapter.section.book)}
+              </Typography>
+              <Typography variant="h6">
                 {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
               </Typography>
               <Typography variant="h6">
