@@ -52,7 +52,7 @@ export default function ({ book, onEdit }) {
           Vol. {book.volumeNo}
         </Typography>
       )}
-      {isAdmin && `${percentComplete.toFixed(4)}%`}
+      {isAdmin && `${percentComplete.toFixed(2)}%`}
       <Typography variant="h6">{book.authorEng}</Typography>
       {isAdmin && (
         <Stack direction="row">
