@@ -78,24 +78,6 @@ export default ({ report, onEdit }) => {
       md: 6,
     },
     {
-      name: "commentArbkk",
-      label: "Comment Arabic",
-      type: "text",
-      size: "small",
-      inputProps: {
-        dir: "rtl",
-        style: {
-          lineHeight: 1.5,
-          fontSize: "1.5rem",
-          fontFamily: "Noto Naskh Arabic Variable",
-        },
-      },
-      fullWidth: true,
-      multiline: true,
-      rows: 10,
-      md: 12,
-    },
-    {
       name: "commentEng",
       label: "Comment English",
       size: "small",
