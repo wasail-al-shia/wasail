@@ -63,7 +63,8 @@ defmodule Wasail.MixProject do
       {:ueberauth, "~> 0.10.7"},
       {:ueberauth_google, "~> 0.12.1"},
       {:remote_ip, "~> 1.1"},
-      {:geoip, "~> 0.2"}
+      {:geoip, "~> 0.2"},
+      {:gen_smtp, "~> 1.2"}
     ]
   end
 

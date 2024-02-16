@@ -47,5 +47,13 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+config :wasail, Wasail.Mailer,
+  adapter: Swoosh.Adapters.SMTP,
+  relay: "email-smtp.us-east-1.amazonaws.com",
+  username: "AKIAX2FDSD5JIEEAGO5G",
+  port: 25,
+  retries: 2,
+  no_mx_lookups: false
+
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
