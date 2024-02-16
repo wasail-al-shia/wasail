@@ -36,6 +36,14 @@ defmodule WasailWeb.Router do
     )
   end
 
+  if Mix.env() == :dev do
+    scope "/mailbox" do
+      pipe_through :browser
+
+      forward "/", Plug.Swoosh.MailboxPreview
+    end
+  end
+
   scope "/", WasailWeb do
     pipe_through :browser
     get "/ping", PageController, :ping

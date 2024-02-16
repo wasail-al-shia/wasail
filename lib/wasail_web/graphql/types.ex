@@ -88,7 +88,7 @@ defmodule WasailWeb.Graphql.Types do
   end
 
   object :article do
-    field :article_id, non_null(:integer)
+    field :id, non_null(:integer)
     field :title, non_null(:string)
     field :article_seq_no, non_null(:integer)
     field :description, :string
@@ -106,6 +106,18 @@ defmodule WasailWeb.Graphql.Types do
     field :section_name, non_null(:string)
     field :book_name, non_null(:string)
     field :volume_no, non_null(:integer)
+  end
+
+  object :activity do
+    field :id, non_null(:integer)
+    field :activity_type, non_null(:string)
+    field :ip, non_null(:string)
+    field :country, :string
+    field :region, :string
+    field :city, :string
+    field :chapter_id, :integer
+    field :report_id, :integer
+    field :search_str, :string
   end
 
   input_object :book_input do

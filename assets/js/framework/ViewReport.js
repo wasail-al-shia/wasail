@@ -1,11 +1,10 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Spinner from "../kmui/Spinner";
 import BreadCrumbs from "../kmui/BreadCrumbs";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import { generatePlainText, generateReference } from "../utils/app";
@@ -16,7 +15,6 @@ import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import MainWrapper from "./MainWrapper";
 import { MAX_WIDTH_CONTENT } from "../consts";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   navBookLink,
   navChapterLink,

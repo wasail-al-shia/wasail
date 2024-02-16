@@ -16,7 +16,7 @@ import { MAX_WIDTH_CONTENT } from "../consts";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
   request(`{
-    searchResults(queryStr: "${queryStr}") {
+    search(queryStr: "${queryStr}") {
       matchingText
       reportId
       reportHeading
@@ -27,7 +27,7 @@ const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
       bookName
       volumeNo
     }
-  }`).then(({ searchResults }) => searchResults);
+  }`).then(({ search }) => search);
 
 export default function () {
   const navigate = useNavigate();

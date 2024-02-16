@@ -4,6 +4,7 @@ defmodule Wasail.Repo.Migrations.CoreTables do
   def up do
     create table(:book) do
       add :name_eng, :string, null: false
+      add :code, :string, null: false
       add :author_eng, :string, null: false
       add :desc_eng, :text
       add :name_arb, :string
@@ -77,6 +78,7 @@ defmodule Wasail.Repo.Migrations.CoreTables do
     create table(:feedback) do
       add :report_id, references(:report), null: false
       add :sender_name, :string, null: false
+      add :sender_email, :string, null: false
       add :comment, :text, null: false
       add :reviewed, :boolean, default: false
       add :resolution, :text

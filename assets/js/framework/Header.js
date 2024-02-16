@@ -18,7 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Header() {
   const navigate = useNavigate();
-  const { name, avatarUrl, logout } = React.useContext(SessionContext);
+  const { name, avatarUrl, logout, isAdmin } = React.useContext(SessionContext);
   const onSmallScreen = useMediaQuery("(max-width:600px)");
   useHotkeys("ctrl+a", () => {
     console.log("ctrl+a");
@@ -40,7 +40,7 @@ export default function Header() {
         margin: 0,
       }}
       src={"/images/ya_allah_logo.png"}
-      onClick={() => navigate("/")}
+      onClick={() => (isAdmin ? navigate("/a") : navigate("/"))}
     />
   );
 
@@ -57,6 +57,7 @@ export default function Header() {
             mt={2}
             sx={{ color: "primary.paper" }}
             variant={onSmallScreen ? "siteHeaderSmall" : "siteHeader"}
+            onClick={() => isAdmin && navigate("/")}
           >
             Wasail Al Shia
           </Typography>

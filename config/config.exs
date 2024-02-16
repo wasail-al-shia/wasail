@@ -11,7 +11,9 @@ config :wasail,
   ecto_repos: [Wasail.Repo],
   bk_cd_ws: "ws",
   #                  shuaybi                tasneemshoeb             wasail.al.shia
-  admin_uids: ["113405576099734332839", "108485062904594919718", "115106629340710687706"]
+  admin_uids: ["113405576099734332839", "108485062904594919718", "115106629340710687706"],
+  admin_emails: ["wasail.al.shia@gmail.com", "shuaybi@gmail.com"],
+  ip_info_url: "http://ipinfo.io/"
 
 # Configures the endpoint
 config :wasail, WasailWeb.Endpoint,
@@ -59,6 +61,9 @@ config :ueberauth, Ueberauth,
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "674843619114-5hi78muj3l1p5dvadvi5ufvg5kqj7618.apps.googleusercontent.com"
+
+# url to view local emails: localhost:4000/mailbox
+config :wasail, Wasail.Mailer, adapter: Swoosh.Adapters.Local
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

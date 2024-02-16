@@ -54,6 +54,7 @@ defmodule Wasail.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.23"},
       {:jason, "~> 1.4"},
+      {:httpoison, "~> 2.2"},
       {:plug_cowboy, "~> 2.6"},
       {:logger_file_backend, "~> 0.0.13"},
       {:absinthe, "~> 1.7"},
@@ -61,7 +62,8 @@ defmodule Wasail.MixProject do
       {:dataloader, "~> 2.0"},
       {:ueberauth, "~> 0.10.7"},
       {:ueberauth_google, "~> 0.12.1"},
-      {:remote_ip, "~> 1.1"}
+      {:remote_ip, "~> 1.1"},
+      {:geoip, "~> 0.2"}
     ]
   end
 

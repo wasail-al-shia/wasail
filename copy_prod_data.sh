@@ -5,7 +5,7 @@ set -o nounset
 
 data_dir="/tmp/"
 
-table_names="book section chapter report text" # comment feedback tag article article_to_report"
+table_names="book section chapter report text comment" # feedback tag article article_to_report"
 
 src_host=${WASAIL_DB_HOST}
 src_port="5432"

@@ -57,6 +57,7 @@ defmodule WasailWeb.Graphql.Schema do
     field :chapter, non_null(:chapter) do
       arg(:chapter_id, non_null(:integer))
       resolve(&ChapterResolver.chapter_by_id/2)
+      middleware(WasailWeb.Graphql.RecordActivity)
     end
 
     @desc "Get reports"
@@ -69,21 +70,25 @@ defmodule WasailWeb.Graphql.Schema do
     field :report, non_null(:report) do
       arg(:report_id, non_null(:integer))
       resolve(&ReportResolver.report_by_id/2)
+      middleware(WasailWeb.Graphql.RecordActivity)
     end
 
     @desc "Get WS report id from report no"
     field :ws_report_id, :integer do
       arg(:report_no, non_null(:integer))
       resolve(&ReportResolver.get_ws_report_id/2)
+      middleware(WasailWeb.Graphql.RecordActivity)
     end
 
-    @desc "Search Results"
-    field :search_results, non_null(list_of(non_null(:search_result))) do
+    @desc "Search"
+    field :search, non_null(list_of(non_null(:search_result))) do
       arg(:query_str, non_null(:string))
 
       resolve(fn %{query_str: query_str}, _info ->
         {:ok, Wasail.Search.search(query_str)}
       end)
+
+      middleware(WasailWeb.Graphql.RecordActivity)
     end
 
     @desc "Get percent complete"
@@ -92,6 +97,22 @@ defmodule WasailWeb.Graphql.Schema do
 
       resolve(fn %{book_id: book_id}, _info ->
         {:ok, Wasail.Book.percent_complete(book_id)}
+      end)
+    end
+
+    @desc "Get recent activity"
+    field :recent_activity, non_null(list_of(non_null(:activity))) do
+      arg(:n, non_null(:integer))
+
+      resolve(fn %{n: n}, _info ->
+        {:ok, Wasail.Activity.get_most_recent(n)}
+      end)
+    end
+
+    @desc "Get total activity count"
+    field :total_activity_count, non_null(:integer) do
+      resolve(fn _args, _info ->
+        {:ok, Wasail.Activity.total()}
       end)
     end
   end

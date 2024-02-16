@@ -12,6 +12,7 @@ import Chapter from "./framework/Chapter";
 import ViewReport from "./framework/ViewReport";
 import WsReport from "./framework/WsReport";
 import SearchResults from "./framework/SearchResults";
+import Activity from "./framework/Activity";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "q/:queryStr",
         element: <SearchResults />,
+      },
+      {
+        path: "a",
+        element: <Activity />,
       },
     ],
   },
