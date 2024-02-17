@@ -7,6 +7,7 @@ import BookCover from "../kmui/BookCover";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import MainWrapper from "./MainWrapper";
+import Subheader from "./Subheader";
 
 const fetchBooks = () =>
   request(`{
@@ -87,6 +88,7 @@ export default () => {
 
   return (
     <Spinner open={isFetching}>
+      <Subheader />
       <MainWrapper>
         <Grid
           container

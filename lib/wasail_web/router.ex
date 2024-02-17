@@ -15,10 +15,21 @@ defmodule WasailWeb.Router do
     plug(WasailWeb.Graphql.ContextPlug)
   end
 
+  pipeline :api do
+    plug :accepts, ["json"]
+    plug :fetch_session
+  end
+
   scope "/query" do
     pipe_through(:graphql)
 
     forward("/", Absinthe.Plug, schema: WasailWeb.Graphql.Schema)
+  end
+
+  scope "/rest", WasailWeb do
+    pipe_through(:api)
+
+    post "/download_book", PageController, :download_book
   end
 
   scope "/auth", WasailWeb do

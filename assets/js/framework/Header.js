@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { backend } from "../utils/axiosConfig";
 import { SessionContext } from "../context/SessionContext";
 import IconButton from "@mui/material/IconButton";
@@ -13,17 +13,12 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { HEADER_HEIGHT } from "../consts";
 import SearchInput from "../kmui/SearchInput";
 import { navSearchReultsLink } from "../utils/app";
-import { useHotkeys } from "react-hotkeys-hook";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Header() {
   const navigate = useNavigate();
   const { name, avatarUrl, logout, isAdmin } = React.useContext(SessionContext);
   const onSmallScreen = useMediaQuery("(max-width:600px)");
-  useHotkeys("ctrl+a", () => {
-    console.log("ctrl+a");
-    redirect("/auth/google");
-  });
 
   const loggedIn = name != null;
   const renderLogo = () => (
@@ -40,7 +35,7 @@ export default function Header() {
         margin: 0,
       }}
       src={"/images/ya_allah_logo.png"}
-      onClick={() => (isAdmin ? navigate("/a") : navigate("/"))}
+      onClick={() => navigate("/")}
     />
   );
 

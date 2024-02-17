@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import MainWrapper from "./MainWrapper";
+import Subheader from "./Subheader";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import parse from "html-react-parser";
@@ -46,6 +47,7 @@ export default function () {
 
   return (
     <Spinner open={isFetching}>
+      <Subheader />
       <MainWrapper>
         {searchResults.length == 0 ? (
           <Stack alignItems="center">

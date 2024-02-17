@@ -12,7 +12,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import DialogContentText from "@mui/material/DialogContentText";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import uniq from "lodash/uniq";
 import { blockFormSubmitOnEnterKey } from "../utils/sys";
@@ -22,7 +21,7 @@ export default ({
   open,
   onClose,
   fields,
-  dataQueryKeys,
+  dataQueryKeys = [],
   defaultValues,
   mutationApi,
   responseKeys = ["message", "status"],

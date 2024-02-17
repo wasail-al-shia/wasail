@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import MainWrapper from "./MainWrapper";
+import Subheader from "./Subheader";
 import Spinner from "../kmui/Spinner";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -54,6 +55,7 @@ export default function () {
   );
   return (
     <Spinner open={isFetching}>
+      <Subheader />
       <MainWrapper>
         <Typography variant="h6">
           Total Activity Count: {totalActivityCount}

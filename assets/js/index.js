@@ -13,6 +13,7 @@ import ViewReport from "./framework/ViewReport";
 import WsReport from "./framework/WsReport";
 import SearchResults from "./framework/SearchResults";
 import Activity from "./framework/Activity";
+import About from "./pages/About";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "a",
         element: <Activity />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
     ],
   },

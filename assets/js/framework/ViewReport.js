@@ -129,7 +129,7 @@ export default ({ wsReportId }) => {
   return (
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper hasBreadcrumbs={true}>
+      <MainWrapper>
         <IconButton onClick={() => history.back()}>
           <ArrowBackIcon />
         </IconButton>

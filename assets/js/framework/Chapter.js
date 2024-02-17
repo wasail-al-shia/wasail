@@ -173,7 +173,7 @@ export default () => {
   return (
     <Spinner open={fetchingChapter || fetchingReports}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper hasBreadcrumbs={true}>
+      <MainWrapper>
         <Stack alignItems="center" direction="column" spacing={5}>
           {reports.map((report) => (
             <Report

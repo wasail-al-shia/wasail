@@ -1,12 +1,16 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import DownloadIcon from "@mui/icons-material/Download";
 import { SessionContext } from "../context/SessionContext";
 import { navBookLink } from "../utils/app";
+import { useDownload } from "../hooks/useDownload";
 
 const fetchPercentComplete = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -16,6 +20,8 @@ const fetchPercentComplete = ({ queryKey: [_, bookId] }) =>
 export default function ({ book, onEdit }) {
   const navigate = useNavigate();
   const { isAdmin } = React.useContext(SessionContext);
+  const url = "rest/download_book/";
+  const { download } = useDownload(url);
   const { data: percentComplete = 0 } = useQuery(
     ["percentComplete", book.id],
     fetchPercentComplete
@@ -44,6 +50,9 @@ export default function ({ book, onEdit }) {
         },
       }}
     >
+      <Typography variant="h6" component="div">
+        English Translation
+      </Typography>
       <Typography variant="h4" component="div">
         {book.nameEng}
       </Typography>
@@ -54,6 +63,18 @@ export default function ({ book, onEdit }) {
       )}
       {isAdmin && `${percentComplete.toFixed(2)}%`}
       <Typography variant="h6">{book.authorEng}</Typography>
+      <Button
+        size="small"
+        variant="contained"
+        color="secondary"
+        startIcon={<DownloadIcon />}
+        onClick={(e) => {
+          download({ bookCode: book.code, volumeNo: book.volumeNo });
+          e.stopPropagation();
+        }}
+      >
+        Original Arabic
+      </Button>
       {isAdmin && (
         <Stack direction="row">
           <EditNoteIcon

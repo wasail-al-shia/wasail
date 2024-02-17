@@ -296,5 +296,19 @@ defmodule WasailWeb.Graphql.Schema do
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&CommentResolver.delete_comment/2)
     end
+
+    @desc "Process Contact Form"
+    field :process_contact_form, :mutation_response do
+      arg(:name, :string)
+      arg(:email, non_null(:string))
+      arg(:subject, :string)
+      arg(:comment, non_null(:string))
+
+      resolve(fn args, _info ->
+        body = "Name: #{args.name || "Unknown"}, Comment: #{args.comment}"
+        Wasail.Mailer.send(args.subject, body, args.email)
+        {:ok, %{status: :ok, message: "Processed contact form"}}
+      end)
+    end
   end
 end

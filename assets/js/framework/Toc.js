@@ -322,7 +322,7 @@ export default () => {
   return (
     <Spinner open={fetchingSections || fetchingBook}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper hasBreadcrumbs={true}>
+      <MainWrapper>
         {sections.map((section) => (
           <Accordion
             disableGutters
