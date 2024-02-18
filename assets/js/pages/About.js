@@ -18,14 +18,17 @@ export default () => {
           }}
         >
           <Typography>
-            Wasail Al Shia is a vast and monumental collection of shia hadith.
-            It comprises of 30 volumes and consists of traditions from early
-            Shia canonical books like Kutub-e-Araba (Four Books) and other
-            sources. It was compiled by Shaykh al-Hurr al-Amili (d. 1693), who
-            wrote in the introduction of this book, that for a long he had this
-            idea in mind, to collect narrations about sharia and practical laws
-            from reliable books. He spent twenty years to finish this
-            compilation. May Allah reward him abundantly.
+            Wasail Al Shia is a vast and comprehensive collection of shia
+            hadith. It is a monumental work contributing significantly to the
+            preservation and dissemination of Shia hadiths and jurisprudential
+            teachings. It comprises of 30 volumes and consists of traditions
+            from early Shia canonical books like Kutub-e-Araba (Four Books) and
+            other sources. The hadiths were compiled by Shaykh al-Hurr al-Amili
+            (d. 1693), who wrote in the introduction of this book, that for a
+            long he had this idea in mind, to collect narrations about sharia
+            and practical laws from reliable books. He spent twenty years to
+            finish this compilation. May Allah elevate his status and reward him
+            abundantly.
           </Typography>
           <Typography>
             This site presents an english translation of this important work
@@ -34,10 +37,11 @@ export default () => {
             to the site on a regular basis.
           </Typography>
           <Typography>
-            We quote the original Arabic text along with the english
-            translation. We have omitted the chains (sanad) because they can be
-            looked up easily in the original arabic versions that are available
-            online and can also be downloaded from this site.
+            For every hadith that we translated to English, we have quoted the
+            original Arabic text next to the translation for reference. We have
+            omitted the chains (sanad) because they can be looked up (if
+            required) in the original arabic versions that are available online
+            and can also be downloaded from this site.
           </Typography>
           <Typography>
             If you have any comments on the translation of a particular report

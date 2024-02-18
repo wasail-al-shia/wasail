@@ -8,6 +8,9 @@ const Theme = createTheme({
   palette: {
     primary: {
       main: "#274472",
+      light: "#9c9a98",
+      dark: "#474645",
+      contrastText: "#d9d3cf",
       header: "#b7aca4",
       header2: "#d9d3cf",
       breadcrumb: "#dbd1cc",
@@ -15,9 +18,6 @@ const Theme = createTheme({
       paper: "#fcf9f6",
       backdrop: "#efecea",
       review: "#edd5d5",
-
-      dark: "#474645",
-      light: "#9c9a98",
       gray: "#eee",
     },
     secondary: {

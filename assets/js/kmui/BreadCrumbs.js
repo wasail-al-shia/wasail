@@ -5,22 +5,9 @@ import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { HEADER_HEIGHT } from "../consts";
-import { styled } from "@mui/material/styles";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import InfoIcon from "@mui/icons-material/Info";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-const HtmlTooltip = styled(({ className, ...props }) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.primary.header2,
-    color: "rgba(0, 0, 0, 0.87)",
-    maxWidth: "25rem",
-    fontSize: "1.2rem",
-    border: "1px solid #dadde9",
-  },
-}));
+import { HtmlTooltip } from "./HtmlTooltip";
 
 export default function ({ crumbDefs }) {
   const onSmallScreen = useMediaQuery("(max-width:600px)");

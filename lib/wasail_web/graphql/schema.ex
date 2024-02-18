@@ -306,7 +306,11 @@ defmodule WasailWeb.Graphql.Schema do
 
       resolve(fn args, _info ->
         body = "Name: #{args.name || "Unknown"}, Comment: #{args.comment}"
-        Wasail.Mailer.send(args.subject, body, args.email)
+
+        Task.async(fn ->
+          Wasail.Mailer.send(args.subject, body, args.email)
+        end)
+
         {:ok, %{status: :ok, message: "Processed contact form"}}
       end)
     end

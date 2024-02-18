@@ -1,15 +1,17 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Link, useLocation } from "react-router-dom";
 import { HEADER_HEIGHT } from "../consts";
 import { SessionContext } from "../context/SessionContext";
-import { useNavigate } from "react-router-dom";
 import { DialogContext } from "../context/DialogContext";
 
 export default function () {
-  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin } = React.useContext(SessionContext);
+  console.log("pathname=", pathname);
   const contactDialogFields = [
     {
       name: "name",
@@ -51,17 +53,30 @@ export default function () {
   return (
     <Stack
       direction="row"
+      alignItems="center"
       sx={{
         backgroundColor: "primary.header2",
-        minHeight: HEADER_HEIGHT,
         marginTop: HEADER_HEIGHT,
+        maxHeight: `calc(${HEADER_HEIGHT}  - 0.1rem)`,
         padding: 3,
         position: "fixed",
         width: "100%",
       }}
     >
-      <Button onClick={() => navigate("/")}>Library</Button>
-      <Button onClick={() => navigate("/about")}>About</Button>
+      <Button
+        sx={{ color: pathname == "/" ? "secondary.dark" : "primary.main" }}
+        component={Link}
+        to="/"
+      >
+        Home
+      </Button>
+      <Button
+        sx={{ color: pathname == "/about" ? "secondary.dark" : "primary.main" }}
+        component={Link}
+        to="/about"
+      >
+        About
+      </Button>
       <Button
         onClick={() =>
           openDialog("dataEntry", {
@@ -74,7 +89,17 @@ export default function () {
       >
         Contact
       </Button>
-      {isAdmin && <Button onClick={() => navigate("/a")}>Activity</Button>}
+      {isAdmin && (
+        <Button
+          sx={{
+            color: pathname == "/a" ? "secondary.dark" : "primary.main",
+          }}
+          component={Link}
+          to="/a"
+        >
+          Activity
+        </Button>
+      )}
     </Stack>
   );
 }

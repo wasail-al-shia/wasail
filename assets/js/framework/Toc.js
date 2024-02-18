@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { navChapterLink } from "../utils/app";
+import { HtmlTooltip } from "../kmui/HtmlTooltip";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
