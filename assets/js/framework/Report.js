@@ -175,11 +175,11 @@ export default ({ report, onEdit }) => {
         {isAdmin && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
-        <Tooltip title="Send feedback">
+        <Tooltip title="Report feedback">
           <IconButton
             onClick={() =>
               openDialog("dataEntry", {
-                title: "Send feedback on " + report.headingEng,
+                title: "Report feedback on " + report.headingEng,
                 basePayload: { report_id: report.id },
                 fields: reportFeedbackFields,
                 mutationApi: "processReportFeedback",

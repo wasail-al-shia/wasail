@@ -115,6 +115,15 @@ defmodule WasailWeb.Graphql.Schema do
         {:ok, Wasail.Activity.total()}
       end)
     end
+
+    @desc "Get report range"
+    field :report_range, non_null(list_of(non_null(:report_range))) do
+      arg(:book_id, non_null(:integer))
+
+      resolve(fn %{book_id: book_id}, _info ->
+        {:ok, Wasail.Section.report_range(book_id)}
+      end)
+    end
   end
 
   mutation do

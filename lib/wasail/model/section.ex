@@ -1,6 +1,7 @@
 defmodule Wasail.Section do
+  import Ecto.Query
   alias Wasail.Repo
-  alias Wasail.Schema.Section, as: Section
+  alias Wasail.Schema.{Book, Section, Chapter, Report}
   alias Wasail.Util.Query, as: QueryUtil
 
   def get(id), do: Repo.get(Section, id) |> Repo.preload([:book])
@@ -11,6 +12,28 @@ defmodule Wasail.Section do
     |> QueryUtil.put_sort(asc: :section_no)
     |> Repo.all()
     |> Repo.preload(:chapters)
+  end
+
+  def report_range(book_id) do
+    query =
+      from(r in Report,
+        join: c in Chapter,
+        on: r.chapter_id == c.id,
+        join: s in Section,
+        on: c.section_id == s.id,
+        join: b in Book,
+        on: s.book_id == b.id,
+        where: b.id == ^book_id,
+        group_by: [s.id, c.id],
+        select: %{
+          section_id: s.id,
+          chapter_id: c.id,
+          start_report_no: min(r.report_no),
+          end_report_no: max(r.report_no)
+        }
+      )
+
+    Repo.all(query)
   end
 
   def insert(rec),

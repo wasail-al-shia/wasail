@@ -4,6 +4,7 @@ import { request } from "../utils/graph-ql";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { DialogContext } from "../context/DialogContext";
 import FabAddButton from "../kmui/FabAddButton";
@@ -18,7 +19,8 @@ import AddIcon from "@mui/icons-material/Add";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { navChapterLink } from "../utils/app";
-import { HtmlTooltip } from "../kmui/HtmlTooltip";
+import minBy from "lodash/minBy";
+import maxBy from "lodash/maxBy";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -51,6 +53,16 @@ const fetchSections = ({ queryKey: [_, bookId] }) =>
     }
   }`).then(({ sections }) => sections);
 
+const fetchReportRange = ({ queryKey: [_, bookId] }) =>
+  request(`{
+    reportRange(bookId: ${bookId}) {
+      sectionId
+      chapterId
+      startReportNo
+      endReportNo
+    }
+  }`).then(({ reportRange }) => reportRange);
+
 export default () => {
   const navigate = useNavigate();
   const { bookId } = useParams();
@@ -63,6 +75,11 @@ export default () => {
   const { data: book = {}, isFetching: fetchingBook } = useQuery(
     ["book", bookId],
     fetchBook
+  );
+
+  const { data: reportRange = [] } = useQuery(
+    ["reportRange", bookId],
+    fetchReportRange
   );
 
   const nextSectionNo = Math.max(...sections.map((s) => s.sectionNo)) + 1;
@@ -246,6 +263,15 @@ export default () => {
     },
   });
 
+  const ReportRangeSection = ({ sectionId }) => {
+    const rangeRecs = reportRange.filter((r) => r.sectionId == sectionId);
+    const minRec = minBy(rangeRecs, (r) => r.startReportNo);
+    const maxRec = maxBy(rangeRecs, (r) => r.endReportNo);
+    return rangeRecs.length > 0 ? (
+      <Typography variant="footer">{`(Reports: ${minRec.startReportNo} - ${maxRec.endReportNo})`}</Typography>
+    ) : null;
+  };
+
   const SectionCard = ({ section }) => (
     <Stack
       sx={{
@@ -254,7 +280,6 @@ export default () => {
         paddingRight: 10,
         backgroundColor: "primary.header2",
       }}
-      spacing={5}
       direction="column"
     >
       <Typography variant="h5">
@@ -280,11 +305,21 @@ export default () => {
           />
         )}
       </Typography>
+      <ReportRangeSection sectionId={section.id} />
       <Typography dir="rtl" variant="h6a">
         {section.nameArb}
       </Typography>
     </Stack>
   );
+
+  const ReportRangeChapter = ({ chapterId }) => {
+    const rangeRec = reportRange.find((r) => r.chapterId == chapterId);
+    return rangeRec ? (
+      <Typography variant="footer">
+        {`(Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo})`}
+      </Typography>
+    ) : null;
+  };
 
   const ChapterCard = ({ chapter }) => (
     <Stack
@@ -298,7 +333,6 @@ export default () => {
         },
       }}
       onClick={() => navigate(navChapterLink(chapter.id))}
-      spacing={5}
       direction="column"
     >
       <Typography variant="h6">
@@ -314,6 +348,7 @@ export default () => {
           />
         )}
       </Typography>
+      <ReportRangeChapter chapterId={chapter.id} />
       <Typography dir="rtl" variant="h6a">
         {chapter.nameArb}
       </Typography>

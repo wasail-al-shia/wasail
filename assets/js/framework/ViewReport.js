@@ -10,11 +10,14 @@ import { request } from "../utils/graph-ql";
 import { generatePlainText, generateReference } from "../utils/app";
 import Typography from "@mui/material/Typography";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import MainWrapper from "./MainWrapper";
+import { DialogContext } from "../context/DialogContext";
 import { MAX_WIDTH_CONTENT } from "../consts";
+import Tooltip from "@mui/material/Tooltip";
 import {
   navBookLink,
   navChapterLink,
@@ -60,6 +63,7 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
   }`).then(({ report }) => report);
 
 export default ({ wsReportId }) => {
+  const { openDialog } = React.useContext(DialogContext);
   const reportId = wsReportId || useParams().reportId;
   const { data: report, isFetching: fetchingReport } = useQuery({
     queryKey: ["report", reportId],
@@ -76,15 +80,63 @@ export default ({ wsReportId }) => {
 
   const section = report.chapter.section;
   const chapter = report.chapter;
+  const reportFeedbackFields = [
+    {
+      name: "name",
+      label: "Name",
+      type: "text",
+      fullWidth: true,
+      size: "small",
+      rules: { required: true },
+      md: 12,
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "text",
+      fullWidth: true,
+      size: "small",
+      rules: { required: true },
+      md: 12,
+    },
+    {
+      name: "comment",
+      label: "Comment",
+      type: "text",
+      size: "small",
+      fullWidth: true,
+      multiline: true,
+      rules: { required: true },
+      rows: 6,
+      md: 12,
+    },
+  ];
 
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
       <Typography variant="h4" component="div">
         {report.headingEng}
       </Typography>
-      <CopyToClipboardButton
-        retrieveTextToCopy={() => generatePlainText(report)}
-      />
+      <Stack direction="row" alignItems="center">
+        <Tooltip title="Report feedback">
+          <IconButton
+            onClick={() =>
+              openDialog("dataEntry", {
+                title: "Report feedback on " + report.headingEng,
+                basePayload: { report_id: report.id },
+                fields: reportFeedbackFields,
+                mutationApi: "processReportFeedback",
+                btnText: "Send",
+              })
+            }
+          >
+            <ChatBubbleOutlineIcon sx={{ fontSize: "1.2rem" }} size="small" />
+          </IconButton>
+        </Tooltip>
+        <CopyToClipboardButton
+          retrieveTextToCopy={() => generatePlainText(report)}
+        />
+      </Stack>
     </Stack>
   );
 

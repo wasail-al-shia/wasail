@@ -31,21 +31,21 @@ export default () => {
             abundantly.
           </Typography>
           <Typography>
-            This site presents an english translation of this important work
+            This site presents an english translation of this important work.
             This is an ongoing effort and we expect it to continue for quite
             some time until we finish inshaAllah. New translations will be added
-            to the site on a regular basis.
+            on a regular basis, so please check back often.
           </Typography>
           <Typography>
-            We have omitted the chains (sanad) because they can be looked up (if
-            required) in the original arabic versions that are available online
-            and can also be downloaded from this site.
+            Note that we have omitted the transmission chains (sanad) because
+            they can be looked up (if required) in the original arabic versions
+            that are available online and can also be downloaded from this site.
           </Typography>
           <Typography>
             If you have any comments on the translation of a particular report
-            please use the feedback icon that is displayed next to each
-            individual hadith to notify us. If you have any other questions
-            please feel free to contact us.
+            please use the feedback/comment icon that is displayed next to each
+            report to notify us. If you have any other questions please feel
+            free to contact us.
           </Typography>
         </Stack>
       </MainWrapper>

@@ -120,6 +120,13 @@ defmodule WasailWeb.Graphql.Types do
     field :search_str, :string
   end
 
+  object :report_range do
+    field :section_id, non_null(:integer)
+    field :chapter_id, non_null(:integer)
+    field :start_report_no, non_null(:integer)
+    field :end_report_no, non_null(:integer)
+  end
+
   input_object :book_input do
     field :id, :integer
     field :name_eng, :string

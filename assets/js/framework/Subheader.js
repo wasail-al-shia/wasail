@@ -1,7 +1,6 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { Link, useLocation } from "react-router-dom";
 import { HEADER_HEIGHT } from "../consts";
 import { SessionContext } from "../context/SessionContext";
@@ -11,7 +10,6 @@ export default function () {
   const { pathname } = useLocation();
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin } = React.useContext(SessionContext);
-  console.log("pathname=", pathname);
   const contactDialogFields = [
     {
       name: "name",
