@@ -19,6 +19,7 @@ export default function () {
       type: "text",
       fullWidth: true,
       size: "small",
+      rules: { required: true },
       md: 12,
     },
     {
@@ -36,6 +37,7 @@ export default function () {
       type: "text",
       fullWidth: true,
       size: "small",
+      rules: { required: true },
       md: 12,
     },
     {
@@ -46,7 +48,7 @@ export default function () {
       fullWidth: true,
       multiline: true,
       rules: { required: true },
-      rows: 5,
+      rows: 6,
       md: 12,
     },
   ];

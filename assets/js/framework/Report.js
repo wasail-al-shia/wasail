@@ -10,6 +10,7 @@ import Tooltip from "@mui/material/Tooltip";
 import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import AddCommentIcon from "@mui/icons-material/AddComment";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
@@ -93,6 +94,38 @@ export default ({ report, onEdit }) => {
     },
   ];
 
+  const reportFeedbackFields = [
+    {
+      name: "name",
+      label: "Name",
+      type: "text",
+      fullWidth: true,
+      size: "small",
+      rules: { required: true },
+      md: 12,
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "text",
+      fullWidth: true,
+      size: "small",
+      rules: { required: true },
+      md: 12,
+    },
+    {
+      name: "comment",
+      label: "Comment",
+      type: "text",
+      size: "small",
+      fullWidth: true,
+      multiline: true,
+      rules: { required: true },
+      rows: 6,
+      md: 12,
+    },
+  ];
+
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
       <Typography
@@ -123,7 +156,7 @@ export default ({ report, onEdit }) => {
           />
         )}
         {isAdmin && (
-          <ChatBubbleOutlineIcon
+          <AddCommentIcon
             size="small"
             onClick={() =>
               openDialog("dataEntry", {
@@ -142,6 +175,21 @@ export default ({ report, onEdit }) => {
         {isAdmin && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
+        <Tooltip title="Send feedback">
+          <IconButton
+            onClick={() =>
+              openDialog("dataEntry", {
+                title: "Send feedback on " + report.headingEng,
+                basePayload: { report_id: report.id },
+                fields: reportFeedbackFields,
+                mutationApi: "processReportFeedback",
+                btnText: "Send",
+              })
+            }
+          >
+            <ChatBubbleOutlineIcon sx={{ fontSize: "1.2rem" }} size="small" />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Standalone View">
           <IconButton component={Link} to={navReportLink(report.id)}>
             <OpenInNewIcon sx={{ fontSize: "1.2rem" }} size="small" />

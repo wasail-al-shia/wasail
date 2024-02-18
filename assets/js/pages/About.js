@@ -37,16 +37,14 @@ export default () => {
             to the site on a regular basis.
           </Typography>
           <Typography>
-            For every hadith that we translated to English, we have quoted the
-            original Arabic text next to the translation for reference. We have
-            omitted the chains (sanad) because they can be looked up (if
+            We have omitted the chains (sanad) because they can be looked up (if
             required) in the original arabic versions that are available online
             and can also be downloaded from this site.
           </Typography>
           <Typography>
             If you have any comments on the translation of a particular report
             please use the feedback icon that is displayed next to each
-            individual report to notify us. If you have any other questions
+            individual hadith to notify us. If you have any other questions
             please feel free to contact us.
           </Typography>
         </Stack>

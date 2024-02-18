@@ -40,6 +40,11 @@ config :wasail, WasailWeb.Endpoint,
     ]
   ]
 
+# url to view local emails: localhost:4000/mailbox
+config :wasail, Wasail.Mailer, adapter: Swoosh.Adapters.Local
+# config :wasail, Wasail.Mailer, adapter: Swoosh.Adapters.ExAwsAmazonSES
+# config :swoosh, :api_client, Swoosh.ApiClient.Hackney
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

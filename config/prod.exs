@@ -18,13 +18,8 @@ config :logger, :console,
   format: "[$level] <$metadata> $message\n",
   metadata: [:module, :function]
 
-config :wasail, Wasail.Mailer,
-  adapter: Swoosh.Adapters.SMTP,
-  relay: "email-smtp.us-east-1.amazonaws.com",
-  username: "AKIAX2FDSD5JIEEAGO5G",
-  port: 25,
-  retries: 2,
-  no_mx_lookups: false
+config :wasail, Wasail.Mailer, adapter: Swoosh.Adapters.ExAwsAmazonSES
+config :swoosh, :api_client, Swoosh.ApiClient.Hackney
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

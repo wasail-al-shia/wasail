@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <%= render("css.html") %>
+  </head>
+  <body>
+    <center>
+    </center>
+    Dear <%= @data[:name] %>,
+    <br/>
+    <br/>
+    Thank you for contacting us. We received your comment. We will review
+    and respond soon insha Allah.
+    <br/>
+    <br/>
+    Best regards,
+    <br/>
+    Admin - Wasail Al Shia
+    <br/>
+    <br/>
+    <h3>Your comment:</h3>
+    <%= @data[:comment] %>
+  </body>
+</html>

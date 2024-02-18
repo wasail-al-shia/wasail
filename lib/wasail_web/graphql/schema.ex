@@ -299,19 +299,42 @@ defmodule WasailWeb.Graphql.Schema do
 
     @desc "Process Contact Form"
     field :process_contact_form, :mutation_response do
-      arg(:name, :string)
+      arg(:name, non_null(:string))
       arg(:email, non_null(:string))
-      arg(:subject, :string)
+      arg(:subject, non_null(:string))
       arg(:comment, non_null(:string))
 
-      resolve(fn args, _info ->
-        body = "Name: #{args.name || "Unknown"}, Comment: #{args.comment}"
-
+      resolve(fn %{subject: subject, comment: comment, name: name, email: email}, _info ->
         Task.async(fn ->
-          Wasail.Mailer.send(args.subject, body, args.email)
+          try do
+            Wasail.Mailer.send_contact_us_email(subject, comment, name, email)
+          rescue
+            err ->
+              Logger.error("Error sending contact us email: #{inspect(err)}")
+          end
         end)
 
         {:ok, %{status: :ok, message: "Processed contact form"}}
+      end)
+    end
+
+    @desc "Process Report Feedback"
+    field :process_report_feedback, :mutation_response do
+      arg(:report_id, non_null(:integer))
+      arg(:name, non_null(:string))
+      arg(:email, non_null(:string))
+      arg(:comment, non_null(:string))
+
+      resolve(fn %{report_id: report_id, comment: comment, name: name, email: email}, _info ->
+        Task.async(fn ->
+          try do
+            Wasail.Mailer.send_report_feedback(report_id, comment, name, email)
+          rescue
+            err -> Logger.error("Error sending report feedback: #{inspect(err)}")
+          end
+        end)
+
+        {:ok, %{status: :ok, message: "Processed report feedback"}}
       end)
     end
   end
