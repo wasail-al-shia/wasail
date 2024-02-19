@@ -12,7 +12,7 @@ config :wasail,
   bk_cd_ws: "ws",
   #                  shuaybi                tasneemshoeb             wasail.al.shia
   admin_uids: ["113405576099734332839", "108485062904594919718", "115106629340710687706"],
-  admin_emails: ["wasail.al.shia@gmail.com", "shuaybi@gmail.com"],
+  admin_emails: ["wasail.al.shia@gmail.com", "tasneemshoeb@gmail.com", "shuaybi@gmail.com"],
   ses_verified_identity_for_smtp: {"Wasail Al Shia", "wasail.al.shia@gmail.com"},
   ip_info_url: "http://ipinfo.io/"
 

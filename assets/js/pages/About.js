@@ -5,7 +5,7 @@ import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
-import { formatIsoStrLocal, formatIsoStrDateTime } from "../utils/date";
+import { formatIsoStrDateTime } from "../utils/date";
 
 const fetchMostRecentReport = () =>
   request(`{
@@ -21,7 +21,6 @@ export default () => {
     fetchMostRecentReport
   );
 
-  console.log("report=", formatIsoStrLocal(report.insertedAt));
   return (
     <>
       <Subheader />
@@ -49,9 +48,9 @@ export default () => {
           </Typography>
           <Typography>
             This site presents an english translation of this important work.
-            This is an ongoing effort and we expect it to continue for quite
-            some time until we finish inshaAllah. New translations will be added
-            on a regular basis, so please check back often.
+            This is a collaborative and ongoing effort. We expect it to continue
+            for quite some time until we finish inshaAllah. New translations
+            will be added on a regular basis, so please check back often.
           </Typography>
           <Typography>
             Note that we have omitted the transmission chains (sanad) because

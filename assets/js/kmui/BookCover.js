@@ -30,8 +30,6 @@ export default function ({ book, onEdit }) {
   return (
     <Stack
       sx={{
-        height: "18rem",
-        width: "13rem",
         borderRadius: 1,
         backgroundColor: "primary.main",
         color: "primary.paper",
@@ -60,6 +58,15 @@ export default function ({ book, onEdit }) {
       >
         <Typography variant="h6" component="div">
           English Translation
+          {isAdmin && (
+            <EditNoteIcon
+              size="small"
+              onClick={(e) => {
+                onEdit();
+                e.stopPropagation();
+              }}
+            />
+          )}
         </Typography>
         <Typography variant="h4" component="div">
           {book.nameEng}
@@ -103,17 +110,6 @@ export default function ({ book, onEdit }) {
             Original Arabic
           </Button>
         </HtmlTooltip>
-        {isAdmin && (
-          <Stack direction="row">
-            <EditNoteIcon
-              size="small"
-              onClick={(e) => {
-                onEdit();
-                e.stopPropagation();
-              }}
-            />
-          </Stack>
-        )}
       </Stack>
     </Stack>
   );
