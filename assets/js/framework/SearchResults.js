@@ -14,6 +14,7 @@ import { bookName, navReportLink } from "../utils/app";
 import Spinner from "../kmui/Spinner";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { MAX_WIDTH_CONTENT } from "../consts";
+import { stemmer } from "stemmer";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
   request(`{
@@ -33,9 +34,15 @@ const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
 export default function () {
   const navigate = useNavigate();
   const location = useLocation();
-  const queryStr = location.state?.searchStr;
+  const queryStr = location.state?.searchStr || "";
+  const stemmedQueryStr = queryStr
+    .split(" ")
+    .map((w) => stemmer(w))
+    .join(" ");
+
+  //console.log("stemmedQueryStr:", stemmedQueryStr);
   const { data: searchResults = [], isFetching } = useQuery(
-    ["search", queryStr],
+    ["search", stemmedQueryStr],
     fetchSearchResults
   );
 

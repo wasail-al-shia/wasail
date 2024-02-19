@@ -25,7 +25,7 @@ defmodule Wasail.Search do
 
   def search(query_str) do
     case String.trim(query_str) |> String.length() do
-      n when n < 4 ->
+      n when n < 3 ->
         []
 
       _ ->
