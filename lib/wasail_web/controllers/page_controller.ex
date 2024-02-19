@@ -28,8 +28,6 @@ defmodule WasailWeb.PageController do
       |> Enum.into([])
       |> IO.iodata_to_binary()
 
-    Logger.info("content=#{inspect(content)}")
-
     content_disposition = ContentDisposition.format(disposition: "inline", filename: file_nm)
     mime_type = "application/pdf"
 

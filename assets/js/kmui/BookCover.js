@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import DownloadIcon from "@mui/icons-material/Download";
 import { SessionContext } from "../context/SessionContext";
 import { navBookLink } from "../utils/app";
 import { useDownload } from "../hooks/useDownload";
+import Tooltip from "@mui/material/Tooltip";
 
 const fetchPercentComplete = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -50,9 +50,11 @@ export default function ({ book, onEdit }) {
         },
       }}
     >
-      <Typography variant="h6" component="div">
-        English Translation
-      </Typography>
+      <Tooltip placement="top" title="Read translation onlline">
+        <Button color="secondary" variant="contained" size="small">
+          English Translation
+        </Button>
+      </Tooltip>
       <Typography variant="h4" component="div">
         {book.nameEng}
       </Typography>
@@ -61,20 +63,24 @@ export default function ({ book, onEdit }) {
           Vol. {book.volumeNo}
         </Typography>
       )}
-      {isAdmin && `${percentComplete.toFixed(2)}%`}
+      <Typography variant="footer">
+        ({percentComplete.toFixed(2)}% complete)
+      </Typography>
       <Typography variant="h6">{book.authorEng}</Typography>
-      <Button
-        size="small"
-        variant="contained"
-        color="secondary"
-        startIcon={<DownloadIcon />}
-        onClick={(e) => {
-          download({ bookCode: book.code, volumeNo: book.volumeNo });
-          e.stopPropagation();
-        }}
-      >
-        Original Arabic
-      </Button>
+      <Tooltip title="Download Full Arabic Text">
+        <Button
+          size="small"
+          variant="contained"
+          color="secondary"
+          startIcon={<DownloadIcon />}
+          onClick={(e) => {
+            download({ bookCode: book.code, volumeNo: book.volumeNo });
+            e.stopPropagation();
+          }}
+        >
+          Original Arabic
+        </Button>
+      </Tooltip>
       {isAdmin && (
         <Stack direction="row">
           <EditNoteIcon

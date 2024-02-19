@@ -203,7 +203,7 @@ export default () => {
         </Stack>
       </MainWrapper>
       <FabAddButton
-        buttonText="Report + Frag"
+        buttonText="Report"
         dataEntryProps={{
           key: "addreport",
           title: "Add report",
