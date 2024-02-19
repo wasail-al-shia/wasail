@@ -9,7 +9,6 @@ export const HtmlTooltip = styled(({ className, ...props }) => (
     backgroundColor: theme.palette.primary.header2,
     color: "rgba(0, 0, 0, 0.87)",
     maxWidth: "25rem",
-    fontSize: "1.2rem",
     border: "1px solid #dadde9",
   },
 }));

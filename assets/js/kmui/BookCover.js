@@ -11,6 +11,7 @@ import { SessionContext } from "../context/SessionContext";
 import { navBookLink } from "../utils/app";
 import { useDownload } from "../hooks/useDownload";
 import Tooltip from "@mui/material/Tooltip";
+import { HtmlTooltip } from "./HtmlTooltip";
 
 const fetchPercentComplete = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -28,70 +29,92 @@ export default function ({ book, onEdit }) {
   );
   return (
     <Stack
-      justifyContent="space-between"
-      alignItems="center"
-      onClick={() => navigate(navBookLink(book.id))}
       sx={{
-        paddingTop: "2rem",
-        paddingBottom: "1rem",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
         height: "18rem",
         width: "13rem",
         borderRadius: 1,
         backgroundColor: "primary.main",
         color: "primary.paper",
-        transition: "transform 0.15s ease-in-out",
-        "&:hover": {
-          transform: "scale3d(1.05, 1.05, 1.05)",
-          cursor: "pointer",
-          filter: "brightness(120%)",
-          //backgroundImage: "linear-gradient(rgb(0 0 0/20%) 0 0)",
-        },
+        padding: "1rem",
       }}
+      spacing={5}
     >
-      <Tooltip placement="top" title="Read translation onlline">
-        <Button color="secondary" variant="contained" size="small">
+      <Stack
+        justifyContent="space-between"
+        alignItems="center"
+        onClick={() => navigate(navBookLink(book.id))}
+        spacing={10}
+        sx={{
+          paddingTop: "0.5rem",
+          borderRadius: 1,
+          backgroundColor: "primary.main",
+          color: "primary.paper",
+          transition: "transform 0.15s ease-in-out",
+          "&:hover": {
+            border: "2px solid #fff",
+            transform: "scale3d(1.05, 1.05, 1.05)",
+            cursor: "pointer",
+            filter: "brightness(120%)",
+          },
+        }}
+      >
+        <Typography variant="h6" component="div">
           English Translation
-        </Button>
-      </Tooltip>
-      <Typography variant="h4" component="div">
-        {book.nameEng}
-      </Typography>
-      {book.volumeNo > 0 && (
-        <Typography variant="h4" component="div">
-          Vol. {book.volumeNo}
         </Typography>
-      )}
-      <Typography variant="footer">
-        ({percentComplete.toFixed(2)}% complete)
-      </Typography>
-      <Typography variant="h6">{book.authorEng}</Typography>
-      <Tooltip title="Download Full Arabic Text">
-        <Button
-          size="small"
-          variant="contained"
-          color="secondary"
-          startIcon={<DownloadIcon />}
-          onClick={(e) => {
-            download({ bookCode: book.code, volumeNo: book.volumeNo });
-            e.stopPropagation();
-          }}
+        <Typography variant="h4" component="div">
+          {book.nameEng}
+        </Typography>
+        {book.volumeNo > 0 && (
+          <Typography variant="h4" component="div">
+            Vol. {book.volumeNo}
+          </Typography>
+        )}
+        <Typography variant="footer">
+          ({percentComplete.toFixed(2)}% complete)
+        </Typography>
+        <Typography variant="h6">{book.authorEng}</Typography>
+      </Stack>
+      <Stack>
+        <HtmlTooltip
+          title={
+            <Typography variant="h6">Download Full Arabic Text</Typography>
+          }
         >
-          Original Arabic
-        </Button>
-      </Tooltip>
-      {isAdmin && (
-        <Stack direction="row">
-          <EditNoteIcon
+          <Button
             size="small"
+            variant="contained"
+            color="secondary"
+            sx={{
+              backgroundColor: "primary.main",
+              "&:hover": {
+                backgroundColor: "primary.main",
+                transform: "scale3d(1.05, 1.05, 1.05)",
+                border: "2px solid #fff",
+                cursor: "pointer",
+                filter: "brightness(120%)",
+              },
+            }}
+            startIcon={<DownloadIcon />}
             onClick={(e) => {
-              onEdit();
+              download({ bookCode: book.code, volumeNo: book.volumeNo });
               e.stopPropagation();
             }}
-          />
-        </Stack>
-      )}
+          >
+            Original Arabic
+          </Button>
+        </HtmlTooltip>
+        {isAdmin && (
+          <Stack direction="row">
+            <EditNoteIcon
+              size="small"
+              onClick={(e) => {
+                onEdit();
+                e.stopPropagation();
+              }}
+            />
+          </Stack>
+        )}
+      </Stack>
     </Stack>
   );
 }
