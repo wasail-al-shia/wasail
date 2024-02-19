@@ -124,6 +124,13 @@ defmodule WasailWeb.Graphql.Schema do
         {:ok, Wasail.Section.report_range(book_id)}
       end)
     end
+
+    @desc "Get most recent report"
+    field :most_recent_report, non_null(:report) do
+      resolve(fn _args, _info ->
+        {:ok, Wasail.Report.get_most_recent()}
+      end)
+    end
   end
 
   mutation do

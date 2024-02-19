@@ -1,5 +1,6 @@
 defmodule WasailWeb.Graphql.Types do
   use Absinthe.Schema.Notation
+  import_types(Absinthe.Type.Custom)
 
   object :mutation_response do
     field :status, :string
@@ -65,6 +66,7 @@ defmodule WasailWeb.Graphql.Types do
     field :heading_eng, :string
     field :chapter, non_null(:chapter)
     field :review, non_null(:boolean)
+    field :inserted_at, non_null(:naive_datetime)
 
     field :texts, list_of(:text)
     field :comments, list_of(:comment)

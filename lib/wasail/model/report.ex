@@ -31,6 +31,13 @@ defmodule Wasail.Report do
     end
   end
 
+  def get_most_recent() do
+    Report
+    |> order_by(desc: :inserted_at)
+    |> limit(1)
+    |> Repo.one()
+  end
+
   def get_by_chapter_id(chapter_id) do
     Report
     |> where([report], report.chapter_id == ^chapter_id)
