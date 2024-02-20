@@ -3,24 +3,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
-import { useQuery } from "react-query";
-import { request } from "../utils/graph-ql";
-import { formatIsoStrToLocal } from "../utils/date";
-
-const fetchMostRecentReport = () =>
-  request(`{
-    mostRecentReport {
-      id
-      insertedAt
-    }
-  }`).then(({ mostRecentReport }) => mostRecentReport);
-
 export default () => {
-  const { data: report = {} } = useQuery(
-    ["mostRecentReport"],
-    fetchMostRecentReport
-  );
-
   return (
     <>
       <Subheader />
@@ -62,11 +45,6 @@ export default () => {
             please use the feedback/comment icon that is displayed next to each
             report to notify us. If you have any other questions please feel
             free to contact us.
-          </Typography>
-        </Stack>
-        <Stack>
-          <Typography sx={{ marginTop: 5 }} align="right" variant="footer">
-            Last updated on {formatIsoStrToLocal(report.insertedAt)}
           </Typography>
         </Stack>
       </MainWrapper>

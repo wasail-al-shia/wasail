@@ -1,15 +1,19 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { Link, useLocation } from "react-router-dom";
 import { HEADER_HEIGHT } from "../consts";
 import { SessionContext } from "../context/SessionContext";
 import { DialogContext } from "../context/DialogContext";
+import { formatIsoStrToLocal } from "../utils/date";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function () {
   const { pathname } = useLocation();
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin } = React.useContext(SessionContext);
+  const { isAdmin, mostRecentReport } = React.useContext(SessionContext);
+  const onSmallScreen = useMediaQuery("(max-width:600px)");
   const contactDialogFields = [
     {
       name: "name",
@@ -53,7 +57,6 @@ export default function () {
   return (
     <Stack
       direction="row"
-      alignItems="center"
       sx={{
         backgroundColor: "primary.header2",
         marginTop: HEADER_HEIGHT,
@@ -62,43 +65,54 @@ export default function () {
         position: "fixed",
         width: "100%",
       }}
+      justifyContent="space-between"
+      alignItems="center"
     >
-      <Button
-        sx={{ color: pathname == "/" ? "secondary.dark" : "primary.main" }}
-        component={Link}
-        to="/"
-      >
-        Home
-      </Button>
-      <Button
-        sx={{ color: pathname == "/about" ? "secondary.dark" : "primary.main" }}
-        component={Link}
-        to="/about"
-      >
-        About
-      </Button>
-      <Button
-        onClick={() =>
-          openDialog("dataEntry", {
-            title: "Conctact Us",
-            fields: contactDialogFields,
-            mutationApi: "processContactForm",
-            btnText: "Send",
-          })
-        }
-      >
-        Contact
-      </Button>
-      {isAdmin && (
+      <Stack direction="row" alignItems="center">
+        <Button
+          sx={{ color: pathname == "/" ? "secondary.dark" : "primary.main" }}
+          component={Link}
+          to="/"
+        >
+          Home
+        </Button>
         <Button
           sx={{
-            color: pathname == "/a" ? "secondary.dark" : "primary.main",
+            color: pathname == "/about" ? "secondary.dark" : "primary.main",
           }}
           component={Link}
-          to="/a"
+          to="/about"
         >
-          Activity
+          About
         </Button>
+        <Button
+          onClick={() =>
+            openDialog("dataEntry", {
+              title: "Conctact Us",
+              fields: contactDialogFields,
+              mutationApi: "processContactForm",
+              btnText: "Send",
+            })
+          }
+        >
+          Contact
+        </Button>
+        {isAdmin && (
+          <Button
+            sx={{
+              color: pathname == "/a" ? "secondary.dark" : "primary.main",
+            }}
+            component={Link}
+            to="/a"
+          >
+            Activity
+          </Button>
+        )}
+      </Stack>
+      {!onSmallScreen && (
+        <Typography variant="footer">
+          Last Updated: {formatIsoStrToLocal(mostRecentReport.insertedAt)}
+        </Typography>
       )}
     </Stack>
   );

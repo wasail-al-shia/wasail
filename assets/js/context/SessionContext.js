@@ -17,6 +17,14 @@ const fetchUserInfo = () =>
     }
   }`).then(({ userInfo }) => userInfo);
 
+const fetchMostRecentReport = () =>
+  request(`{
+    mostRecentReport {
+      id
+      insertedAt
+    }
+  }`).then(({ mostRecentReport }) => mostRecentReport);
+
 const SessionProvider = (props) => {
   const theme = useTheme();
   const onTablet = useMediaQuery(theme.breakpoints.down("lg"));
@@ -27,6 +35,11 @@ const SessionProvider = (props) => {
     fetchUserInfo
   );
 
+  const { data: mostRecentReport = {} } = useQuery(
+    ["mostRecentReport"],
+    fetchMostRecentReport
+  );
+
   const queryClient = useQueryClient();
   const logout = () => queryClient.invalidateQueries([userInfoQueryKey]);
 
@@ -35,6 +48,7 @@ const SessionProvider = (props) => {
       value={{
         onTablet,
         logout,
+        mostRecentReport,
         ...userInfo,
       }}
     >

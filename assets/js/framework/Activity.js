@@ -12,8 +12,15 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { formatIsoStrToLocal } from "../utils/date";
 
 const columns = [
+  {
+    id: "insertedAt",
+    label: "Date",
+    format: (v) => formatIsoStrToLocal(v),
+    minWidth: 100,
+  },
   { id: "activityType", label: "Activity Type", minWidth: 170 },
   { id: "ip", label: "IP", minWidth: 100 },
   { id: "country", label: "Country", minWidth: 100 },
@@ -36,6 +43,7 @@ const fetchRecentActivity = ({ queryKey: [_, n] }) =>
       chapterId
       reportId
       searchStr
+      insertedAt
     }
   }`).then(({ recentActivity }) => recentActivity);
 
@@ -84,7 +92,7 @@ export default function () {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            {value}
+                            {column.format ? column.format(value) : value}
                           </TableCell>
                         );
                       })}

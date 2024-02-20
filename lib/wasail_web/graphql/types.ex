@@ -120,6 +120,7 @@ defmodule WasailWeb.Graphql.Types do
     field :chapter_id, :integer
     field :report_id, :integer
     field :search_str, :string
+    field :inserted_at, non_null(:naive_datetime)
   end
 
   object :report_range do
