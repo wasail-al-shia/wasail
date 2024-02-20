@@ -27,27 +27,12 @@ export const generatePlainText = (report) => {
     ?.map((text) => [text.textArb, text.textEng])
     .flat(Infinity);
 
-  const chapter = report.chapter;
-  const section = chapter.section;
-  const book = section.book;
   const comment =
     report.comments.length > 0
       ? `Comment: ${report.comments[0].commentEng}`
       : null;
 
-  const sectionName = `Section ${section.sectionNo}: ${section.nameEng}`;
-  const chapterName = `Chapter ${chapter.chapterNo}: ${chapter.nameEng}`;
-
-  return [
-    report.headingEng,
-    bookName(book),
-    sectionName,
-    chapterName,
-    "\n",
-    "Full Text:",
-    ...texts,
-    "\n",
-  ]
+  return [...texts, "\n"]
     .concat(comment ? [comment, "\n"] : [])
     .concat([generateReference(report), generateReportHyperLink(report)])
     .join("\n");
