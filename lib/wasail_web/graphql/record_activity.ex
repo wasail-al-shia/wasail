@@ -2,6 +2,9 @@ defmodule WasailWeb.Graphql.RecordActivity do
   @behaviour Absinthe.Middleware
   require Logger
 
+  def call(%Absinthe.Resolution{context: %{user_info: %{is_admin: true}}} = resolution, _config),
+    do: resolution
+
   def call(%Absinthe.Resolution{} = resolution, _config) do
     # IO.inspect(Map.keys(resolution.definition))
     # IO.inspect(resolution.definition.name)
