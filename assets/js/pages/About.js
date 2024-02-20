@@ -5,7 +5,7 @@ import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
-import { formatIsoStrDateTime } from "../utils/date";
+import { formatIsoStrToLocal } from "../utils/date";
 
 const fetchMostRecentReport = () =>
   request(`{
@@ -66,7 +66,7 @@ export default () => {
         </Stack>
         <Stack>
           <Typography sx={{ marginTop: 5 }} align="right" variant="footer">
-            Site last updated on {formatIsoStrDateTime(report.insertedAt)}.
+            Last updated on {formatIsoStrToLocal(report.insertedAt)}
           </Typography>
         </Stack>
       </MainWrapper>

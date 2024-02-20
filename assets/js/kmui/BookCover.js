@@ -43,14 +43,14 @@ export default function ({ book, onEdit }) {
         onClick={() => navigate(navBookLink(book.id))}
         spacing={10}
         sx={{
-          paddingTop: "0.5rem",
+          padding: "0.5rem",
           borderRadius: 1,
           backgroundColor: "primary.main",
           color: "primary.paper",
           transition: "transform 0.15s ease-in-out",
           "&:hover": {
             border: "2px solid #fff",
-            transform: "scale3d(1.05, 1.05, 1.05)",
+            transform: "scale3d(1.07, 1.07, 1.07)",
             cursor: "pointer",
             filter: "brightness(120%)",
           },
