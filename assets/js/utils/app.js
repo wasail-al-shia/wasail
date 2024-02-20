@@ -24,7 +24,7 @@ const generateReportHyperLink = (report) => {
 
 export const generatePlainText = (report) => {
   const texts = report.texts
-    ?.map((text) => [text.textArb, text.textEng])
+    ?.map((text) => [text.textArb, "", text.textEng, ""])
     .flat(Infinity);
 
   const comment =
@@ -32,8 +32,8 @@ export const generatePlainText = (report) => {
       ? `Comment: ${report.comments[0].commentEng}`
       : null;
 
-  return [...texts, "\n"]
-    .concat(comment ? [comment, "\n"] : [])
+  return [...texts]
+    .concat(comment ? [comment, ""] : [])
     .concat([generateReference(report), generateReportHyperLink(report)])
     .join("\n");
 };
