@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Spinner from "../kmui/Spinner";
 import BreadCrumbs from "../kmui/BreadCrumbs";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import { generatePlainText, generateReference } from "../utils/app";
@@ -65,6 +65,7 @@ const fetchReport = ({ queryKey: [, reportId] }) =>
 export default ({ wsReportId }) => {
   const { openDialog } = React.useContext(DialogContext);
   const reportId = wsReportId || useParams().reportId;
+  const { state } = useLocation();
   const { data: report, isFetching: fetchingReport } = useQuery({
     queryKey: ["report", reportId],
     queryFn: fetchReport,
@@ -182,9 +183,11 @@ export default ({ wsReportId }) => {
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
-        <IconButton onClick={() => history.back()}>
-          <ArrowBackIcon />
-        </IconButton>
+        {state?.showBackButton && (
+          <IconButton onClick={() => history.back()}>
+            <ArrowBackIcon />
+          </IconButton>
+        )}
         <Stack alignItems="center">
           <Stack
             sx={{

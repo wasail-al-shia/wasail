@@ -13,8 +13,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       //cacheTime should always be bigger than staleTime
-      staleTime: 5 * (60 * 1000), // 10 mins
-      cacheTime: 10 * (60 * 1000), // 15 mins
+      staleTime: 15 * (60 * 1000), // 15 mins
+      cacheTime: 20 * (60 * 1000), // 20 mins
       refetchOnWindowFocus: false,
       retry: false,
     },

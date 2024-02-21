@@ -4,14 +4,6 @@ function swapBracket(br) {
       return ")";
     case ")":
       return "(";
-    case "{":
-      return "}";
-    case "}":
-      return "{";
-    case "[":
-      return "]";
-    case "]":
-      return "[";
   }
 }
 

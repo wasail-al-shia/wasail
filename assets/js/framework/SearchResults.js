@@ -101,7 +101,13 @@ export default function () {
                       backgroundColor: "primary.paper",
                     },
                   }}
-                  onClick={() => navigate(navReportLink(r.reportId))}
+                  onClick={() =>
+                    navigate(navReportLink(r.reportId), {
+                      state: {
+                        showBackButton: true,
+                      },
+                    })
+                  }
                   spacing={5}
                   direction="column"
                 >

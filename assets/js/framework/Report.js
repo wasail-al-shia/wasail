@@ -131,6 +131,7 @@ export default ({ report, onEdit }) => {
       <Typography
         sx={{ color: "primary.dark" }}
         to={navReportLink(report.id)}
+        state={{ showBackButton: true }}
         underline={"hover"}
         component={Link}
         variant="h5"
