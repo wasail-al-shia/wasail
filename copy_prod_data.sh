@@ -5,7 +5,7 @@ set -o nounset
 
 data_dir="/tmp/"
 
-table_names="book section chapter report text comment activity" # feedback tag article article_to_report"
+table_names="book section chapter report text comment ip_info activity" # feedback tag article article_to_report"
 
 src_host=${WASAIL_DB_HOST}
 src_port="5432"
@@ -19,6 +19,7 @@ tgt_database="wasail_dev"
 tgt_username="postgres"
 tgt_password="postgres"
 
+mix ecto.reset
 
 for table_name in ${table_names}
 do

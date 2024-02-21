@@ -12,7 +12,9 @@ import { Outlet } from "react-router-dom";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      //cacheTime should always be bigger than staleTime
+      staleTime: 5 * (60 * 1000), // 10 mins
+      cacheTime: 10 * (60 * 1000), // 15 mins
       refetchOnWindowFocus: false,
       retry: false,
     },

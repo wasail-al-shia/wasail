@@ -18,17 +18,18 @@ const columns = [
   {
     id: "insertedAt",
     label: "Date",
-    format: (v) => formatIsoStrToLocal(v),
-    minWidth: 100,
+    format: (v, _rowData) => formatIsoStrToLocal(v),
   },
-  { id: "activityType", label: "Activity Type", minWidth: 170 },
-  { id: "ip", label: "IP", minWidth: 100 },
-  { id: "country", label: "Country", minWidth: 100 },
-  { id: "region", label: "Region", minWidth: 100 },
-  { id: "city", label: "City", minWidth: 100 },
-  { id: "chapterId", label: "Chapter Id", minWidth: 100 },
-  { id: "reportId", label: "Report Id", minWidth: 100 },
-  { id: "searchStr", label: "Search Str", minWidth: 100 },
+  { id: "ip", label: "IP" },
+  {
+    id: "region",
+    label: "Region/Country",
+    format: (v, rowData) => `${v} (${rowData.country})`,
+  },
+  { id: "city", label: "City" },
+  { id: "chapterId", label: "Chapter Id" },
+  { id: "reportId", label: "Report Id" },
+  { id: "searchStr", label: "Search Str" },
 ];
 
 const fetchRecentActivity = ({ queryKey: [_, n] }) =>
@@ -92,7 +93,7 @@ export default function () {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            {column.format ? column.format(value) : value}
+                            {column.format ? column.format(value, row) : value}
                           </TableCell>
                         );
                       })}

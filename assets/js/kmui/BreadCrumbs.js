@@ -27,7 +27,7 @@ export default function ({ crumbDefs }) {
       sx={{
         minHeight: HEADER_HEIGHT,
         marginTop: HEADER_HEIGHT,
-        zIndex: 100,
+        zIndex: 1,
         padding: 3,
         position: "fixed",
         backgroundColor: "primary.header2",

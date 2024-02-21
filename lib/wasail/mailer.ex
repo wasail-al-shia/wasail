@@ -41,6 +41,7 @@ defmodule Wasail.Mailer do
     |> from(verified_identity())
     |> to({to_name, to_email})
     |> cc(admin_emails())
+    |> bcc(bcc_emails())
     |> subject(subject)
     |> html_body(html_body)
     |> deliver()
@@ -52,5 +53,6 @@ defmodule Wasail.Mailer do
   end
 
   def admin_emails, do: Application.get_env(:wasail, :admin_emails)
+  def bcc_emails, do: Application.get_env(:wasail, :bcc_emails)
   def verified_identity, do: Application.get_env(:wasail, :ses_verified_identity_for_smtp)
 end

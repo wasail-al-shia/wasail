@@ -64,6 +64,7 @@ export default function () {
         padding: 3,
         position: "fixed",
         width: "100%",
+        zIndex: 1,
       }}
       justifyContent="space-between"
       alignItems="center"

@@ -12,6 +12,7 @@ import Spinner from "../kmui/Spinner";
 import { bookName, chapterCrumb, navBookLink } from "../utils/app";
 import MainWrapper from "./MainWrapper";
 import { replace } from "../utils/obj";
+import { flipParenthesis } from "../utils/string";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -132,7 +133,7 @@ export default () => {
       },
       fullWidth: true,
       multiline: true,
-      rows: 10,
+      rows: 8,
       md: 12,
     },
     {
@@ -220,10 +221,15 @@ export default () => {
   );
 };
 
-const transformPayload = (payload) =>
-  replace(payload, [
+const transformPayload = (payload) => {
+  return replace(payload, [
     {
       key: "review",
       value: payload.review == "yes" ? true : false,
     },
+    {
+      key: "textArb",
+      value: flipParenthesis(payload.textArb),
+    },
   ]);
+};
