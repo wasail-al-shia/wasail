@@ -6,9 +6,6 @@ set -e
 echo "Logging in..."
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 537213935442.dkr.ecr.us-east-1.amazonaws.com
 
-echo "Removing dangling images..." 
-docker image prune --filter="dangling=true" --force
-
 echo "Building new image..."
 docker compose build
 
@@ -22,5 +19,8 @@ docker push 537213935442.dkr.ecr.us-east-1.amazonaws.com/wasail-ecr:latest
 
 echo "Restarting ecs cluster service ..."
 aws ecs update-service --cluster WasailCluster --service WasailAppService --force-new-deployment --no-cli-pager
+
+echo "Removing dangling images..." 
+docker image prune --filter="dangling=true" --force
 
 echo "Success!"

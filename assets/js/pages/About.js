@@ -10,7 +10,7 @@ export default () => {
       <Subheader />
       <MainWrapper>
         <Stack
-          spacing={10}
+          spacing={5}
           sx={{
             backgroundColor: "primary.paper",
             marginTop: 5,
@@ -62,20 +62,25 @@ export default () => {
           <Typography variant="h5">Translation Notes</Typography>
           <Typography>
             This site presents a translation of this important work in order to
-            make the knowledge (ilm) within it accessible to the english
-            speaking audience. We are careful to translate the hadith such that
-            it is as faithful as possible to the original in conveying the
-            meanings. Arabic is an eloquent language and for many words and
-            expressions it is often impossible to find the best equivalent in
-            english. In many cases and especially for well known arabic words we
-            quote the transliterated form of the word directly (e.g. wilayah,
-            ibaadah, aql, kufr, etc). In other cases we we offer a range of
-            applicable meanings in parenthesis. For your reference the arabic
-            text is provided along with the translation and you may want to
-            explore other meaning patterns and possibilities. You can send us
-            comments to improve a translation using the feedback/comment icon
-            that is displayed next to each report. We appreciate your help and
-            feedback.
+            make it accessible to the english speaking audience. We are careful
+            to translate the hadith such that it is as faithful as possible to
+            the original in conveying the meanings. Arabic is an eloquent
+            language and for many words and expressions it is often impossible
+            to find the best equivalent word or exprssion in english. In many
+            cases, especially for well known arabic words, we quote the
+            transliterated form of the word directly (e.g. wilayah, ibaadah,
+            aql, kufr, etc). In other cases we we offer a range of applicable
+            meanings in parenthesis.
+          </Typography>
+          <Typography>
+            We offer minimal and almost no interpretations of the hadith. We
+            encourage the reader to ponder over the deeper meanings and expand
+            their knowledge of the arabic language at the same time. For your
+            reference the arabic text is provided in a clean easy to read font
+            along with the translation and you may want to explore other meaning
+            patterns and possibilities. You can send us comments to improve a
+            translation using the feedback/comment icon that is displayed next
+            to each report. We appreciate your help and feedback.
           </Typography>
           <Typography>
             Note that we have left out (omitted) the transmission chains (sanad)
@@ -85,12 +90,12 @@ export default () => {
           </Typography>
           <Typography variant="h5">Hadith Numbering</Typography>
           <Typography>
-            The Arabic version maintains a standard sequential numbering of the
-            hadith through out the entire collection, starting from 1 (in the
-            first volume) and ending with 35,767 (in the last volume). The site
-            also respects this numbering. Adherance to this standard makes it
-            easy to lookup the equivalent hadith using its number in other
-            editions or translations.
+            The Arabic version maintains a sequential numbering of the hadith
+            through the entire collection, starting from number 1 (in the first
+            volume) and ending with number 35,767 (in the last volume). The site
+            also respects this numbering system and adherance to it makes it
+            easy for anyone to lookup the equivalent hadith using just its
+            number in other works and translations.
           </Typography>
           <Typography variant="h5">Site Features</Typography>
           <Typography>
@@ -102,14 +107,21 @@ export default () => {
             a daily basis, so please check back often. Percentage completion for
             each volume is posted on the book cover.
           </Typography>
+          <Typography variant="h5">Who We Are</Typography>
+          <Typography>
+            We are a multi-national team of individuals with a passion for the
+            arabic language and committed to disseminate the teachings of
+            Ahlulbayt (as). This website is the result of a collaborative effort
+            by language and technology experts. We have just begun the
+            translation and we expect this effort to continue for quite some
+            time until we finish inshaAllah.
+          </Typography>
           <Typography variant="h5">Finally</Typography>
           <Typography>
-            This is a collaborative and ongoing effort and we expect it to
-            continue for quite some time until we finish inshaAllah. Please
-            share the website with others. Please also read the terms of website
-            use below. If you have any questions or comments please feel free to
-            contact us. Thank you for visiting the website and we look forward
-            to your feedback.
+            Please share the website with others. Please also read the terms of
+            website use below. If you have any questions or comments please feel
+            free to contact us. Thank you for visiting the website and we look
+            forward to your feedback.
           </Typography>
         </Stack>
         <Box mt={7} />
