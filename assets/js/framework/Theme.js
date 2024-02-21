@@ -71,6 +71,10 @@ const Theme = createTheme({
       fontSize: "0.9rem",
       fontWeight: 300,
     },
+    termsOfUse: {
+      fontSize: "0.7rem",
+      fontWeight: 200,
+    },
     textEng: {
       fontSize: "1.1rem",
       lineHeight: "1.4rem",

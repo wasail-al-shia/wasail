@@ -133,7 +133,7 @@ export default () => {
       },
       fullWidth: true,
       multiline: true,
-      rows: 8,
+      rows: 7,
       md: 12,
     },
     {
@@ -146,7 +146,7 @@ export default () => {
         style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
       },
       multiline: true,
-      rows: 10,
+      rows: 12,
       md: 12,
     },
   ];
@@ -229,7 +229,7 @@ const transformPayload = (payload) => {
     },
     {
       key: "textArb",
-      value: flipParenthesis(payload.textArb),
+      value: payload.textArb && flipParenthesis(payload.textArb),
     },
   ]);
 };
