@@ -15,7 +15,8 @@ config :wasail, WasailWeb.Endpoint,
   check_origin: false
 
 config :logger, :console,
-  format: "[$level] <$metadata> $message\n",
+  level: :warning,
+  format: "$time [$level] <$metadata> $message\n",
   metadata: [:module, :function]
 
 config :wasail, Wasail.Mailer, adapter: Swoosh.Adapters.ExAwsAmazonSES

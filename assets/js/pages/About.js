@@ -31,7 +31,7 @@ export default () => {
             is monumental collection of Shia hadith. Extensive in its breath and
             comprehensive in its scope, it is a colossal collection covering in
             detail every area of shia religious law. It is a super-collection
-            sourced in turn from early Shia canonical books like{" "}
+            sourced in turn from early Shia canonical collections like{" "}
             <a
               target="_blank"
               href="https://en.wikishia.net/view/Four_Books"

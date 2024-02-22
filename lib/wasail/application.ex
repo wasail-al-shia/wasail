@@ -8,7 +8,7 @@ defmodule Wasail.Application do
 
   @impl true
   def start(_type, _args) do
-    Logger.info("Wasail application is starting...")
+    Logger.warning("Wasail application is starting...")
 
     children = [
       # Start the Ecto repository

@@ -30,7 +30,7 @@ defmodule WasailWeb.Graphql.SectionResolver do
         %{section_id: section_id} = params,
         _info
       ) do
-    Logger.info("update section params: #{inspect(params)}")
+    # Logger.info("update section params: #{inspect(params)}")
 
     case Section.update(section_id, params) do
       {:error, changeset} ->
@@ -44,7 +44,7 @@ defmodule WasailWeb.Graphql.SectionResolver do
   end
 
   def delete_section(%{section_id: section_id}, _info) do
-    Logger.info("delete section: #{inspect(section_id)}")
+    # Logger.info("delete section: #{inspect(section_id)}")
 
     case Section.delete(section_id) do
       {:ok, section} ->

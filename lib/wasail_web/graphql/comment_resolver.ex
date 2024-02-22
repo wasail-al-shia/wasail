@@ -33,7 +33,7 @@ defmodule WasailWeb.Graphql.CommentResolver do
         %{comment_id: comment_id} = params,
         _info
       ) do
-    Logger.info("update comment params: #{inspect(params)}")
+    # Logger.info("update comment params: #{inspect(params)}")
 
     case Comment.update(comment_id, params) do
       {:error, changeset} ->
@@ -47,7 +47,7 @@ defmodule WasailWeb.Graphql.CommentResolver do
   end
 
   def delete_comment(%{comment_id: comment_id}, _info) do
-    Logger.info("delete comment: #{inspect(comment_id)}")
+    # Logger.info("delete comment: #{inspect(comment_id)}")
 
     case Comment.delete(comment_id) do
       {:ok, comment} ->

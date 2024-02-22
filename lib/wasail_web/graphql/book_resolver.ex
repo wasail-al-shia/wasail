@@ -11,7 +11,7 @@ defmodule WasailWeb.Graphql.BookResolver do
   end
 
   def add_book(%{input: params}, _info) do
-    Logger.info("add book params: #{inspect(params)}")
+    # Logger.info("add book params: #{inspect(params)}")
 
     case Book.insert(params) do
       {:error, changeset} ->
@@ -25,7 +25,7 @@ defmodule WasailWeb.Graphql.BookResolver do
   end
 
   def update_book(%{input: %{id: book_id} = params}, _info) do
-    Logger.info("update book params: #{inspect(params)}")
+    # Logger.info("update book params: #{inspect(params)}")
 
     case Book.update(book_id, params) do
       {:error, changeset} ->
@@ -39,7 +39,7 @@ defmodule WasailWeb.Graphql.BookResolver do
   end
 
   def delete_book(%{book_id: id}, _info) do
-    Logger.info("delete book: #{inspect(id)}")
+    # Logger.info("delete book: #{inspect(id)}")
 
     case Book.delete(id) do
       {:ok, book} ->

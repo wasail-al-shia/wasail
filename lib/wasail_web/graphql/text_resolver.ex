@@ -34,7 +34,7 @@ defmodule WasailWeb.Graphql.TextResolver do
         %{text_id: text_id} = params,
         _info
       ) do
-    Logger.info("update text params: #{inspect(params)}")
+    # Logger.info("update text params: #{inspect(params)}")
 
     case Text.update(text_id, params) do
       {:error, changeset} ->
@@ -48,7 +48,7 @@ defmodule WasailWeb.Graphql.TextResolver do
   end
 
   def delete_text(%{text_id: text_id}, _info) do
-    Logger.info("delete text: #{inspect(text_id)}")
+    # Logger.info("delete text: #{inspect(text_id)}")
 
     case Text.delete(text_id) do
       {:ok, text} ->

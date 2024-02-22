@@ -33,7 +33,7 @@ defmodule WasailWeb.Graphql.ChapterResolver do
         %{chapter_id: chapter_id} = params,
         _info
       ) do
-    Logger.info("update chapter params: #{inspect(params)}")
+    # Logger.info("update chapter params: #{inspect(params)}")
 
     case Chapter.update(chapter_id, params) do
       {:error, changeset} ->
@@ -47,7 +47,7 @@ defmodule WasailWeb.Graphql.ChapterResolver do
   end
 
   def delete_chapter(%{chapter_id: chapter_id}, _info) do
-    Logger.info("delete chapter: #{inspect(chapter_id)}")
+    # Logger.info("delete chapter: #{inspect(chapter_id)}")
 
     case Chapter.delete(chapter_id) do
       {:ok, chapter} ->

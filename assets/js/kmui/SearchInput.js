@@ -29,7 +29,7 @@ export default function SearchInput({ onEnter, clearOnEnter = false }) {
         value={searchStr}
         onChange={(event) => setSearchStr(event.target.value)}
         onKeyPress={(event) => {
-          if (event.key === "Enter" && searchStr.trim().length > 2) {
+          if (event.key === "Enter") {
             onEnter(searchStr);
             if (clearOnEnter) setSearchStr("");
           }

@@ -6,13 +6,10 @@ defmodule WasailWeb.AuthController do
   alias Ueberauth.Strategy.Helpers
 
   def request(conn, _params) do
-    Logger.info("In request..")
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
   end
 
   def delete(conn, _params) do
-    Logger.info("Logging user out")
-
     conn
     |> clear_session()
     |> Plug.Conn.put_status(303)
@@ -20,14 +17,14 @@ defmodule WasailWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
-    Logger.info("Failed to authenticate")
+    # Logger.info("Failed to authenticate")
 
     conn
     |> redirect(to: "/")
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    Logger.info("In callback: #{inspect(auth)}")
+    # Logger.info("In callback: #{inspect(auth)}")
 
     user_info =
       %{
@@ -38,7 +35,7 @@ defmodule WasailWeb.AuthController do
         is_admin: Wasail.Util.Sys.is_admin(auth.uid)
       }
 
-    Logger.info("Logged in user info: #{inspect(user_info)}")
+    # Logger.info("Logged in user info: #{inspect(user_info)}")
 
     conn
     |> put_session(:user_info, user_info)

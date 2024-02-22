@@ -12,12 +12,14 @@ import IconButton from "@mui/material/IconButton";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { HEADER_HEIGHT } from "../consts";
 import SearchInput from "../kmui/SearchInput";
-import { navSearchReultsLink } from "../utils/app";
+import { navSearchReultsLink, navReportLink } from "../utils/app";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { isNumeric } from "../utils/string";
 
 export default function Header() {
   const navigate = useNavigate();
-  const { name, avatarUrl, logout, isAdmin } = React.useContext(SessionContext);
+  const { name, avatarUrl, logout, isAdmin, mostRecentReport } =
+    React.useContext(SessionContext);
   const onSmallScreen = useMediaQuery("(max-width:600px)");
 
   const loggedIn = name != null;
@@ -64,9 +66,13 @@ export default function Header() {
           >
             <SearchInput
               onEnter={(searchStr) =>
-                navigate(navSearchReultsLink(searchStr), {
-                  state: { searchStr },
-                })
+                isNumeric(searchStr) && Number(searchStr) <= mostRecentReport.id
+                  ? navigate(navReportLink(Number(searchStr)), {
+                      state: { showBackButton: true },
+                    })
+                  : navigate(navSearchReultsLink(searchStr), {
+                      state: { searchStr },
+                    })
               }
             />
             {loggedIn ? (

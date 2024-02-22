@@ -36,7 +36,7 @@ defmodule Wasail.Search do
           |> Enum.join("+")
           |> Kernel.<>(":*")
 
-        Logger.info("search_term: #{inspect(search_term)}")
+        # Logger.info("search_term: #{inspect(search_term)}")
 
         query =
           from(t in Wasail.Schema.Text,

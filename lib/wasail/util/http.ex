@@ -34,7 +34,7 @@ defmodule Wasail.Util.Http do
       |> maybe_decode_json()
     end
 
-    Logger.info("#{command} : #{url} : #{inspect(payload)} : #{inspect(headers)}")
+    Logger.warning("#{command} : #{url} : #{inspect(payload)} : #{inspect(headers)}")
     final_fn.()
   end
 
@@ -113,10 +113,5 @@ defmodule Wasail.Util.Http do
   def options() do
     timeout = 3600_000
     [connect_timeout: timeout, recv_timeout: timeout, timeout: timeout]
-  end
-
-  def pipe_log(entity, prefix) do
-    Logger.info(prefix <> ":" <> inspect(entity))
-    entity
   end
 end

@@ -65,7 +65,7 @@ defmodule WasailWeb.Graphql.ReportResolver do
         %{report_id: report_id} = params,
         _info
       ) do
-    Logger.info("update report params: #{inspect(params)}")
+    # Logger.info("update report params: #{inspect(params)}")
 
     case Report.update(report_id, params) do
       {:error, changeset} ->
@@ -79,7 +79,7 @@ defmodule WasailWeb.Graphql.ReportResolver do
   end
 
   def delete_report(%{report_id: report_id}, _info) do
-    Logger.info("delete report: #{inspect(report_id)}")
+    # Logger.info("delete report: #{inspect(report_id)}")
 
     case Report.delete(report_id) do
       {:ok, report} ->

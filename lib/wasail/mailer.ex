@@ -35,7 +35,7 @@ defmodule Wasail.Mailer do
   end
 
   def send_html(subject, html_body, to_name, to_email) do
-    Logger.info("In send with body #{inspect(html_body)}")
+    # Logger.info("In send with body #{inspect(html_body)}")
 
     new()
     |> from(verified_identity())

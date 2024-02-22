@@ -57,8 +57,10 @@ export default function () {
       <Subheader />
       <MainWrapper>
         {searchResults.length == 0 ? (
-          <Stack alignItems="center">
-            <Box
+          <>
+            <BackButton />
+            <Stack
+              alignItems="center"
               sx={{
                 padding: 15,
                 backgroundColor: "#fff",
@@ -67,12 +69,17 @@ export default function () {
                 maxWidth: MAX_WIDTH_CONTENT,
               }}
             >
-              <BackButton />
               <Typography align="center" variant="h4">
                 No results found!
               </Typography>
-            </Box>
-          </Stack>
+              <Box mt={5} />
+              <Typography align="center" variant="h6">
+                Please try the search again later. We are in the process of
+                adding content to the site. Search results will improve over
+                time.
+              </Typography>
+            </Stack>
+          </>
         ) : (
           <>
             <Stack

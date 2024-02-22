@@ -8,3 +8,5 @@ function swapBracket(br) {
 }
 
 export const flipParenthesis = (str) => str.replace(/[()[\]{}]/g, swapBracket);
+
+export const isNumeric = (value) => /^\d+$/.test(value);
