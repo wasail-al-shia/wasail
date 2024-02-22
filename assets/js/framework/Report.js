@@ -271,7 +271,11 @@ export default ({ report, onEdit }) => {
         border: "1px solid gray",
         borderRadius: 1,
         backgroundColor:
-          isAdmin && report.review ? "primary.review" : "primary.paper",
+          isAdmin && report.review
+            ? "primary.review"
+            : isAdmin && report.hide
+            ? "primary.light"
+            : "primary.paper",
         padding: 6,
       }}
     >

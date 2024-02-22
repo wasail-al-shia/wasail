@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import { DialogContext } from "../context/DialogContext";
+import { SessionContext } from "../context/SessionContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { bookName, chapterCrumb, navBookLink } from "../utils/app";
@@ -45,6 +46,7 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
       reportNo
       headingEng
       review
+      hide 
       texts {
         id
         fragmentNo
@@ -62,6 +64,7 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
 
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
+  const { isAdmin } = React.useContext(SessionContext);
   const { chapterId } = useParams();
   const { data: reports = [], isFetching: fetchingReports } = useQuery(
     ["reports", chapterId],
@@ -87,14 +90,31 @@ export default () => {
       sx: { width: 100 },
       defaultValue: nextSeqNo,
       rules: { required: true },
-      md: 6,
+      md: 4,
     },
     {
       name: "review",
       label: "Needs review?",
       type: "radio",
       defaultValue: "yes",
-      md: 6,
+      md: 4,
+      options: [
+        {
+          value: "yes",
+          label: "Yes",
+        },
+        {
+          value: "no",
+          label: "No",
+        },
+      ],
+    },
+    {
+      name: "hide",
+      label: "Hide?",
+      type: "radio",
+      defaultValue: "no",
+      md: 4,
       options: [
         {
           value: "yes",
@@ -176,31 +196,34 @@ export default () => {
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
         <Stack alignItems="center" direction="column" spacing={3.5}>
-          {reports.map((report) => (
-            <Report
-              key={report.id}
-              report={{ ...report, chapter }}
-              onEdit={() =>
-                openDialog("dataEntry", {
-                  key: report.id,
-                  title: "Update report",
-                  dataQueryKeys: ["reports"],
-                  fields: reportFields,
-                  mutationApi: "updateReport",
-                  defaultValues: {
-                    ...report,
-                    review: report.review ? "yes" : "no",
-                  },
-                  basePayload: { reportId: report.id },
-                  transformPayload,
-                  deleteApi: "deleteReport",
-                  deletePayload: {
-                    reportId: report.id,
-                  },
-                })
-              }
-            />
-          ))}
+          {reports
+            .filter((r) => isAdmin || !r.hide)
+            .map((report) => (
+              <Report
+                key={report.id}
+                report={{ ...report, chapter }}
+                onEdit={() =>
+                  openDialog("dataEntry", {
+                    key: report.id,
+                    title: "Update report",
+                    dataQueryKeys: ["reports"],
+                    fields: reportFields,
+                    mutationApi: "updateReport",
+                    defaultValues: {
+                      ...report,
+                      review: report.review ? "yes" : "no",
+                      hide: report.hide ? "yes" : "no",
+                    },
+                    basePayload: { reportId: report.id },
+                    transformPayload,
+                    deleteApi: "deleteReport",
+                    deletePayload: {
+                      reportId: report.id,
+                    },
+                  })
+                }
+              />
+            ))}
         </Stack>
       </MainWrapper>
       <FabAddButton
@@ -226,6 +249,10 @@ const transformPayload = (payload) => {
     {
       key: "review",
       value: payload.review == "yes" ? true : false,
+    },
+    {
+      key: "hide",
+      value: payload.hide == "yes" ? true : false,
     },
     {
       key: "textArb",

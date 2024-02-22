@@ -4,6 +4,8 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 export default () => {
   return (
     <>
@@ -66,10 +68,10 @@ export default () => {
             to translate the hadith such that it is as faithful as possible to
             the original in conveying the meanings. Arabic is an eloquent
             language and for many words and expressions it is often impossible
-            to find the best equivalent word or exprssion in english. In many
+            to find the best equivalent word or expression in english. In many
             cases, especially for well known arabic words, we quote the
             transliterated form of the word directly (e.g. wilayah, ibaadah,
-            aql, kufr, etc). In other cases we we offer a range of applicable
+            aql, kufr, etc). In other cases we offer a range of applicable
             meanings in parenthesis.
           </Typography>
           <Typography>
@@ -79,40 +81,48 @@ export default () => {
             reference the arabic text is provided in a clean easy to read font
             along with the translation and you may want to explore other meaning
             patterns and possibilities. You can send us comments to improve a
-            translation using the feedback/comment icon that is displayed next
-            to each report. We appreciate your help and feedback.
+            translation using the comment
+            <ChatBubbleOutlineIcon
+              sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
+            />
+            icon that is displayed next to each report. We appreciate your help
+            and feedback.
           </Typography>
           <Typography>
-            Note that we have left out (omitted) the transmission chains (sanad)
-            from the translations to increase readability. This information can
-            be looked up easily (if required) in the original arabic copies that
-            are available online and can also be downloaded from this site.
+            Note that we have left out (omitted) the transmission chains
+            (asnaad) from the translations to increase readability of the main
+            hadith content. The asnaad can be looked up easily (if required)
+            from the original arabic editions that are available online and can
+            also be downloaded from this site.
           </Typography>
           <Typography variant="h5">Hadith Numbering</Typography>
           <Typography>
             The Arabic version maintains a sequential numbering of the hadith
             through the entire collection, starting from number 1 (in the first
             volume) and ending with number 35,767 (in the last volume). The site
-            also respects this numbering system and adherance to it makes it
-            easy for anyone to lookup the equivalent hadith using just its
-            number in other works and translations.
+            respects this numbering system and as an added benefit, adherance to
+            it makes it easy for anyone to lookup the equivalent hadith, using
+            just its number, in other works and translations.
           </Typography>
           <Typography variant="h5">Site Features</Typography>
           <Typography>
             This is a dynamic website and all hadith are orgranized and indexed
             in a bi-lingual database. The site provides a search capability
             which will be improved further inshaAllah. An individual hadith can
-            be copied and shared by clicking the 'Copy to Clipboard' icon next
-            to each report. The site is updated with new translations on almost
-            a daily basis, so please check back often. Percentage completion for
-            each volume is posted on the book cover.
+            be copied and shared by clicking the Copy To Clipboard
+            <ContentCopyIcon
+              sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
+            />
+            icon next to each report. The site is updated with new translations
+            on almost a daily basis, so please check back often. Percentage
+            completion for each volume is posted on the book cover.
           </Typography>
           <Typography variant="h5">Who We Are</Typography>
           <Typography>
-            We are a multi-national team of individuals with a passion for the
-            arabic language and committed to disseminate the teachings of
-            Ahlulbayt (as). This website is the result of a collaborative effort
-            by language and technology experts. We have just begun the
+            We are a team of individuals with a passion for the arabic language
+            and committed to disseminating the teachings of Ahlulbayt (alayhum
+            assalam). This website is the result of a collaborative effort by
+            language and technology experts. We have recently begun the
             translation and we expect this effort to continue for quite some
             time until we finish inshaAllah.
           </Typography>

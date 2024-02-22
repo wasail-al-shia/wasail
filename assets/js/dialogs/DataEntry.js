@@ -168,7 +168,7 @@ export default ({
 };
 
 const Fields = ({ fields, control }) => (
-  <Grid container sx={{ padding: 3 }} spacing={5}>
+  <Grid container sx={{ padding: 3 }} alignItems="center" spacing={5}>
     {fields.map((f) => (
       <Grid md={f.md || 6} key={f.name}>
         <DynamicInput {...f} control={control} />

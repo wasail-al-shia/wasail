@@ -67,6 +67,7 @@ defmodule Wasail.Report do
       :heading_eng,
       :hide,
       :review,
+      :hide,
       :notes
     ])
     |> Ecto.Changeset.validate_required([

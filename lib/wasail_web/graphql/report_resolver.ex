@@ -39,6 +39,7 @@ defmodule WasailWeb.Graphql.ReportResolver do
           report_no: _report_no,
           heading_eng: _heading_eng,
           review: _review,
+          hide: _hide,
           text_eng: _text_eng,
           text_arb: _text_arb
         } = params,

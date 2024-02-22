@@ -55,7 +55,7 @@ const fetchActivityCount = () =>
 
 export default function () {
   const { data: recentActivity = [], isFetching } = useQuery(
-    ["recentActivity", 100],
+    ["recentActivity", 200],
     fetchRecentActivity
   );
   const { data: totalActivityCount = 0 } = useQuery(
