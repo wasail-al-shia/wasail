@@ -69,32 +69,31 @@ export default () => {
             the original in conveying the meanings. Arabic is an eloquent
             language and for many words and expressions it is often impossible
             to find the best equivalent word or expression in english. In many
-            cases, especially for well known arabic words, we quote the
+            cases, especially for well known Arabic words, we quote the
             transliterated form of the word directly (e.g. wilayah, ibaadah,
             aql, kufr, etc). In other cases we offer a range of applicable
             meanings in parenthesis.
           </Typography>
           <Typography>
-            We offer minimal and almost no interpretations of the hadith. We
-            encourage the reader to ponder over the deeper meanings and expand
-            their knowledge of the arabic language at the same time. For your
-            reference the arabic text is provided in a clean easy to read font
-            along with the translation and you may want to explore other meaning
-            patterns and possibilities. Longer hadith are split into multiple
-            fragments to make it easier to follow the arabic along with the
-            translation. You can send us comments to improve a translation using
-            the comment
+            For your reference the Arabic text is provided in a readable font
+            along with the translation. Longer hadith are split into multiple
+            fragments to make it easier to follow the Arabic along with the
+            translation. If you have a good grasp of the Arabic language, we
+            encourage you to ponder over the deeper meanings and explore other
+            meaning patterns and possibilities. If you have any questions,
+            comments, corrections, or improvements on a particular translation
+            please use the
             <ChatBubbleOutlineIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
-            icon that is displayed next to each report. We appreciate your help
-            and feedback.
+            icon, displayed next to each report, to send us your feedback. We
+            value your help and feedback.
           </Typography>
           <Typography>
             Note that we have left out (omitted) the transmission chains
             (asnaad) from the translations to increase readability of the main
             hadith content. The chain (sanad) can be looked up easily (if
-            required) from the original arabic editions that are available
+            required) from the original Arabic editions that are available
             online and can also be downloaded from this site.
           </Typography>
           <Typography variant="h5">Hadith Numbering</Typography>
@@ -102,43 +101,43 @@ export default () => {
             The Arabic version maintains a sequential numbering of the hadith
             through the entire collection, starting from number 1 (in the first
             volume) and ending with number 35,767 (in the last volume). The site
-            follows this numbering system. Adhering to this system has an added
-            benefit: it becomes easy to lookup the same hadith, using just its
-            number, in other works and translations.
+            follows this numbering system and all hadith numbers match with the
+            Arabic version. The number will also match with references in other
+            works (that quote from Wasail Al Shia) and with other language
+            translations.
           </Typography>
           <Typography variant="h5">Site Features</Typography>
           <Typography>
-            This is a dynamic website and all hadith are orgranized and indexed
-            in a bi-lingual database. The site provides a search capability
-            which will be improved further inshaAllah. An individual hadith can
-            be copied and shared by clicking the Copy To Clipboard
+            All hadith are orgranized and indexed in a multi-lingual database.
+            The site provides a search capability which will be improved further
+            inshaAllah. An individual hadith can be copied and shared by
+            clicking the Copy To Clipboard
             <ContentCopyIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
             icon next to each report. The site is updated with new translations
             on almost a daily basis, so please check back often. Percentage
-            completion for each volume is posted on the book cover.
+            completion for each volume is posted on the book cover on the home
+            page.
           </Typography>
           <Typography variant="h5">Who We Are</Typography>
           <Typography>
-            We are a team of individuals with a passion for the arabic language
-            and committed to disseminating the teachings of Ahlulbayt (peace be
-            upon them). This website is the result of a collaborative effort by
-            language and technology experts. We have recently begun the
-            translation and we expect this effort to continue for quite some
-            time until we finish inshaAllah.
+            We are a team of individuals committed to disseminating the
+            teachings of Ahlulbayt (peace be upon them). This website is the
+            result of a collaborative effort by language and technology experts.
+            We have recently begun the translation and we expect this effort to
+            continue for quite some time until we finish inshaAllah.
           </Typography>
           <Typography variant="h5">Finally</Typography>
           <Typography>
-            Please share the website with others. Please also read the terms of
-            website use below. If you have any questions or comments please feel
-            free to contact us. Thank you for visiting the website and we look
-            forward to your feedback.
+            Please read the terms of website use below. If you have any
+            questions or comments please feel free to contact us. Thank you for
+            visiting the website and we look forward to your feedback.
           </Typography>
         </Stack>
         <Box mt={7} />
         <Stack spacing={5}>
-          <Typography variant="termsOfUse">Terms of Website Use:</Typography>
+          <Typography variant="footer">Terms of Website Use</Typography>
           <Typography variant="termsOfUse">
             Please read these terms of use carefully before you start to use the
             site. By using our site, you indicate that you accept these terms of
@@ -148,6 +147,9 @@ export default () => {
             below). We will not be liable if for any reason our site is
             unavailable at any time or for any period. From time to time, we may
             restrict access to some parts of our site, or our entire site.
+          </Typography>
+          <Typography variant="termsOfUse">
+            Intellectual Property Rights
           </Typography>
           <Typography variant="termsOfUse">
             We are the owner and the licensee of all intellectual property
@@ -167,6 +169,7 @@ export default () => {
             at our option, return or destroy any copies of the materials you
             have made.
           </Typography>
+          <Typography variant="termsOfUse">Access to Website</Typography>
           <Typography variant="termsOfUse">
             Our site changes regularly We aim to update our site regularly, and
             may change the content at any time. If the need arises, we may
@@ -176,6 +179,7 @@ export default () => {
             displayed on our site is provided without any guarantees, conditions
             or warranties as to its accuracy.
           </Typography>
+          <Typography variant="termsOfUse">Privacy Policy</Typography>
           <Typography variant="termsOfUse">
             We are committed to respecting your privacy. Our Privacy Policy sets
             out the terms on which we process any personal data we collect from
@@ -187,6 +191,7 @@ export default () => {
             our site. You must not attack our site via a denial-of-service
             attack or a distributed denial-of service attack.
           </Typography>
+          <Typography variant="termsOfUse">Linking and Referencing</Typography>
           <Typography variant="termsOfUse">
             You may link to our home page, provided you do so in a way that is
             fair and legal and does not damage our reputation or take advantage
@@ -196,6 +201,9 @@ export default () => {
             not owned by you unless this is in relation to a forum or blog site
             or other website where such linking is permitted. Our site must not
             be framed on any other site.
+          </Typography>
+          <Typography variant="termsOfUse">
+            Governed by International Law
           </Typography>
           <Typography variant="termsOfUse">
             These terms of use shall be governed by international laws. If

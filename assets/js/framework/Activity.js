@@ -5,6 +5,7 @@ import MainWrapper from "./MainWrapper";
 import Subheader from "./Subheader";
 import Spinner from "../kmui/Spinner";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,6 +14,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { formatIsoStrToLocal } from "../utils/date";
+import {
+  navChapterLink,
+  navReportLink,
+  navSearchReultsLink,
+} from "../utils/app";
 
 const columns = [
   {
@@ -27,9 +33,26 @@ const columns = [
     format: (v, rowData) => `${v} (${rowData.country})`,
   },
   { id: "city", label: "City" },
-  { id: "chapterId", label: "Chapter Id" },
-  { id: "reportId", label: "Report Id" },
-  { id: "searchStr", label: "Search Str" },
+  {
+    id: "chapterId",
+    format: (v) => (v ? <Link to={navChapterLink(v)}>{v}</Link> : null),
+    label: "Chapter Id",
+  },
+  {
+    id: "reportId",
+    format: (v) => (v ? <Link to={navReportLink(v)}>{v}</Link> : null),
+    label: "Report Id",
+  },
+  {
+    id: "searchStr",
+    format: (v) =>
+      v ? (
+        <Link to={navSearchReultsLink(v)} state={{ searchStr: v }}>
+          {v}
+        </Link>
+      ) : null,
+    label: "Search",
+  },
 ];
 
 const fetchRecentActivity = ({ queryKey: [_, n] }) =>
