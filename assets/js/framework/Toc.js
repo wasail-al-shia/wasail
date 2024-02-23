@@ -387,7 +387,7 @@ export default () => {
               <SectionCard section={section} />
             </AccordionSummary>
             <AccordionDetails>
-              <Stack spacing={3}>
+              <Stack sx={{ paddingLeft: 2, paddingRight: 2 }} spacing={3}>
                 {section.chapters.map((chapter) => (
                   <ChapterCard key={chapter.id} chapter={chapter} />
                 ))}

@@ -40,7 +40,7 @@ defmodule WasailWeb.Router do
     delete "/logout", AuthController, :delete
   end
 
-  scope "/graphiql" do
+  scope "/iql" do
     forward("/", Absinthe.Plug.GraphiQL,
       schema: WasailWeb.Graphql.Schema,
       interface: :simple

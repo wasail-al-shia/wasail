@@ -80,8 +80,10 @@ export default () => {
             their knowledge of the arabic language at the same time. For your
             reference the arabic text is provided in a clean easy to read font
             along with the translation and you may want to explore other meaning
-            patterns and possibilities. You can send us comments to improve a
-            translation using the comment
+            patterns and possibilities. Longer hadith are split into multiple
+            fragments to make it easier to follow the arabic along with the
+            translation. You can send us comments to improve a translation using
+            the comment
             <ChatBubbleOutlineIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
@@ -91,18 +93,18 @@ export default () => {
           <Typography>
             Note that we have left out (omitted) the transmission chains
             (asnaad) from the translations to increase readability of the main
-            hadith content. The asnaad can be looked up easily (if required)
-            from the original arabic editions that are available online and can
-            also be downloaded from this site.
+            hadith content. The chain (sanad) can be looked up easily (if
+            required) from the original arabic editions that are available
+            online and can also be downloaded from this site.
           </Typography>
           <Typography variant="h5">Hadith Numbering</Typography>
           <Typography>
             The Arabic version maintains a sequential numbering of the hadith
             through the entire collection, starting from number 1 (in the first
             volume) and ending with number 35,767 (in the last volume). The site
-            respects this numbering system and as an added benefit, adherance to
-            it makes it easy for anyone to lookup the equivalent hadith, using
-            just its number, in other works and translations.
+            follows this numbering system. Adhering to this system has an added
+            benefit: it becomes easy to lookup the same hadith, using just its
+            number, in other works and translations.
           </Typography>
           <Typography variant="h5">Site Features</Typography>
           <Typography>
@@ -120,8 +122,8 @@ export default () => {
           <Typography variant="h5">Who We Are</Typography>
           <Typography>
             We are a team of individuals with a passion for the arabic language
-            and committed to disseminating the teachings of Ahlulbayt (alayhum
-            assalam). This website is the result of a collaborative effort by
+            and committed to disseminating the teachings of Ahlulbayt (peace be
+            upon them). This website is the result of a collaborative effort by
             language and technology experts. We have recently begun the
             translation and we expect this effort to continue for quite some
             time until we finish inshaAllah.

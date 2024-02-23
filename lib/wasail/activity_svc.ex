@@ -5,6 +5,7 @@ defmodule Wasail.ActivitySvc do
     case Wasail.IpInfo.get_by_ip(ip) do
       nil ->
         try do
+          # TODO: Add retry logic
           db_rec =
             construct_url(ip)
             |> Wasail.Util.Http.get()

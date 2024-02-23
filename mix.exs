@@ -69,7 +69,8 @@ defmodule Wasail.MixProject do
       {:ex_aws_s3, "~> 2.5"},
       {:hackney, "~> 1.20"},
       {:sweet_xml, "~> 0.7.4"},
-      {:content_disposition, "~> 1.0"}
+      {:content_disposition, "~> 1.0"},
+      {:retry, "~> 0.18.0"}
     ]
   end
 

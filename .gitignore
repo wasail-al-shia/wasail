@@ -44,6 +44,8 @@ npm-debug.log
 
 .tool-versions
 
+.temp.txt
+
 # env files
 *.env
 
