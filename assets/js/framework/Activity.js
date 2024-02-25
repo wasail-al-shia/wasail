@@ -93,7 +93,7 @@ export default function () {
           Total Activity Count: {totalActivityCount}
         </Typography>
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: "85vh" }}>
+          <TableContainer sx={{ maxHeight: "90vh" }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>

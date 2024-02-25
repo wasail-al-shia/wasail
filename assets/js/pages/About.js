@@ -65,7 +65,7 @@ export default () => {
           <Typography>
             This site presents a translation of this important work in order to
             make it accessible to the english speaking audience. We are careful
-            to translate the hadith such that it is as faithful as possible to
+            to translate the hadith such that, it is as faithful as possible to
             the original in conveying the meanings. Arabic is an eloquent
             language and for many words and expressions it is often impossible
             to find the best equivalent word or expression in english. In many
@@ -82,7 +82,7 @@ export default () => {
             encourage you to ponder over the deeper meanings and explore other
             meaning patterns and possibilities. If you have any questions,
             comments, corrections, or improvements on a particular translation
-            please use the
+            please use the feedback
             <ChatBubbleOutlineIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
@@ -110,8 +110,9 @@ export default () => {
           <Typography>
             All hadith are orgranized and indexed in a multi-lingual database.
             The site provides a search capability which will be improved further
-            inshaAllah. An individual hadith can be copied and shared by
-            clicking the Copy To Clipboard
+            inshaAllah. The search results will continue to improve as we add
+            more content inshaAllah. An individual hadith can be copied and
+            shared by clicking the Copy To Clipboard
             <ContentCopyIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
@@ -132,7 +133,8 @@ export default () => {
           <Typography>
             Please read the terms of website use below. If you have any
             questions or comments please feel free to contact us. Thank you for
-            visiting the website and we look forward to your feedback.
+            visiting the website and we look forward to your support and
+            feedback.
           </Typography>
         </Stack>
         <Box mt={7} />

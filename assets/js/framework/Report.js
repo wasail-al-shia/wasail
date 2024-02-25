@@ -60,7 +60,7 @@ export default ({ report, onEdit }) => {
       type: "text",
       fullWidth: true,
       inputProps: {
-        style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
+        style: { fontSize: "1.1rem", fontFamily: "Overpass Variable" },
       },
       multiline: true,
       rows: 10,
