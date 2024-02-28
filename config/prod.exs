@@ -1,6 +1,5 @@
 import Config
 
-# Configure your database
 config :wasail, Wasail.Repo,
   timeout: :timer.minutes(10),
   pool_size: 3,

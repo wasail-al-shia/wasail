@@ -362,7 +362,6 @@ export default () => {
         {sections.map((section) => (
           <Accordion
             disableGutters
-            defaultExpanded
             sx={{
               padding: 0,
               margin: 3,

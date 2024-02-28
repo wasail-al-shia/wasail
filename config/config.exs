@@ -1,17 +1,10 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Config module.
-#
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
-
-# General application configuration
 import Config
 
 config :wasail,
   ecto_repos: [Wasail.Repo],
   bk_cd_ws: "ws",
   #                  shuaybi                tasneemshoeb             wasail.al.shia
-  admin_uids: ["113405576099734332839", "108485062904594919718", "115106629340710687706"],
+  admin_uids: ["xx_113405576099734332839", "108485062904594919718", "115106629340710687706"],
   admin_emails: ["wasail.al.shia@gmail.com"],
   bcc_emails: ["shuaybi@gmail.com"],
   ses_verified_identity_for_smtp: {"Wasail Al Shia", "wasail.al.shia@gmail.com"},

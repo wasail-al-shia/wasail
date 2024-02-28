@@ -41,6 +41,7 @@ defmodule WasailWeb.Router do
   end
 
   scope "/iql" do
+    # TODO: restrict to admins
     forward("/", Absinthe.Plug.GraphiQL,
       schema: WasailWeb.Graphql.Schema,
       interface: :simple

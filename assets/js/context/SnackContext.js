@@ -11,11 +11,11 @@ function RenderSnack({ id, message, open, handleClose, severity }) {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
+        vertical: "top",
+        horizontal: "center",
       }}
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={4000}
       onClose={handleClose}
       ContentProps={{
         "aria-describedby": messageId,
