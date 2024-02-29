@@ -8,7 +8,7 @@ export default function (props) {
       sx={{
         width: "100%",
         position: "absolute",
-        marginTop: `calc((2 * ${HEADER_HEIGHT})  + 0.7rem)`,
+        marginTop: `calc((2 * ${HEADER_HEIGHT})  + 0.5rem)`,
         paddingLeft: 5,
         paddingRight: 5,
       }}

@@ -28,8 +28,9 @@ export default function ({ crumbDefs }) {
         minHeight: HEADER_HEIGHT,
         marginTop: HEADER_HEIGHT,
         zIndex: 1,
-        padding: 3,
         position: "fixed",
+        paddingTop: 3,
+        paddingLeft: 3,
         backgroundColor: "primary.header2",
         width: "100%",
         ".MuiBreadcrumbs-separator": {
