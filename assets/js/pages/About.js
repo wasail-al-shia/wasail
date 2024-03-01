@@ -29,9 +29,9 @@ export default () => {
               Wasail Al Shia
             </a>{" "}
             is monumental collection of Shia hadith. Extensive in its breath and
-            comprehensive in its scope, it is a colossal collection covering in
-            detail every area of shia religious law. It is a super-collection
-            sourced in turn from early Shia canonical collections like{" "}
+            comprehensive in its scope, it is a covers in detail every area of
+            shia religious law. It is a super-collection sourced in turn from
+            the earlier Shia canonical collections like{" "}
             <a
               target="_blank"
               href="https://en.wikishia.net/view/Four_Books"
@@ -40,7 +40,7 @@ export default () => {
               Kutub-e-Araba
             </a>{" "}
             (Four Books) and many other reputable primary sources (like Mahasin,
-            Basair al Darajat, etc). It comprises of a total of 36,000 hadith
+            Basair al Darajat, etc). It comprises of approximately 36,000 hadith
             organized into 30 volumes.
           </Typography>
           <Typography variant="h5">Shaykh Hurr Amili</Typography>
@@ -69,7 +69,7 @@ export default () => {
             the original in conveying the meanings. Arabic is an eloquent
             language and for many words and expressions it is often impossible
             to find the best equivalent word or expression in english. In many
-            cases, especially for well known Arabic words, we quote the
+            cases, and especially for well known Arabic words, we quote the
             transliterated form of the word directly (e.g. wilayah, ibaadah,
             aql, kufr, etc). In other cases we offer a range of applicable
             meanings in parenthesis.
@@ -77,7 +77,7 @@ export default () => {
           <Typography>
             For your reference the Arabic text is provided in a readable font
             along with the translation. Longer hadith are split into multiple
-            fragments to make it easier to follow the Arabic along with the
+            segments to make it easier to follow the Arabic along with the
             translation. If you have a good grasp of the Arabic language, we
             encourage you to ponder over the deeper meanings and explore other
             meaning patterns and possibilities. If you have any questions,
@@ -101,18 +101,18 @@ export default () => {
             The Arabic version maintains a sequential numbering of the hadith
             through the entire collection, starting from number 1 (in the first
             volume) and ending with number 35,767 (in the last volume). The site
-            follows this numbering system and all hadith numbers match with the
-            Arabic version. The number will also match with references in other
-            works (that quote from Wasail Al Shia) and with other language
-            translations.
+            follows this numbering system and consequently all hadith numbers
+            match with the Arabic version. The number will also match with
+            references in other works (that quote from Wasail Al Shia) and with
+            other language translations.
           </Typography>
           <Typography variant="h5">Site Features</Typography>
           <Typography>
             All hadith are orgranized and indexed in a multi-lingual database.
             The site provides a search capability which will be improved further
-            inshaAllah. The search results will continue to improve as we add
-            more content inshaAllah. An individual hadith can be copied and
-            shared by clicking the Copy To Clipboard
+            inshaAllah. The search results will continue to improve as we make
+            progress on the translation inshaAllah. An individual hadith can be
+            copied and shared by clicking the Copy To Clipboard
             <ContentCopyIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
@@ -126,8 +126,8 @@ export default () => {
             We are a team of individuals committed to disseminating the
             teachings of Ahlulbayt (peace be upon them). This website is the
             result of a collaborative effort by language and technology experts.
-            We have recently begun the translation and we expect this effort to
-            continue for quite some time until we finish inshaAllah.
+            We have recently begun the translation project and we expect this
+            effort to continue for quite some time until we finish inshaAllah.
           </Typography>
           <Typography variant="h5">Finally</Typography>
           <Typography>

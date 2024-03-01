@@ -28,15 +28,16 @@ export default function Header() {
       component="img"
       sx={{
         cursor: "pointer",
-        height: "1.5rem",
-        width: "1.8rem",
+        height: "1.8rem",
+        width: "2.0rem",
         paddingTop: 0,
         paddingBottom: 0,
         borderRadius: 1,
         padding: 0,
         margin: 0,
       }}
-      src={"/images/ya_allah_logo.png"}
+      //https://fineartamerica.com/featured/allah--turquoise-and-gold-faraz-khan.html
+      src={"/images/ws_allah_logo.png"}
       onClick={() => navigate("/")}
     />
   );
