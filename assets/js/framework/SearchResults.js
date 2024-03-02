@@ -57,8 +57,10 @@ export default function () {
       <Subheader />
       <MainWrapper>
         {searchResults.length == 0 ? (
-          <>
-            <BackButton />
+          <Stack alignItems="center">
+            <Box sx={{ width: "100%" }}>
+              <BackButton />
+            </Box>
             <Stack
               alignItems="center"
               sx={{
@@ -79,7 +81,7 @@ export default function () {
                 time.
               </Typography>
             </Stack>
-          </>
+          </Stack>
         ) : (
           <>
             <Stack

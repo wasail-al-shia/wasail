@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { HEADER_HEIGHT } from "../consts";
 import SearchInput from "../kmui/SearchInput";
-import { navSearchReultsLink, navReportLink } from "../utils/app";
+import { navSearchReultsLink, navWsReportLink } from "../utils/app";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { isNumeric } from "../utils/string";
 
@@ -68,7 +68,7 @@ export default function Header() {
             <SearchInput
               onEnter={(searchStr) =>
                 isNumeric(searchStr) && Number(searchStr) <= mostRecentReport.id
-                  ? navigate(navReportLink(Number(searchStr)), {
+                  ? navigate(navWsReportLink(Number(searchStr)), {
                       state: { showBackButton: true },
                     })
                   : navigate(navSearchReultsLink(searchStr), {

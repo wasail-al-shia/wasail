@@ -174,7 +174,7 @@ export default ({ wsReportId }) => {
   const Comment = ({ comment }) => (
     <Stack sx={{ backgroundColor: "primary.backdrop", padding: 5 }} spacing={5}>
       <Typography align="justify" variant="comment">
-        Comment: {parse(comment.commentEng)}
+        {parse(comment.commentEng)}
       </Typography>
     </Stack>
   );

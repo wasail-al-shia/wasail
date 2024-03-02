@@ -15,7 +15,6 @@ export default () => {
           spacing={5}
           sx={{
             backgroundColor: "primary.paper",
-            marginTop: 5,
             padding: 5,
           }}
         >
@@ -28,10 +27,10 @@ export default () => {
             >
               Wasail Al Shia
             </a>{" "}
-            is monumental collection of Shia hadith. Extensive in its breath and
-            comprehensive in its scope, it is a covers in detail every area of
-            shia religious law. It is a super-collection sourced in turn from
-            the earlier Shia canonical collections like{" "}
+            is one of the most notable and comprehensive collection of shia
+            jurisprudential hadith, rigorously covering every area of religious
+            law. It is an encyclopedic super-collection sourced in turn from
+            earlier reliable Shia canonical collections like{" "}
             <a
               target="_blank"
               href="https://en.wikishia.net/view/Four_Books"
@@ -39,9 +38,9 @@ export default () => {
             >
               Kutub-e-Araba
             </a>{" "}
-            (Four Books) and many other reputable primary sources (like Mahasin,
-            Basair al Darajat, etc). It comprises of approximately 36,000 hadith
-            organized into 30 volumes.
+            (Four Books) and many other reputable primary sources of hadith
+            (like Mahasin, Basair al Darajat, etc). It comprises of
+            approximately 36,000 hadith organized into 30 volumes.
           </Typography>
           <Typography variant="h5">Shaykh Hurr Amili</Typography>
           <Typography>
@@ -78,11 +77,8 @@ export default () => {
             For your reference the Arabic text is provided in a readable font
             along with the translation. Longer hadith are split into multiple
             segments to make it easier to follow the Arabic along with the
-            translation. If you have a good grasp of the Arabic language, we
-            encourage you to ponder over the deeper meanings and explore other
-            meaning patterns and possibilities. If you have any questions,
-            comments, corrections, or improvements on a particular translation
-            please use the feedback
+            translation. If you have any questions, comments, corrections, or
+            improvements on a particular translation please use the feedback
             <ChatBubbleOutlineIcon
               sx={{ fontSize: "1.2rem", marginLeft: 3, marginRight: 3 }}
             />
