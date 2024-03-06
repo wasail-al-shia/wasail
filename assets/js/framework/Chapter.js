@@ -79,7 +79,8 @@ export default () => {
       },
     },
   });
-  const nextSeqNo = Math.max(...reports.map((r) => r.reportNo)) + 1;
+  const nextSeqNo =
+    reports.length > 0 ? Math.max(...reports.map((r) => r.reportNo)) + 1 : null;
 
   const reportFields = [
     {
@@ -153,6 +154,7 @@ export default () => {
       },
       fullWidth: true,
       multiline: true,
+      rules: { required: true },
       rows: 7,
       md: 12,
     },
@@ -166,6 +168,7 @@ export default () => {
         style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
       },
       multiline: true,
+      rules: { required: true },
       rows: 12,
       md: 12,
     },
@@ -181,7 +184,12 @@ export default () => {
       crumbName: bookName(chapter.section.book),
     },
     {
-      crumbName: chapterCrumb(chapter.section.sectionNo, chapter.chapterNo),
+      crumbName: chapterCrumb(
+        chapter.section.sectionNo,
+        chapter.chapterNo,
+        chapter.section.nameEng,
+        chapter.nameEng
+      ),
       toolTip: (
         <Stack>
           <Typography variant="h5">{chapter.section.nameEng}</Typography>
@@ -236,7 +244,9 @@ export default () => {
           onlyDirty: false,
           mutationApi: "addReportFrag",
           basePayload: { chapterId: chapter.id },
-          defaultValues: { headingEng: "Hadith " + nextSeqNo },
+          defaultValues: nextSeqNo
+            ? { headingEng: "Hadith " + nextSeqNo }
+            : null,
           transformPayload,
         }}
       />

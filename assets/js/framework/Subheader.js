@@ -112,7 +112,7 @@ export default function () {
         )}
       </Stack>
       {!onSmallScreen && (
-        <Typography variant="footer">
+        <Typography sx={{ marginRight: 5 }} variant="footer">
           Last Updated: {formatIsoStrToLocal(mostRecentReport.insertedAt)}
         </Typography>
       )}

@@ -4,7 +4,6 @@ import { request } from "../utils/graph-ql";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { DialogContext } from "../context/DialogContext";
 import FabAddButton from "../kmui/FabAddButton";
@@ -18,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
-import { navChapterLink } from "../utils/app";
+import { sectionName, navChapterLink } from "../utils/app";
 import minBy from "lodash/minBy";
 import maxBy from "lodash/maxBy";
 
@@ -283,7 +282,7 @@ export default () => {
       direction="column"
     >
       <Typography variant="h5">
-        Section {section.sectionNo}: {section.nameEng}
+        {sectionName(section)}
         {isAdmin && (
           <EditNoteIcon
             sx={{ marginRight: 3 }}
@@ -305,7 +304,7 @@ export default () => {
           />
         )}
       </Typography>
-      <ReportRangeSection sectionId={section.id} />
+      {section.sectionNo ? <ReportRangeSection sectionId={section.id} /> : null}
       <Typography dir="rtl" variant="h6a">
         {section.nameArb}
       </Typography>
@@ -336,7 +335,10 @@ export default () => {
       direction="column"
     >
       <Typography variant="h6">
-        <strong>Chapter {chapter.chapterNo}:</strong> {chapter.nameEng}
+        {chapter.chapterNo ? (
+          <strong>Chapter {chapter.chapterNo}:&nbsp;</strong>
+        ) : null}
+        {chapter.nameEng}
         {isAdmin && (
           <EditNoteIcon
             sx={{ marginRight: 3 }}
@@ -348,7 +350,7 @@ export default () => {
           />
         )}
       </Typography>
-      <ReportRangeChapter chapterId={chapter.id} />
+      {chapter.chapterNo ? <ReportRangeChapter chapterId={chapter.id} /> : null}
       <Typography dir="rtl" variant="h6a">
         {chapter.nameArb}
       </Typography>

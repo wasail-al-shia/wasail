@@ -38,9 +38,8 @@ export default () => {
             >
               Kutub-e-Araba
             </a>{" "}
-            (Four Books) and many other reputable primary sources of hadith
-            (like Mahasin, Basair al Darajat, etc). It comprises of
-            approximately 36,000 hadith organized into 30 volumes.
+            (Four Books) and many other reputable primary sources of hadith It
+            comprises of approximately 36,000 hadith organized into 30 volumes.
           </Typography>
           <Typography variant="h5">Shaykh Hurr Amili</Typography>
           <Typography>
@@ -70,8 +69,8 @@ export default () => {
             to find the best equivalent word or expression in english. In many
             cases, and especially for well known Arabic words, we quote the
             transliterated form of the word directly (e.g. wilayah, ibaadah,
-            aql, kufr, etc). In other cases we offer a range of applicable
-            meanings in parenthesis.
+            aql, kufr, etc). In other cases we offer other applicable meanings
+            in parenthesis.
           </Typography>
           <Typography>
             For your reference the Arabic text is provided in a readable font

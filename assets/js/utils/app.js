@@ -2,8 +2,15 @@ import { BK_CD_WS } from "../consts";
 export const bookName = (book) =>
   book.volumeNo == 0 ? book.nameEng : `${book.nameEng} Vol. ${book.volumeNo}`;
 
-export const chapterCrumb = (sectionNo, chapterNo) =>
-  `Section ${sectionNo}, Chapter ${chapterNo}`;
+export const chapterCrumb = (sectionNo, chapterNo, sectionNm, chapterNm) =>
+  sectionNo && chapterNo
+    ? `Section ${sectionNo}, Chapter ${chapterNo}`
+    : `${sectionNm}, ${chapterNm}`;
+
+export const sectionName = (section) =>
+  section.sectionNo > 0
+    ? `Section ${section.sectionNo}: ${section.nameEng}`
+    : section.nameEng;
 
 export const generateReference = (report) => {
   const chapter = report.chapter;
@@ -13,6 +20,8 @@ export const generateReference = (report) => {
     chapter.chapterNo
   }, ${report.headingEng}`;
 };
+
+export const isBookOfHadith = (code) => [BK_CD_WS].includes(code);
 
 const generateReportHyperLink = (report) => {
   const p = window.location.protocol;

@@ -124,10 +124,14 @@ export default function () {
                     {bookName({ nameEng: r.bookName, volumeNo: r.volumeNo })}
                   </Typography>
                   <Typography variant="h6">
-                    {`Section ${r.sectionNo}: ${r.sectionName}`}
+                    {r.sectionNo > 0
+                      ? `Section ${r.sectionNo}: ${r.sectionName}`
+                      : r.sectionName}
                   </Typography>
                   <Typography variant="h6">
-                    {`Chapter ${r.chapterNo}: ${r.chapterName}`}
+                    {r.chapterNo > 0
+                      ? `Chapter ${r.chapterNo}: ${r.chapterName}`
+                      : r.chapterName}
                   </Typography>
                   <Divider sx={{ mb: 3 }} />
                   <Typography variant="h6">{r.reportHeading}</Typography>

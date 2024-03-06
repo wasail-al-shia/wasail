@@ -176,29 +176,32 @@ export default ({ report, onEdit }) => {
         {isAdmin && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
-        <Tooltip title="Report feedback">
-          <IconButton
-            onClick={() =>
-              openDialog("dataEntry", {
-                title: "Report feedback on " + report.headingEng,
-                basePayload: { report_id: report.id },
-                fields: reportFeedbackFields,
-                mutationApi: "processReportFeedback",
-                btnText: "Send",
-              })
-            }
-          >
-            <ChatBubbleOutlineIcon sx={{ fontSize: "1.2rem" }} size="small" />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Standalone View">
-          <IconButton component={Link} to={navReportLink(report.id)}>
-            <OpenInNewIcon sx={{ fontSize: "1.2rem" }} size="small" />
-          </IconButton>
-        </Tooltip>
-        <CopyToClipboardButton
-          retrieveTextToCopy={() => generatePlainText(report)}
-        />
+        {report.reportNo > 0 && [
+          <Tooltip key="feedback" title="Report feedback">
+            <IconButton
+              onClick={() =>
+                openDialog("dataEntry", {
+                  title: "Report feedback on " + report.headingEng,
+                  basePayload: { report_id: report.id },
+                  fields: reportFeedbackFields,
+                  mutationApi: "processReportFeedback",
+                  btnText: "Send",
+                })
+              }
+            >
+              <ChatBubbleOutlineIcon sx={{ fontSize: "1.2rem" }} size="small" />
+            </IconButton>
+          </Tooltip>,
+          <Tooltip key="view" title="Standalone View">
+            <IconButton component={Link} to={navReportLink(report.id)}>
+              <OpenInNewIcon sx={{ fontSize: "1.2rem" }} size="small" />
+            </IconButton>
+          </Tooltip>,
+          <CopyToClipboardButton
+            key="clipboard"
+            retrieveTextToCopy={() => generatePlainText(report)}
+          />,
+        ]}
       </Stack>
     </Stack>
   );
@@ -298,9 +301,11 @@ export default ({ report, onEdit }) => {
           />
         ))}
       </Stack>
-      <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
-        ({generateReference(report)})
-      </Typography>
+      {report.reportNo > 0 && (
+        <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
+          ({generateReference(report)})
+        </Typography>
+      )}
     </Stack>
   );
 };
