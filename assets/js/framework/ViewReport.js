@@ -239,9 +239,6 @@ export default ({ wsReportId }) => {
                   />
                 ))}
             </Stack>
-            <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
-              ({report && generateReference(report)})
-            </Typography>
           </Stack>
         </Stack>
       </MainWrapper>

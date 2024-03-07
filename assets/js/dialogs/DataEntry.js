@@ -180,7 +180,7 @@ const Fields = ({ fields, control }) => (
 const getDefaultedFields = (fields) =>
   fields.reduce(
     (acc, f) =>
-      f.name && f.defaultValue !== null
+      f.name && f.defaultValue != null
         ? [...acc, f.name]
         : f.children?.length
         ? [...acc, ...getDefaultedFields(f.children)]

@@ -20,6 +20,8 @@ import { SessionContext } from "../context/SessionContext";
 import { sectionName, navChapterLink } from "../utils/app";
 import minBy from "lodash/minBy";
 import maxBy from "lodash/maxBy";
+import capitalize from "lodash/capitalize";
+import { replace } from "../utils/obj";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -245,6 +247,17 @@ export default () => {
     fields: chapterDialogFields,
     dataQueryKeys: ["sections"],
     mutationApi: "addChapter",
+    transformPayload: (payload) => {
+      return replace(payload, [
+        {
+          key: "nameEng",
+          value: payload.nameEng
+            .split(" ")
+            .map((x) => capitalize(x))
+            .join(" "),
+        },
+      ]);
+    },
     basePayload: { sectionId: section.id },
   });
 
@@ -361,41 +374,43 @@ export default () => {
     <Spinner open={fetchingSections || fetchingBook}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
-        {sections.map((section) => (
-          <Accordion
-            disableGutters
-            sx={{
-              padding: 0,
-              margin: 3,
-              backgroundColor: "primary.header2",
-            }}
-            key={section.id}
-          >
-            <AccordionSummary
-              expandIcon={
-                <ExpandMoreIcon
-                  sx={{
-                    color: "primary.dark",
-                    backgroundColor: "primary.backdrop",
-                    borderRadius: 1,
-                    fontSize: "2.0rem",
-                    fontWeight: 500,
-                  }}
-                />
-              }
-              id={section.id}
+        {sections
+          .filter((s) => isAdmin || s.sectionNo > 0)
+          .map((section) => (
+            <Accordion
+              disableGutters
+              sx={{
+                padding: 0,
+                margin: 3,
+                backgroundColor: "primary.header2",
+              }}
+              key={section.id}
             >
-              <SectionCard section={section} />
-            </AccordionSummary>
-            <AccordionDetails>
-              <Stack sx={{ paddingLeft: 2, paddingRight: 2 }} spacing={3}>
-                {section.chapters.map((chapter) => (
-                  <ChapterCard key={chapter.id} chapter={chapter} />
-                ))}
-              </Stack>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+              <AccordionSummary
+                expandIcon={
+                  <ExpandMoreIcon
+                    sx={{
+                      color: "primary.dark",
+                      backgroundColor: "primary.backdrop",
+                      borderRadius: 1,
+                      fontSize: "2.0rem",
+                      fontWeight: 500,
+                    }}
+                  />
+                }
+                id={section.id}
+              >
+                <SectionCard section={section} />
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack sx={{ paddingLeft: 2, paddingRight: 2 }} spacing={3}>
+                  {section.chapters.map((chapter) => (
+                    <ChapterCard key={chapter.id} chapter={chapter} />
+                  ))}
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+          ))}
       </MainWrapper>
       <FabAddButton
         buttonText="Section"
