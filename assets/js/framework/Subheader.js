@@ -62,7 +62,6 @@ export default function () {
         marginTop: HEADER_HEIGHT,
         maxHeight: `calc(${HEADER_HEIGHT}  - 0.1rem)`,
         paddingTop: 3,
-        paddingLeft: 3,
         position: "fixed",
         width: "100%",
         zIndex: 1,
@@ -72,7 +71,10 @@ export default function () {
     >
       <Stack direction="row" alignItems="center">
         <Button
-          sx={{ color: pathname == "/" ? "secondary.dark" : "primary.main" }}
+          sx={{
+            minWidth: 0,
+            color: pathname == "/" ? "secondary.dark" : "primary.main",
+          }}
           component={Link}
           to="/"
         >
@@ -80,6 +82,7 @@ export default function () {
         </Button>
         <Button
           sx={{
+            minWidth: 0,
             color: pathname == "/about" ? "secondary.dark" : "primary.main",
           }}
           component={Link}
@@ -88,6 +91,7 @@ export default function () {
           About
         </Button>
         <Button
+          sx={{ minWidth: 0 }}
           onClick={() =>
             openDialog("dataEntry", {
               title: "Conctact Us",
@@ -102,6 +106,7 @@ export default function () {
         {isAdmin && (
           <Button
             sx={{
+              minWidth: 0,
               color: pathname == "/a" ? "secondary.dark" : "primary.main",
             }}
             component={Link}

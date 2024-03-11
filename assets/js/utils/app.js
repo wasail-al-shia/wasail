@@ -2,15 +2,21 @@ import { BK_CD_WS } from "../consts";
 export const bookName = (book) =>
   book.volumeNo == 0 ? book.nameEng : `${book.nameEng} Vol. ${book.volumeNo}`;
 
-export const chapterCrumb = (sectionNo, chapterNo, sectionNm, chapterNm) =>
-  sectionNo && chapterNo
-    ? `Section ${sectionNo}, Chapter ${chapterNo}`
-    : `${sectionNm}, ${chapterNm}`;
+export const sectionCrumb = (sectionNo, sectionNm) =>
+  sectionNo ? `Section ${sectionNo}` : `${sectionNm}`;
+
+export const chapterCrumb = (chapterNo, sectionNm, chapterNm) =>
+  chapterNo ? `Chapter ${chapterNo}` : `${chapterNm}`;
 
 export const sectionName = (section) =>
   section.sectionNo > 0
     ? `Section ${section.sectionNo}: ${section.nameEng}`
     : section.nameEng;
+
+export const chapterName = (chapter) =>
+  chapter.chapterNo > 0
+    ? `Chapter ${chapter.chapterNo}: ${chapter.nameEng}`
+    : chapter.nameEng;
 
 export const generateReference = (report) => {
   const chapter = report.chapter;
@@ -48,6 +54,7 @@ export const generatePlainText = (report) => {
 };
 
 export const navBookLink = (bookId) => `/b/${bookId}`;
+export const navSectionLink = (sectionId) => `/s/${sectionId}`;
 export const navChapterLink = (chapterId) => `/c/${chapterId}`;
 export const navReportLink = (reportId) => `/r/${reportId}`;
 export const navWsReportLink = (reportNo) => `/h/${reportNo}`;

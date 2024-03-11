@@ -167,7 +167,11 @@ export default ({ report, onEdit }) => {
                 onlyDirty: false,
                 dataQueryKeys: ["reports"],
                 mutationApi: "addComment",
-                defaultValues: { reportId: report.id, commentSeqNo: 1 },
+                defaultValues: {
+                  reportId: report.id,
+                  commentSeqNo: 1,
+                  commentEng: "Shaykh Hurr Amili: ",
+                },
                 basePayload: { reportId: report.id },
               })
             }

@@ -11,6 +11,7 @@ export default function (props) {
         marginTop: `calc((2 * ${HEADER_HEIGHT})  + 0.5rem)`,
         paddingLeft: 5,
         paddingRight: 5,
+        alignContent: "center",
       }}
       spacing={5}
     >

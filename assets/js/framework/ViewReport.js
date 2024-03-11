@@ -210,10 +210,10 @@ export default ({ wsReportId }) => {
               <Typography variant="h5">
                 {bookName(chapter.section.book)}
               </Typography>
-              <Typography variant="h6">
+              <Typography noWrap variant="h6">
                 {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
               </Typography>
-              <Typography variant="h6">
+              <Typography noWrap variant="h6">
                 {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
               </Typography>
             </Box>

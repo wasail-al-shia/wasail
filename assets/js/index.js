@@ -7,8 +7,9 @@ import "@fontsource-variable/radio-canada";
 import "../css/index.css";
 import Main from "./framework/Main";
 import Library from "./framework/Library";
-import Toc from "./framework/Toc";
-import Chapter from "./framework/Chapter";
+import SectionList from "./framework/SectionList";
+import ChapterList from "./framework/ChapterList";
+import ReportList from "./framework/ReportList";
 import ViewReport from "./framework/ViewReport";
 import WsReport from "./framework/WsReport";
 import SearchResults from "./framework/SearchResults";
@@ -26,11 +27,15 @@ const router = createBrowserRouter([
       },
       {
         path: "b/:bookId",
-        element: <Toc />,
+        element: <SectionList />,
+      },
+      {
+        path: "s/:sectionId",
+        element: <ChapterList />,
       },
       {
         path: "c/:chapterId",
-        element: <Chapter />,
+        element: <ReportList />,
       },
       {
         path: "r/:reportId",

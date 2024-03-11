@@ -10,7 +10,15 @@ import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
-import { bookName, chapterCrumb, navBookLink } from "../utils/app";
+import {
+  bookName,
+  sectionName,
+  chapterName,
+  sectionCrumb,
+  chapterCrumb,
+  navBookLink,
+  navSectionLink,
+} from "../utils/app";
 import MainWrapper from "./MainWrapper";
 import { replace } from "../utils/obj";
 import { flipParenthesis } from "../utils/string";
@@ -184,18 +192,14 @@ export default () => {
       crumbName: bookName(chapter.section.book),
     },
     {
-      crumbName: chapterCrumb(
+      to: navSectionLink(chapter.section.id),
+      crumbName: sectionCrumb(
         chapter.section.sectionNo,
-        chapter.chapterNo,
-        chapter.section.nameEng,
-        chapter.nameEng
+        chapter.section.nameEng
       ),
-      toolTip: (
-        <Stack>
-          <Typography variant="h5">{chapter.section.nameEng}</Typography>
-          <Typography variant="h6">{chapter.nameEng}</Typography>
-        </Stack>
-      ),
+    },
+    {
+      crumbName: chapterCrumb(chapter.chapterNo, chapter.nameEng),
     },
   ];
 
@@ -204,6 +208,12 @@ export default () => {
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
         <Stack alignItems="center" direction="column" spacing={3.5}>
+          <Typography align="center" variant="h5">
+            {sectionName(chapter.section)}
+          </Typography>
+          <Typography align="center" variant="h5">
+            {chapterName(chapter)}
+          </Typography>
           {reports
             .filter((r) => isAdmin || !r.hide)
             .map((report) => (

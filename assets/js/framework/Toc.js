@@ -20,7 +20,7 @@ import { SessionContext } from "../context/SessionContext";
 import { sectionName, navChapterLink } from "../utils/app";
 import minBy from "lodash/minBy";
 import maxBy from "lodash/maxBy";
-import capitalize from "lodash/capitalize";
+import { capitalizeFirstLetter } from "../utils/string";
 import { replace } from "../utils/obj";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
@@ -247,17 +247,13 @@ export default () => {
     fields: chapterDialogFields,
     dataQueryKeys: ["sections"],
     mutationApi: "addChapter",
-    transformPayload: (payload) => {
-      return replace(payload, [
+    transformPayload: (payload) =>
+      replace(payload, [
         {
           key: "nameEng",
-          value: payload.nameEng
-            .split(" ")
-            .map((x) => capitalize(x))
-            .join(" "),
+          value: capitalizeFirstLetter(payload.nameEng),
         },
-      ]);
-    },
+      ]),
     basePayload: { sectionId: section.id },
   });
 
@@ -273,6 +269,13 @@ export default () => {
     deletePayload: {
       chapterId: chapter.id,
     },
+    transformPayload: (payload) =>
+      replace(payload, [
+        {
+          key: "nameEng",
+          value: capitalizeFirstLetter(payload.nameEng),
+        },
+      ]),
   });
 
   const ReportRangeSection = ({ sectionId }) => {

@@ -14,7 +14,7 @@ defmodule Wasail.Section do
     |> Repo.preload(:chapters)
   end
 
-  def report_range(book_id) do
+  def report_range_book(book_id) do
     query =
       from(r in Report,
         join: c in Chapter,
@@ -26,8 +26,26 @@ defmodule Wasail.Section do
         where: b.id == ^book_id,
         group_by: [s.id, c.id],
         select: %{
-          section_id: s.id,
-          chapter_id: c.id,
+          entity_id: s.id,
+          start_report_no: min(r.report_no),
+          end_report_no: max(r.report_no)
+        }
+      )
+
+    Repo.all(query)
+  end
+
+  def report_range_section(section_id) do
+    query =
+      from(r in Report,
+        join: c in Chapter,
+        on: r.chapter_id == c.id,
+        join: s in Section,
+        on: c.section_id == s.id,
+        where: s.id == ^section_id,
+        group_by: [c.id],
+        select: %{
+          entity_id: c.id,
           start_report_no: min(r.report_no),
           end_report_no: max(r.report_no)
         }

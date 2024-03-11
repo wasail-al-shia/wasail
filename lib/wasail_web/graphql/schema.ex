@@ -116,12 +116,21 @@ defmodule WasailWeb.Graphql.Schema do
       end)
     end
 
-    @desc "Get report range"
-    field :report_range, non_null(list_of(non_null(:report_range))) do
+    @desc "Get report range for book"
+    field :report_range_book, non_null(list_of(non_null(:report_range))) do
       arg(:book_id, non_null(:integer))
 
       resolve(fn %{book_id: book_id}, _info ->
-        {:ok, Wasail.Section.report_range(book_id)}
+        {:ok, Wasail.Section.report_range_book(book_id)}
+      end)
+    end
+
+    @desc "Get report range for section"
+    field :report_range_section, non_null(list_of(non_null(:report_range))) do
+      arg(:section_id, non_null(:integer))
+
+      resolve(fn %{section_id: section_id}, _info ->
+        {:ok, Wasail.Section.report_range_section(section_id)}
       end)
     end
 
