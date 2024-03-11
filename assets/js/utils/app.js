@@ -5,7 +5,7 @@ export const bookName = (book) =>
 export const sectionCrumb = (sectionNo, sectionNm) =>
   sectionNo ? `Section ${sectionNo}` : `${sectionNm}`;
 
-export const chapterCrumb = (chapterNo, sectionNm, chapterNm) =>
+export const chapterCrumb = (chapterNo, chapterNm) =>
   chapterNo ? `Chapter ${chapterNo}` : `${chapterNm}`;
 
 export const sectionName = (section) =>
