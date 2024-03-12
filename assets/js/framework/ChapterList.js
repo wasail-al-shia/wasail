@@ -50,7 +50,7 @@ const fetchChapters = ({ queryKey: [_, sectionId] }) =>
     }
   }`).then(({ chapters }) => chapters);
 
-const fetchReportRange = ({ queryKey: [_, sectionId] }) =>
+const fetchReportRangeSection = ({ queryKey: [_, sectionId] }) =>
   request(`{
     reportRangeSection(sectionId: ${sectionId}) {
       entityId
@@ -75,7 +75,7 @@ export default () => {
 
   const { data: reportRange = [] } = useQuery(
     ["reportRange", sectionId],
-    fetchReportRange
+    fetchReportRangeSection
   );
 
   const nextChapterNo = (section) =>

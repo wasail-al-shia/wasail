@@ -48,7 +48,7 @@ const fetchSections = ({ queryKey: [_, bookId] }) =>
     }
   }`).then(({ sections }) => sections);
 
-const fetchReportRange = ({ queryKey: [_, bookId] }) =>
+const fetchReportRangeBook = ({ queryKey: [_, bookId] }) =>
   request(`{
     reportRangeBook(bookId: ${bookId}) {
       entityId
@@ -73,7 +73,7 @@ export default () => {
 
   const { data: reportRange = [] } = useQuery(
     ["reportRange", bookId],
-    fetchReportRange
+    fetchReportRangeBook
   );
 
   const nextSectionNo = Math.max(...sections.map((s) => s.sectionNo)) + 1;
@@ -170,11 +170,11 @@ export default () => {
   });
 
   const ReportRangeSection = ({ sectionId }) => {
-    const rangeRecs = reportRange.filter((r) => r.entityId == sectionId);
-    const minRec = minBy(rangeRecs, (r) => r.startReportNo);
-    const maxRec = maxBy(rangeRecs, (r) => r.endReportNo);
-    return rangeRecs.length > 0 ? (
-      <Typography variant="footer">{`(Reports: ${minRec.startReportNo} - ${maxRec.endReportNo})`}</Typography>
+    const rangeRec = reportRange.find((r) => r.entityId == sectionId);
+    return rangeRec ? (
+      <Typography variant="footer">
+        {`(Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo})`}
+      </Typography>
     ) : null;
   };
 

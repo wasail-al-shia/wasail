@@ -24,7 +24,7 @@ defmodule Wasail.Section do
         join: b in Book,
         on: s.book_id == b.id,
         where: b.id == ^book_id,
-        group_by: [s.id, c.id],
+        group_by: [s.id],
         select: %{
           entity_id: s.id,
           start_report_no: min(r.report_no),

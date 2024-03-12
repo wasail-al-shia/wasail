@@ -101,7 +101,7 @@ export default ({
     // fields that are defaulted to some value in adds aren't marked as dirty but need to be sent
     const defaultedFields =
       defaultValues == null ? getDefaultedFields(fields) : [];
-    console.log({ data, defaultedFields });
+    //console.log({ data, defaultedFields });
     const payload = {
       ...basePayload,
       ...transformPayload(
@@ -109,9 +109,7 @@ export default ({
       ),
     };
     const finalPayload = wrapInInput ? { input: payload } : payload;
-    console.log("final payload", finalPayload);
-    // console.log("transformed email  payload", transformEmailPayload(data));
-    // return;
+    //console.log("final payload", finalPayload);
 
     return addOrUpdateMutation(finalPayload);
   };

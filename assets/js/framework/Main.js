@@ -22,7 +22,6 @@ const queryClient = new QueryClient({
 });
 
 export default function Main() {
-  React.useEffect(() => console.log("Mounting Main!!"), []);
   return (
     <ThemeProvider theme={Theme}>
       <QueryClientProvider client={queryClient}>

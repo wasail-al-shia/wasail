@@ -16,7 +16,7 @@ const request = (query) => {
         throw new Error(`graphql query error: ${res.data.errors[0]?.message}`);
       }
       if (typeof res.data == "object") {
-        console.log(res.data.data);
+        //console.log(res.data.data);
         return res.data.data;
       } else throw new Error("unknown graphql query error");
     });
