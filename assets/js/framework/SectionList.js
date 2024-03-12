@@ -187,7 +187,7 @@ export default () => {
         backgroundColor: "primary.header2",
         borderRadius: 1,
         "&:hover": {
-          backgroundColor: "primary.header",
+          backgroundColor: "primary.header1",
           cursor: "pointer",
         },
       }}

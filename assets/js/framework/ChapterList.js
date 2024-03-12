@@ -194,7 +194,7 @@ export default () => {
       sx={{
         width: "100%",
         maxWidth: MAX_WIDTH_CONTENT,
-        backgroundColor: "primary.paper",
+        backgroundColor: "primary.header3",
         borderRadius: 1,
         padding: 5,
         "&:hover": {

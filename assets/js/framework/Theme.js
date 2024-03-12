@@ -11,12 +11,14 @@ const Theme = createTheme({
       light: "#9c9a98",
       dark: "#474645",
       contrastText: "#d9d3cf",
+
       header: "#b7aca4",
+      header1: "#cec6c2",
       header2: "#d9d3cf",
-      breadcrumb: "#dbd1cc",
-      breadcrumb2: "#e3e0dd",
-      paper: "#fcf9f6",
+      header3: "#e3e0dd",
       backdrop: "#efecea",
+      paper: "#fcf9f6",
+
       review: "#edd5d5",
       gray: "#eee",
     },

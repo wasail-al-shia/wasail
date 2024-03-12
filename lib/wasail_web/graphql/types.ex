@@ -29,8 +29,6 @@ defmodule WasailWeb.Graphql.Types do
 
   object :section do
     field :id, non_null(:integer)
-    # TODO remove?
-    field :book_id, non_null(:string)
     field :section_no, non_null(:integer)
     field :name_eng, non_null(:string)
     field :name_arb, :string
@@ -43,8 +41,6 @@ defmodule WasailWeb.Graphql.Types do
 
   object :chapter do
     field :id, non_null(:integer)
-    # TODO remove?
-    field :section_id, non_null(:integer)
     field :chapter_no, non_null(:integer)
     field :name_eng, non_null(:string)
     field :name_arb, :string
