@@ -7,6 +7,7 @@ import Subheader from "../framework/Subheader";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { MAX_WIDTH_CONTENT } from "../consts";
+import { Link } from "react-router-dom";
 export default () => {
   return (
     <>
@@ -25,19 +26,15 @@ export default () => {
               padding: 5,
             }}
           >
-            <Typography variant="h5">Wasail Al Shia</Typography>
+            <Typography variant="h5" to="/" component={Link}>
+              Wasail Al Shia
+            </Typography>
             <Typography>
-              <a
-                target="_blank"
-                href="https://en.wikishia.net/view/Wasa%27il_al-Shi%27a_(book)"
-                rel="noreferrer"
-              >
-                Wasail Al Shia
-              </a>{" "}
-              is one of the most notable and comprehensive collection of shia
-              jurisprudential hadith, rigorously covering every area of
-              religious law. It is an encyclopedic super-collection sourced in
-              turn from earlier reliable Shia canonical collections like{" "}
+              Wasail Al Shia is one of the most notable and comprehensive
+              collection of shia jurisprudential hadith, rigorously covering
+              every area of religious law. It is an encyclopedic
+              super-collection sourced in turn from earlier reliable Shia
+              canonical collections like{" "}
               <a
                 target="_blank"
                 href="https://en.wikishia.net/view/Four_Books"
@@ -47,7 +44,15 @@ export default () => {
               </a>{" "}
               (Four Books) and many other reputable primary sources of hadith.
               It comprises of approximately 36,000 hadith organized into 30
-              volumes.
+              volumes. You can read more about this book{" "}
+              <a
+                target="_blank"
+                href="https://en.wikishia.net/view/Wasa%27il_al-Shi%27a_(book)"
+                rel="noreferrer"
+              >
+                here
+              </a>
+              .
             </Typography>
             <Typography variant="h5">Shaykh Hurr Amili</Typography>
             <Typography>

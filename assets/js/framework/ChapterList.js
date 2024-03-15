@@ -47,6 +47,10 @@ const fetchChapters = ({ queryKey: [_, sectionId] }) =>
       chapterNo
       nameEng
       nameArb
+      reports {
+        id
+        review
+      }
     }
   }`).then(({ chapters }) => chapters);
 
@@ -175,7 +179,9 @@ export default () => {
       replace(payload, [
         {
           key: "nameEng",
-          value: capitalizeFirstLetter(payload.nameEng),
+          value: payload.nameEng
+            ? capitalizeFirstLetter(payload.nameEng)
+            : null,
         },
       ]),
   });
@@ -188,6 +194,8 @@ export default () => {
       </Typography>
     ) : null;
   };
+
+  const anyUnderReview = (chapter) => chapter.reports.some((r) => r.review);
 
   const ChapterCard = ({ chapter }) => (
     <Stack
@@ -207,7 +215,14 @@ export default () => {
     >
       <Typography variant="h6">
         {chapter.chapterNo ? (
-          <strong>Chapter {chapter.chapterNo}:&nbsp;</strong>
+          <span
+            style={{
+              fontWeight: "600",
+              color: anyUnderReview(chapter) ? "#D04405" : null,
+            }}
+          >
+            Chapter {chapter.chapterNo}:&nbsp;
+          </span>
         ) : null}
         {chapter.nameEng}
         {isAdmin && (

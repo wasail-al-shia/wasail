@@ -12,6 +12,7 @@ defmodule Wasail.Chapter do
     |> QueryUtil.put_sort(asc: :chapter_no)
     |> Repo.all()
     |> Repo.preload(section: [:book])
+    |> Repo.preload(:reports)
   end
 
   def insert(rec),

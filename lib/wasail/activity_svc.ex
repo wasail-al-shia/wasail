@@ -15,7 +15,7 @@ defmodule Wasail.ActivitySvc do
         rescue
           err ->
             Logger.error("error retrieving ip info for #{ip}: #{inspect(err)}")
-            nil
+            Wasail.IpInfo.insert!(%{ip: ip})
         end
 
       rec ->
