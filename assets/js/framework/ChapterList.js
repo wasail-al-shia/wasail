@@ -249,6 +249,9 @@ export default () => {
       <MainWrapper>
         <Stack alignItems="center" spacing={3}>
           <Typography align="center" variant="h5">
+            {section.book && bookName(section.book)}
+          </Typography>
+          <Typography align="center" variant="h5">
             {sectionName(section)}
           </Typography>
           {chapters

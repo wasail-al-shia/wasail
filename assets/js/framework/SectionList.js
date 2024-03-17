@@ -13,8 +13,6 @@ import MainWrapper from "./MainWrapper";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { bookName, sectionName, navSectionLink } from "../utils/app";
-import minBy from "lodash/minBy";
-import maxBy from "lodash/maxBy";
 import { MAX_WIDTH_CONTENT } from "../consts";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>

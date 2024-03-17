@@ -73,7 +73,7 @@ export default function ({ book, onEdit }) {
         </Typography>
         {book.volumeNo > 0 && (
           <Typography variant="h4" component="div">
-            Vol. {book.volumeNo}
+            Volume {book.volumeNo}
           </Typography>
         )}
         <Typography variant="footer">
