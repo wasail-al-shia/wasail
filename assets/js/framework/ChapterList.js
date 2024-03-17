@@ -218,7 +218,7 @@ export default () => {
           <span
             style={{
               fontWeight: "600",
-              color: anyUnderReview(chapter) ? "#D04405" : null,
+              color: isAdmin && anyUnderReview(chapter) ? "#D04405" : null,
             }}
           >
             Chapter {chapter.chapterNo}:&nbsp;
