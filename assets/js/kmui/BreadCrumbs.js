@@ -16,8 +16,11 @@ export default function ({ crumbDefs }) {
       key={def.crumbName}
       component={def.to ? Link : null}
       variant="breadcrumb"
-      underline={def.to ? "hover" : "none"}
       to={def.to}
+      sx={{
+        color: "primary.dark2",
+        "&:hover": { fontWeight: def.to ? 700 : null },
+      }}
     >
       {def.crumbName}
     </Typography>

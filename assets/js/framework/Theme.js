@@ -12,6 +12,8 @@ const Theme = createTheme({
       dark: "#474645",
       contrastText: "#d9d3cf",
 
+      dark2: "#773e16",
+
       header: "#b7aca4",
       header1: "#cec6c2",
       header2: "#d9d3cf",
@@ -72,6 +74,11 @@ const Theme = createTheme({
     footer: {
       fontSize: "0.9rem",
       fontWeight: 300,
+    },
+    reportRange: {
+      fontSize: "0.9rem",
+      fontWeight: 300,
+      color: "#773e16",
     },
     termsOfUse: {
       fontSize: "0.7rem",

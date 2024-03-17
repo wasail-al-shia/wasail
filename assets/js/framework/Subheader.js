@@ -73,7 +73,7 @@ export default function () {
         <Button
           sx={{
             minWidth: 0,
-            color: pathname == "/" ? "secondary.dark" : "primary.main",
+            color: pathname == "/" ? "secondary.dark" : "primary.dark2",
           }}
           component={Link}
           to="/"
@@ -83,7 +83,7 @@ export default function () {
         <Button
           sx={{
             minWidth: 0,
-            color: pathname == "/about" ? "secondary.dark" : "primary.main",
+            color: pathname == "/about" ? "secondary.dark" : "primary.dark2",
           }}
           component={Link}
           to="/about"
@@ -91,7 +91,7 @@ export default function () {
           About
         </Button>
         <Button
-          sx={{ minWidth: 0 }}
+          sx={{ minWidth: 0, color: "primary.dark2" }}
           onClick={() =>
             openDialog("dataEntry", {
               title: "Conctact Us",
@@ -107,7 +107,7 @@ export default function () {
           <Button
             sx={{
               minWidth: 0,
-              color: pathname == "/a" ? "secondary.dark" : "primary.main",
+              color: pathname == "/a" ? "secondary.dark" : "primary.dark2",
             }}
             component={Link}
             to="/a"

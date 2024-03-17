@@ -129,7 +129,7 @@ export default ({ report, onEdit }) => {
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
       <Typography
-        sx={{ color: "primary.dark" }}
+        sx={{ color: "primary.dark2", "&:hover": { fontWeight: 700 } }}
         to={navReportLink(report.id)}
         state={{ showBackButton: true }}
         underline={"hover"}
