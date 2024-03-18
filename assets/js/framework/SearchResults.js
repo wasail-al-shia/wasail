@@ -91,7 +91,7 @@ export default function () {
             >
               <BackButton />
               <Typography align="center" variant="h5">
-                Reports matching "{queryStr}"
+                Reports matching &quot;{queryStr}&quot;
               </Typography>
               <Box />
             </Stack>
@@ -100,14 +100,14 @@ export default function () {
                 <Box
                   key={idx}
                   sx={{
-                    backgroundColor: "#fff",
+                    backgroundColor: "primary.paper",
                     borderRadius: 1,
                     border: "1px solid gray",
                     padding: 5,
                     "&:hover": {
                       border: "2px solid gray",
                       cursor: "pointer",
-                      backgroundColor: "primary.paper",
+                      backgroundColor: "primary.header3",
                     },
                   }}
                   onClick={() =>

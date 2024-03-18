@@ -280,7 +280,7 @@ export default ({ report, onEdit }) => {
     <Stack
       sx={{
         maxWidth: MAX_WIDTH_CONTENT,
-        minWidth: `min(99vw, ${MAX_WIDTH_CONTENT}px)`,
+        minWidth: `min(98vw, ${MAX_WIDTH_CONTENT}px)`,
         border: "1px solid gray",
         borderRadius: 1,
         backgroundColor:
