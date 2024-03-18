@@ -30,7 +30,7 @@ defmodule Wasail.Mailer do
     }
 
     html_body = get_html_body("report_feedback.html", payload)
-    subject = "Feedback on report id #{inspect(report_id)}"
+    subject = "Feedback on report id #{inspect(report.report_no)}"
     send_html(subject, html_body, to_name, to_email)
   end
 

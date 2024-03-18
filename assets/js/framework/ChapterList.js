@@ -78,7 +78,7 @@ export default () => {
   );
 
   const { data: reportRange = [] } = useQuery(
-    ["reportRange", sectionId],
+    ["reportRangeSection", sectionId],
     fetchReportRangeSection
   );
 

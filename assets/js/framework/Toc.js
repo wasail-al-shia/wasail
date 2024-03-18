@@ -79,7 +79,7 @@ export default () => {
   );
 
   const { data: reportRange = [] } = useQuery(
-    ["reportRange", bookId],
+    ["reportRangeBook", bookId],
     fetchReportRange
   );
 
