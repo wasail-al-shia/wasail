@@ -208,16 +208,16 @@ export default ({ wsReportId }) => {
                 marginBottom: 5,
                 padding: 3,
                 backgroundColor: "primary.backdrop",
+                width: "100%",
               }}
-              alignItems={"flex-start"}
             >
-              <Typography variant="h5">
+              <Typography align="left" variant="h5">
                 {bookName(chapter.section.book)}
               </Typography>
-              <Typography noWrap variant="h6">
+              <Typography align="left" noWrap variant="h6">
                 {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
               </Typography>
-              <Typography noWrap variant="h6">
+              <Typography align="left" noWrap variant="h6">
                 {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
               </Typography>
             </Stack>
