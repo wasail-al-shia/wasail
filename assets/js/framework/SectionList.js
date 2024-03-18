@@ -170,7 +170,7 @@ export default () => {
   const ReportRangeSection = ({ sectionId }) => {
     const rangeRec = reportRange.find((r) => r.entityId == sectionId);
     return rangeRec ? (
-      <Typography variant="reportRange">
+      <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
         {`(Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo})`}
       </Typography>
     ) : null;

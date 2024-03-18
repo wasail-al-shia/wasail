@@ -188,7 +188,7 @@ export default ({ wsReportId }) => {
             <ArrowBackIcon />
           </IconButton>
         )}
-        <Stack alignItems="center">
+        <center>
           <Stack
             sx={{
               maxWidth: MAX_WIDTH_CONTENT,
@@ -200,12 +200,13 @@ export default ({ wsReportId }) => {
             }}
           >
             <ReportHeading />
-            <Box
+            <Stack
               sx={{
                 marginBottom: 5,
                 padding: 3,
                 backgroundColor: "primary.backdrop",
               }}
+              alignItems={"flex-start"}
             >
               <Typography variant="h5">
                 {bookName(chapter.section.book)}
@@ -216,7 +217,7 @@ export default ({ wsReportId }) => {
               <Typography noWrap variant="h6">
                 {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
               </Typography>
-            </Box>
+            </Stack>
             <Stack spacing={5}>
               {report &&
                 report.texts
@@ -240,7 +241,7 @@ export default ({ wsReportId }) => {
                 ))}
             </Stack>
           </Stack>
-        </Stack>
+        </center>
       </MainWrapper>
     </Spinner>
   );

@@ -22,7 +22,10 @@ export default function ({
   return (
     <ToolTip title="Copy To Clipboard">
       <IconButton onClick={handleClick}>
-        <ContentCopyIcon sx={{ fontSize: "1.2rem" }} size="small" />
+        <ContentCopyIcon
+          sx={{ color: "primary.dark2", fontSize: "1.2rem" }}
+          size="small"
+        />
       </IconButton>
     </ToolTip>
   );

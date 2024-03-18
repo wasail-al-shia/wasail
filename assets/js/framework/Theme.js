@@ -78,7 +78,6 @@ const Theme = createTheme({
     reportRange: {
       fontSize: "0.9rem",
       fontWeight: 300,
-      color: "#773e16",
     },
     termsOfUse: {
       fontSize: "0.7rem",

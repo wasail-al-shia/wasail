@@ -193,12 +193,18 @@ export default ({ report, onEdit }) => {
                 })
               }
             >
-              <ChatBubbleOutlineIcon sx={{ fontSize: "1.2rem" }} size="small" />
+              <ChatBubbleOutlineIcon
+                sx={{ color: "primary.dark2", fontSize: "1.2rem" }}
+                size="small"
+              />
             </IconButton>
           </Tooltip>,
           <Tooltip key="view" title="Standalone View">
             <IconButton component={Link} to={navReportLink(report.id)}>
-              <OpenInNewIcon sx={{ fontSize: "1.2rem" }} size="small" />
+              <OpenInNewIcon
+                sx={{ color: "primary.dark2", fontSize: "1.2rem" }}
+                size="small"
+              />
             </IconButton>
           </Tooltip>,
           <CopyToClipboardButton
