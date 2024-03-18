@@ -115,7 +115,7 @@ export default ({ wsReportId }) => {
 
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
-      <Typography variant="h4" component="div">
+      <Typography sx={{ color: "primary.dark2" }} variant="h4" component="div">
         {report.headingEng}
       </Typography>
       <Stack direction="row" alignItems="center">
@@ -131,7 +131,10 @@ export default ({ wsReportId }) => {
               })
             }
           >
-            <ChatBubbleOutlineIcon sx={{ fontSize: "1.2rem" }} size="small" />
+            <ChatBubbleOutlineIcon
+              sx={{ color: "primary.dark2", fontSize: "1.2rem" }}
+              size="small"
+            />
           </IconButton>
         </Tooltip>
         <CopyToClipboardButton
