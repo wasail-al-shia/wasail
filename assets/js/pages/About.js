@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -64,13 +65,32 @@ export default () => {
               >
                 Shaykh al-Hurr al-Amili
               </a>{" "}
-              (d. 1693), who wrote in the introduction of this book, that for a
-              long he had this idea in mind, to collect narrations about sharia
-              and practical laws from reliable books. He spent twenty years of
-              his life to finish this compilation. This work by Shaykh Hurr
-              Amili, is a significant contribution to the preservation and
-              dissemination of Shia hadiths and jurisprudential teachings. May
-              Allah elevate his status and reward him abundantly.
+              (d. 1693), who wrote in the &nbsp;
+              <Link to="/c/60">introduction</Link>
+              &nbsp; of this book, that for a long he had this idea in mind, to
+              collect narrations about sharia and practical laws from reliable
+              books. He expresses it quite passionately and poetically:
+              <Box
+                sx={{
+                  margin: 5,
+                  backgroundColor: "primary.header3",
+                  padding: 5,
+                  fontStyle: "italic",
+                }}
+              >
+                &quot;And indeed, I have often demanded of my mind and my pen,
+                and I have stirred up (awakened) my resolutions and my
+                ambitions, to compose a book sufficient in achieving my
+                ambition, an all-inclusive comprehensive book that is adequate
+                in ilm (knowledge) and amal (religious deeds), with hadiths of
+                shar’iee (legal) issues, and texts of faru’iee (practical,
+                subsidiary) rulings, narrated in the reliable, trusted
+                books.&quot;
+              </Box>
+              He spent twenty years of his life to finish this compilation. This
+              work by Shaykh Hurr Amili, is a significant contribution to the
+              preservation and dissemination of Shia hadiths and jurisprudential
+              teachings. May Allah elevate his status and reward him abundantly.
             </Typography>
             <Typography variant="h5">Translation Notes</Typography>
             <Typography>
