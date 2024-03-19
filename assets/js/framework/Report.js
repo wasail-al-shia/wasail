@@ -17,6 +17,7 @@ import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 import { navReportLink } from "../utils/app";
 import { MAX_WIDTH_CONTENT } from "../consts";
+import ReportHeader from "../kmui/ReportHeader";
 
 export default ({ report, onEdit }) => {
   const { isAdmin } = React.useContext(SessionContext);
@@ -128,16 +129,7 @@ export default ({ report, onEdit }) => {
 
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
-      <Typography
-        sx={{ color: "primary.dark2", "&:hover": { fontWeight: 700 } }}
-        to={navReportLink(report.id)}
-        state={{ showBackButton: true }}
-        underline={"hover"}
-        component={Link}
-        variant="h5"
-      >
-        {report.headingEng}
-      </Typography>
+      <ReportHeader report={report} />
       <Stack direction="row" alignItems="center">
         {isAdmin && (
           <AddIcon

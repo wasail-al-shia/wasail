@@ -254,11 +254,9 @@ export default () => {
           <Typography align="center" variant="h5">
             {sectionName(section)}
           </Typography>
-          {chapters
-            .filter((c) => isAdmin || c.chapterNo > 0)
-            .map((chapter) => (
-              <ChapterCard key={chapter.id} chapter={chapter} />
-            ))}
+          {chapters.map((chapter) => (
+            <ChapterCard key={chapter.id} chapter={chapter} />
+          ))}
         </Stack>
       </MainWrapper>
       <FabAddButton

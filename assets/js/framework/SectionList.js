@@ -220,11 +220,9 @@ export default () => {
           <Typography align="center" variant="h5">
             {bookName(book)}
           </Typography>
-          {sections
-            .filter((s) => isAdmin || s.sectionNo > 0)
-            .map((section) => (
-              <SectionCard key={section.id} section={section} />
-            ))}
+          {sections.map((section) => (
+            <SectionCard key={section.id} section={section} />
+          ))}
         </Stack>
       </MainWrapper>
       <FabAddButton

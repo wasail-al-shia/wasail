@@ -9,10 +9,10 @@ import parse from "html-react-parser";
 import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import { bookName, navReportLink } from "../utils/app";
+import { bookName } from "../utils/app";
 import Spinner from "../kmui/Spinner";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ReportHeader from "../kmui/ReportHeader";
 import { MAX_WIDTH_CONTENT } from "../consts";
 import { stemmer } from "stemmer";
 
@@ -104,37 +104,38 @@ export default function () {
                     borderRadius: 1,
                     border: "1px solid gray",
                     padding: 5,
-                    "&:hover": {
-                      border: "2px solid gray",
-                      cursor: "pointer",
-                      backgroundColor: "primary.header3",
-                    },
                   }}
-                  onClick={() =>
-                    navigate(navReportLink(r.reportId), {
-                      state: {
-                        showBackButton: true,
-                      },
-                    })
-                  }
                   spacing={5}
                   direction="column"
                 >
-                  <Typography variant="h5">
-                    {bookName({ nameEng: r.bookName, volumeNo: r.volumeNo })}
-                  </Typography>
-                  <Typography variant="h6">
-                    {r.sectionNo > 0
-                      ? `Section ${r.sectionNo}: ${r.sectionName}`
-                      : r.sectionName}
-                  </Typography>
-                  <Typography variant="h6">
-                    {r.chapterNo > 0
-                      ? `Chapter ${r.chapterNo}: ${r.chapterName}`
-                      : r.chapterName}
-                  </Typography>
-                  <Divider sx={{ mb: 3 }} />
-                  <Typography variant="h6">{r.reportHeading}</Typography>
+                  <ReportHeader
+                    report={{
+                      id: r.reportId,
+                      headingEng: r.reportHeading,
+                    }}
+                  />
+                  <Stack
+                    sx={{
+                      marginBottom: 5,
+                      padding: 3,
+                      backgroundColor: "primary.backdrop",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography variant="h5">
+                      {bookName({ nameEng: r.bookName, volumeNo: r.volumeNo })}
+                    </Typography>
+                    <Typography variant="h6">
+                      {r.sectionNo > 0
+                        ? `Section ${r.sectionNo}: ${r.sectionName}`
+                        : r.sectionName}
+                    </Typography>
+                    <Typography variant="h6">
+                      {r.chapterNo > 0
+                        ? `Chapter ${r.chapterNo}: ${r.chapterName}`
+                        : r.chapterName}
+                    </Typography>
+                  </Stack>
                   <Typography variant="h6">
                     ...&nbsp;{parse(r.matchingText)}&nbsp;...
                   </Typography>
