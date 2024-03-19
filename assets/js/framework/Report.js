@@ -172,25 +172,25 @@ export default ({ report, onEdit }) => {
         {isAdmin && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
-        {report.reportNo > 0 && [
-          <Tooltip key="feedback" title="Report feedback">
-            <IconButton
-              onClick={() =>
-                openDialog("dataEntry", {
-                  title: "Report feedback on " + report.headingEng,
-                  basePayload: { report_id: report.id },
-                  fields: reportFeedbackFields,
-                  mutationApi: "processReportFeedback",
-                  btnText: "Send",
-                })
-              }
-            >
-              <ChatBubbleOutlineIcon
-                sx={{ color: "primary.dark2", fontSize: "1.2rem" }}
-                size="small"
-              />
-            </IconButton>
-          </Tooltip>,
+        <Tooltip key="feedback" title="Report feedback">
+          <IconButton
+            onClick={() =>
+              openDialog("dataEntry", {
+                title: "Report feedback on " + report.headingEng,
+                basePayload: { report_id: report.id },
+                fields: reportFeedbackFields,
+                mutationApi: "processReportFeedback",
+                btnText: "Send",
+              })
+            }
+          >
+            <ChatBubbleOutlineIcon
+              sx={{ color: "primary.dark2", fontSize: "1.2rem" }}
+              size="small"
+            />
+          </IconButton>
+        </Tooltip>
+        {report.reportNo > 0 && (
           <Tooltip key="view" title="Standalone View">
             <IconButton component={Link} to={navReportLink(report.id)}>
               <OpenInNewIcon
@@ -198,12 +198,14 @@ export default ({ report, onEdit }) => {
                 size="small"
               />
             </IconButton>
-          </Tooltip>,
+          </Tooltip>
+        )}
+        {report.reportNo > 0 && (
           <CopyToClipboardButton
             key="clipboard"
             retrieveTextToCopy={() => generatePlainText(report)}
-          />,
-        ]}
+          />
+        )}
       </Stack>
     </Stack>
   );

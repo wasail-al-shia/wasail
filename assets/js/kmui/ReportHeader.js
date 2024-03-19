@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { navReportLink } from "../utils/app";
 
 export default function ({ report }) {
-  return (
+  return report.reportNo > 0 ? (
     <Typography
       sx={{ color: "primary.dark2", "&:hover": { fontWeight: 700 } }}
       to={navReportLink(report.id)}
@@ -13,6 +13,10 @@ export default function ({ report }) {
       component={Link}
       variant="h5"
     >
+      {report.headingEng}
+    </Typography>
+  ) : (
+    <Typography align="center" sx={{ color: "primary.dark2" }} variant="h5">
       {report.headingEng}
     </Typography>
   );
