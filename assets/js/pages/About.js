@@ -69,7 +69,7 @@ export default () => {
               <Link to="/c/60">introduction</Link>
               &nbsp; of this book, that for a long he had this idea in mind, to
               collect narrations about sharia and practical laws from reliable
-              books. He expresses it quite passionately and poetically:
+              books:
               <Box
                 sx={{
                   margin: 5,

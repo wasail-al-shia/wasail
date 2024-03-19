@@ -1,13 +1,11 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Spinner from "../kmui/Spinner";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
-import { generatePlainText, generateReference } from "../utils/app";
 import Typography from "@mui/material/Typography";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -19,10 +17,15 @@ import { DialogContext } from "../context/DialogContext";
 import { MAX_WIDTH_CONTENT } from "../consts";
 import Tooltip from "@mui/material/Tooltip";
 import {
+  generatePlainText,
+  navSectionLink,
   navBookLink,
   navChapterLink,
+  sectionName,
+  chapterName,
   bookName,
   chapterCrumb,
+  sectionCrumb,
 } from "../utils/app";
 
 const fetchReport = ({ queryKey: [, reportId] }) =>
@@ -154,6 +157,13 @@ export default ({ wsReportId }) => {
       crumbName: bookName(chapter.section.book),
     },
     {
+      to: navSectionLink(chapter.section.id),
+      crumbName: sectionCrumb(
+        chapter.section.sectionNo,
+        chapter.section.nameEng
+      ),
+    },
+    {
       crumbName: chapterCrumb(chapter.section.sectionNo, chapter.chapterNo),
       to: navChapterLink(chapter.id),
     },
@@ -215,10 +225,10 @@ export default ({ wsReportId }) => {
                 {bookName(chapter.section.book)}
               </Typography>
               <Typography align="left" noWrap variant="h6">
-                {`Section ${section.sectionNo}: ${chapter.section.nameEng}`}
+                {sectionName(section)}
               </Typography>
               <Typography align="left" noWrap variant="h6">
-                {`Chapter ${chapter.chapterNo}: ${chapter.nameEng}`}
+                {chapterName(chapter)}
               </Typography>
             </Stack>
             <Stack spacing={5}>
