@@ -112,6 +112,7 @@ export default function () {
                     report={{
                       id: r.reportId,
                       headingEng: r.reportHeading,
+                      reportNo: 1,
                     }}
                   />
                   <Stack

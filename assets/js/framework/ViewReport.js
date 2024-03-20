@@ -164,7 +164,7 @@ export default ({ wsReportId }) => {
       ),
     },
     {
-      crumbName: chapterCrumb(chapter.section.sectionNo, chapter.chapterNo),
+      crumbName: chapterCrumb(chapter.chapterNo, chapter.nameEng),
       to: navChapterLink(chapter.id),
     },
     {
