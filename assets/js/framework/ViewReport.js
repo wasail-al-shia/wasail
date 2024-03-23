@@ -118,7 +118,7 @@ export default ({ wsReportId }) => {
 
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
-      <Typography sx={{ color: "primary.dark2" }} variant="h5" component="div">
+      <Typography sx={{ color: "primary.dark2" }} variant="h4" component="div">
         {report.headingEng}
       </Typography>
       <Stack direction="row" alignItems="center">

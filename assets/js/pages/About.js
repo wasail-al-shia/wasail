@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
+import Quote from "../kmui/Quote";
 import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -55,7 +55,7 @@ export default () => {
               </a>
               .
             </Typography>
-            <Typography variant="h5">Shaykh Hurr Amili</Typography>
+            <Typography variant="h5">Motivation</Typography>
             <Typography>
               The hadiths were collected and compiled by{" "}
               <a
@@ -67,17 +67,10 @@ export default () => {
               </a>{" "}
               (d. 1693), who wrote in the &nbsp;
               <Link to="/c/60">introduction</Link>
-              &nbsp; of this book, that for a long he had this idea in mind, to
-              collect narrations about sharia and practical laws from reliable
-              books:
-              <Box
-                sx={{
-                  margin: 5,
-                  backgroundColor: "primary.header3",
-                  padding: 5,
-                  fontStyle: "italic",
-                }}
-              >
+              &nbsp; of this book, that for a long time he had this idea in
+              mind, to collect narrations about sharia and practical laws from
+              reliable books:
+              <Quote>
                 &quot;And indeed, I have often demanded of my mind and my pen,
                 and I have stirred up (awakened) my resolutions and my
                 ambitions, to compose a book sufficient in achieving my
@@ -86,26 +79,50 @@ export default () => {
                 shar’iee (legal) issues, and texts of faru’iee (practical,
                 subsidiary) rulings, narrated in the reliable, trusted
                 books.&quot;
-              </Box>
-              He spent twenty years of his life to finish this compilation. This
-              work by Shaykh Hurr Amili, is a significant contribution to the
-              preservation and dissemination of Shia hadiths and jurisprudential
-              teachings. May Allah elevate his status and reward him abundantly.
+              </Quote>
+              The Shaykh laments the chaotic and lacking state of the hadith
+              literature during his time:
+              <Quote>
+                &quot;For whoever peruses the (existing) books of hadith and
+                looks into what they contain of hadiths, and the speech of their
+                authors, finds them not free from superfluousness (unnecessarily
+                lengthened), some interpretations, difficulty in acquisition,
+                scattered reports, variation in selection, frequent repetition,
+                and the inclusion of what is termed “fiqh” but does not contain
+                anything based on the ahkam of fiqh, and omission of many
+                hadiths of legal issues.&quot;
+              </Quote>
+              He then spent twenty years of his life to accomplish this task:
+              <Quote>
+                &quot;I embarked on compiling it, for myself, my children, and
+                whoever seeks guidance through it after me, exerting my utmost
+                effort in gathering it, correcting and refining it, simplifying
+                its access, and perfecting its arrangement. Picking the jewels
+                of those reports from their mines, compiling those noble texts
+                from their sources, threading the pearls of those treasures into
+                a single strand, harmonizing the scattered valuable insights,
+                dedicating a chapter for each issue as much as possible,
+                following what has been transmitted in this regard.&quot;
+              </Quote>
+              This work by Shaykh Hurr Amili, is a significant contribution to
+              the preservation and dissemination of Shia hadiths and
+              jurisprudential teachings. May Allah elevate his status and reward
+              him abundantly.
             </Typography>
             <Typography variant="h5">Translation Notes</Typography>
             <Typography>
               This site presents a translation of this important work in order
               to make it accessible to the english speaking audience. We are
               careful to translate the hadith such that, it is as faithful as
-              possible to the original in conveying the meanings. Arabic is an
-              eloquent language and for many words and expressions it is often
-              impossible to find the best equivalent word or expression in
+              possible to the original in conveying the precise meanings. Arabic
+              is an eloquent language and for many words and expressions it is
+              often impossible to find the best equivalent word or expression in
               english. In many cases, and especially for well known Arabic
               words, we quote the transliterated form of the word directly (e.g.
               wilayah, ibaadah, aql, kufr, etc). In other cases, we offer more
               than one applicable meanings in parenthesis. And where needed we
               provide further explanation of the term or expression in a comment
-              that is shown just below the hadith.
+              below the hadith.
             </Typography>
             <Typography>
               For your reference the Arabic text is provided along with the
