@@ -18,7 +18,7 @@ echo "Pushing new image to ecr..."
 docker push 537213935442.dkr.ecr.us-east-1.amazonaws.com/wasail-ecr:latest
 
 echo "Restarting ecs cluster service ..."
-aws ecs update-service --cluster WasailCluster --service WasailAppService --force-new-deployment --no-cli-pager
+aws ecs update-service --cluster WasailCluster --service WasailAppService3 --force-new-deployment --no-cli-pager
 
 echo "Removing dangling images..." 
 docker image prune --filter="dangling=true" --force
