@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link, useLocation } from "react-router-dom";
-import { HEADER_HEIGHT } from "../consts";
+import { MAX_WIDTH_CONTENT, HEADER_HEIGHT } from "../consts";
 import { SessionContext } from "../context/SessionContext";
 import { DialogContext } from "../context/DialogContext";
 import { formatIsoStrToLocal } from "../utils/date";
@@ -56,71 +56,79 @@ export default function () {
   ];
   return (
     <Stack
-      direction="row"
       sx={{
         backgroundColor: "primary.header2",
         marginTop: HEADER_HEIGHT,
-        maxHeight: `calc(${HEADER_HEIGHT}  - 0.1rem)`,
-        paddingTop: 3,
         position: "fixed",
         width: "100%",
         zIndex: 1,
       }}
-      justifyContent="space-between"
       alignItems="center"
     >
-      <Stack direction="row" alignItems="center">
-        <Button
-          sx={{
-            minWidth: 0,
-            color: pathname == "/" ? "secondary.dark" : "primary.dark2",
-          }}
-          component={Link}
-          to="/"
-        >
-          Home
-        </Button>
-        <Button
-          sx={{
-            minWidth: 0,
-            color: pathname == "/about" ? "secondary.dark" : "primary.dark2",
-          }}
-          component={Link}
-          to="/about"
-        >
-          About
-        </Button>
-        <Button
-          sx={{ minWidth: 0, color: "primary.dark2" }}
-          onClick={() =>
-            openDialog("dataEntry", {
-              title: "Conctact Us",
-              fields: contactDialogFields,
-              mutationApi: "processContactForm",
-              btnText: "Send",
-            })
-          }
-        >
-          Contact
-        </Button>
-        {isAdmin && (
+      <Stack
+        direction="row"
+        sx={{
+          maxHeight: `calc(${HEADER_HEIGHT}  - 0.1rem)`,
+          maxWidth: MAX_WIDTH_CONTENT,
+          minWidth: `min(98vw, ${MAX_WIDTH_CONTENT}px)`,
+          paddingTop: 3,
+        }}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Stack direction="row" alignItems="center">
           <Button
             sx={{
               minWidth: 0,
-              color: pathname == "/a" ? "secondary.dark" : "primary.dark2",
+              color: pathname == "/" ? "secondary.dark" : "primary.dark2",
             }}
             component={Link}
-            to="/a"
+            to="/"
           >
-            Activity
+            Home
           </Button>
+          <Button
+            sx={{
+              minWidth: 0,
+              color: pathname == "/about" ? "secondary.dark" : "primary.dark2",
+            }}
+            component={Link}
+            to="/about"
+          >
+            About
+          </Button>
+          <Button
+            sx={{ minWidth: 0, color: "primary.dark2" }}
+            onClick={() =>
+              openDialog("dataEntry", {
+                title: "Conctact Us",
+                fields: contactDialogFields,
+                mutationApi: "processContactForm",
+                btnText: "Send",
+              })
+            }
+          >
+            Contact
+          </Button>
+          {isAdmin && (
+            <Button
+              sx={{
+                minWidth: 0,
+                color: pathname == "/a" ? "secondary.dark" : "primary.dark2",
+              }}
+              component={Link}
+              to="/a"
+            >
+              Activity
+            </Button>
+          )}
+        </Stack>
+        {!onSmallScreen && (
+          <Typography sx={{ marginRight: 5 }} variant="footer">
+            Last Updated: {formatIsoStrToLocal(mostRecentReport.insertedAt)}
+          </Typography>
         )}
       </Stack>
-      {!onSmallScreen && (
-        <Typography sx={{ marginRight: 5 }} variant="footer">
-          Last Updated: {formatIsoStrToLocal(mostRecentReport.insertedAt)}
-        </Typography>
-      )}
     </Stack>
   );
 }

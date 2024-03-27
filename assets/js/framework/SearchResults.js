@@ -56,6 +56,7 @@ export default function () {
               alignItems="center"
               sx={{
                 padding: 15,
+                width: "100%",
                 backgroundColor: "#fff",
                 borderRadius: 1,
               }}
