@@ -12,8 +12,6 @@ import Spinner from "../kmui/Spinner";
 import MainWrapper from "./MainWrapper";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
-import minBy from "lodash/minBy";
-import maxBy from "lodash/maxBy";
 import {
   navBookLink,
   bookName,
@@ -23,7 +21,6 @@ import {
 } from "../utils/app";
 import { capitalizeFirstLetter } from "../utils/string";
 import { replace } from "../utils/obj";
-import { MAX_WIDTH_CONTENT } from "../consts";
 
 const fetchSection = ({ queryKey: [_, sectionId] }) =>
   request(`{
@@ -201,7 +198,6 @@ export default () => {
     <Stack
       sx={{
         width: "100%",
-        maxWidth: MAX_WIDTH_CONTENT,
         backgroundColor: "primary.header3",
         borderRadius: 1,
         padding: 5,

@@ -207,7 +207,7 @@ export default () => {
     <Spinner open={fetchingChapter || fetchingReports}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
-        <Stack alignItems="center" direction="column" spacing={3.5}>
+        <Stack spacing={3}>
           <Typography align="center" variant="h5">
             {sectionName(chapter.section)}
           </Typography>

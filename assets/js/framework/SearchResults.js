@@ -4,16 +4,14 @@ import { request } from "../utils/graph-ql";
 import MainWrapper from "./MainWrapper";
 import Subheader from "./Subheader";
 import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
 import parse from "html-react-parser";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { bookName } from "../utils/app";
 import Spinner from "../kmui/Spinner";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ReportHeader from "../kmui/ReportHeader";
-import { MAX_WIDTH_CONTENT } from "../consts";
+import BackButton from "../kmui/BackButton";
 import { stemmer } from "stemmer";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
@@ -32,7 +30,6 @@ const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
   }`).then(({ search }) => search);
 
 export default function () {
-  const navigate = useNavigate();
   const location = useLocation();
   const queryStr = location.state?.searchStr || "";
   const stemmedQueryStr = queryStr
@@ -44,12 +41,6 @@ export default function () {
   const { data: searchResults = [], isFetching } = useQuery(
     ["search", stemmedQueryStr],
     fetchSearchResults
-  );
-
-  const BackButton = () => (
-    <IconButton size="small" onClick={() => history.back()}>
-      <ArrowBackIcon />
-    </IconButton>
   );
 
   return (
@@ -67,8 +58,6 @@ export default function () {
                 padding: 15,
                 backgroundColor: "#fff",
                 borderRadius: 1,
-                minWidth: `min(99vw, ${MAX_WIDTH_CONTENT}px)`,
-                maxWidth: MAX_WIDTH_CONTENT,
               }}
             >
               <Typography align="center" variant="h4">

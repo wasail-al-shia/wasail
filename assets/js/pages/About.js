@@ -7,7 +7,6 @@ import MainWrapper from "../framework/MainWrapper";
 import Subheader from "../framework/Subheader";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import { MAX_WIDTH_CONTENT } from "../consts";
 import { Link } from "react-router-dom";
 export default () => {
   return (
@@ -22,7 +21,6 @@ export default () => {
           <Stack
             spacing={5}
             sx={{
-              maxWidth: MAX_WIDTH_CONTENT,
               backgroundColor: "primary.paper",
               padding: 5,
             }}
@@ -209,12 +207,7 @@ export default () => {
             </Typography>
           </Stack>
           <Box mt={7} />
-          <Stack
-            sx={{
-              maxWidth: MAX_WIDTH_CONTENT,
-            }}
-            spacing={5}
-          >
+          <Stack spacing={5}>
             <Typography variant="footer">Terms of Website Use</Typography>
             <Typography variant="termsOfUse">
               Please read these terms of use carefully before you start to use

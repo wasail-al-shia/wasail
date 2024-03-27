@@ -16,7 +16,6 @@ import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 import { navReportLink } from "../utils/app";
-import { MAX_WIDTH_CONTENT } from "../consts";
 import ReportHeader from "../kmui/ReportHeader";
 
 export default ({ report, onEdit }) => {
@@ -273,8 +272,6 @@ export default ({ report, onEdit }) => {
   return (
     <Stack
       sx={{
-        maxWidth: MAX_WIDTH_CONTENT,
-        minWidth: `min(98vw, ${MAX_WIDTH_CONTENT}px)`,
         border: "1px solid gray",
         borderRadius: 1,
         backgroundColor:

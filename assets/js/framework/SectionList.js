@@ -13,7 +13,6 @@ import MainWrapper from "./MainWrapper";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { bookName, sectionName, navSectionLink } from "../utils/app";
-import { MAX_WIDTH_CONTENT } from "../consts";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -180,7 +179,6 @@ export default () => {
     <Stack
       sx={{
         width: "100%",
-        maxWidth: MAX_WIDTH_CONTENT,
         padding: "0.5rem",
         backgroundColor: "primary.header2",
         borderRadius: 1,
@@ -216,7 +214,7 @@ export default () => {
     <Spinner open={fetchingSections || fetchingBook}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
-        <Stack alignItems="center" spacing={3}>
+        <Stack spacing={3}>
           <Typography align="center" variant="h5">
             {bookName(book)}
           </Typography>

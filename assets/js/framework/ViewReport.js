@@ -9,12 +9,12 @@ import { request } from "../utils/graph-ql";
 import Typography from "@mui/material/Typography";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
 import MainWrapper from "./MainWrapper";
+import BackButton from "../kmui/BackButton";
 import { DialogContext } from "../context/DialogContext";
-import { MAX_WIDTH_CONTENT } from "../consts";
 import Tooltip from "@mui/material/Tooltip";
 import {
   generatePlainText,
@@ -197,64 +197,60 @@ export default ({ wsReportId }) => {
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
         {state?.showBackButton && (
-          <IconButton onClick={() => history.back()}>
-            <ArrowBackIcon />
-          </IconButton>
+          <Box sx={{ width: "100%" }}>
+            <BackButton />
+          </Box>
         )}
-        <center>
+        <Stack
+          sx={{
+            border: "1px solid gray",
+            borderRadius: 1,
+            backgroundColor: "primary.paper",
+            padding: 6,
+          }}
+        >
+          <ReportHeading />
           <Stack
             sx={{
-              maxWidth: MAX_WIDTH_CONTENT,
-              minWidth: `min(98vw, ${MAX_WIDTH_CONTENT}px)`,
-              border: "1px solid gray",
-              borderRadius: 1,
-              backgroundColor: "primary.paper",
-              padding: 6,
+              marginBottom: 5,
+              padding: 3,
+              backgroundColor: "primary.backdrop",
+              width: "100%",
             }}
           >
-            <ReportHeading />
-            <Stack
-              sx={{
-                marginBottom: 5,
-                padding: 3,
-                backgroundColor: "primary.backdrop",
-                width: "100%",
-              }}
-            >
-              <Typography align="left" variant="h5">
-                {bookName(chapter.section.book)}
-              </Typography>
-              <Typography align="left" noWrap variant="h6">
-                {sectionName(section)}
-              </Typography>
-              <Typography align="left" noWrap variant="h6">
-                {chapterName(chapter)}
-              </Typography>
-            </Stack>
-            <Stack spacing={5}>
-              {report &&
-                report.texts
-                  ?.map((text) => (
-                    <Fragment
-                      key={text.id}
-                      text={text}
-                      hasMultiple={report.texts.length > 1}
-                    />
-                  ))
-                  .flatMap((el, i) =>
-                    i == 0 ? [el] : [<Divider key={i} />, el]
-                  )}
-              {report &&
-                report.comments?.map((comment) => (
-                  <Comment
-                    key={comment.id}
-                    comment={comment}
-                    hasMultiple={report.comments.length > 1}
-                  />
-                ))}
-            </Stack>
+            <Typography align="left" variant="h5">
+              {bookName(chapter.section.book)}
+            </Typography>
+            <Typography align="left" noWrap variant="h6">
+              {sectionName(section)}
+            </Typography>
+            <Typography align="left" noWrap variant="h6">
+              {chapterName(chapter)}
+            </Typography>
           </Stack>
-        </center>
+          <Stack spacing={5}>
+            {report &&
+              report.texts
+                ?.map((text) => (
+                  <Fragment
+                    key={text.id}
+                    text={text}
+                    hasMultiple={report.texts.length > 1}
+                  />
+                ))
+                .flatMap((el, i) =>
+                  i == 0 ? [el] : [<Divider key={i} />, el]
+                )}
+            {report &&
+              report.comments?.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  hasMultiple={report.comments.length > 1}
+                />
+              ))}
+          </Stack>
+        </Stack>
       </MainWrapper>
     </Spinner>
   );
