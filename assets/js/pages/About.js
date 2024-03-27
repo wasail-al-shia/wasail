@@ -104,11 +104,12 @@ export default () => {
                 dedicating a chapter for each issue as much as possible,
                 following what has been transmitted in this regard.&quot;
               </Quote>
-              He exhaustively collected the narrations from the infallibles so
-              that{" "}
+              He exhaustively collected the reliable narrations from the
+              infallibles and organized them in order to&nbsp;
               <strong>
-                this book is sufficient for the mukallaf and there is no need to
-                refer to anyone else for all matters of religion
+                make the compilation sufficient and accessible for the mukallaf
+                so that there is no need to refer to anyone else (besides the
+                infallibles) for all matters of religion
               </strong>
               :
               <Quote>
@@ -123,12 +124,12 @@ export default () => {
               This work by Shaykh Hurr Amili is a significant contribution to
               the preservation and dissemination of Shia hadiths.&nbsp;
               <strong>
-                Above all, it is the greatest gift to those of the Shia who wish
-                to base their deen (religion) firmly on the teachings of
-                Ahlulbayt (as).
-              </strong>{" "}
-              May Allah elevate the status of Shaykh Hurr Amili and reward him
-              abundantly.
+                Above all, it is the best source and the greatest gift to those
+                of the Shia who wish to base their deen (religion) firmly on the
+                teachings of Ahlulbayt (as).
+              </strong>
+              &nbsp; May Allah elevate the status of Shaykh Hurr Amili and
+              reward him abundantly.
             </Typography>
             <Typography variant="h5">Translation Notes</Typography>
             <Typography>
@@ -169,7 +170,7 @@ export default () => {
               The original Arabic version (as compiled by the Shaykh) maintains
               a sequential numbering of the hadith which runs incrementally
               through the entire collection, starting from number 1 (in the
-              first volume) and ending with number 35,767 (in the last volume).
+              first volume) and ending with number 35,868 (in the last volume).
               This site shows this same number next to each hadith.
             </Typography>
             <Typography variant="h5">Site Features</Typography>
@@ -191,20 +192,20 @@ export default () => {
             <Typography>
               We are a team of individuals committed to disseminating the
               teachings of Ahlulbayt (peace be upon them) and our goal is to
-              make it easily accessible and freely available to all. This
+              make it accessible and available for all those who seek it. This
               website is the result of a collaborative effort by language and
-              technology experts. We have recently begun the translation project
-              and we expect this effort to continue for quite some time until we
-              finish inshaAllah.
+              technology enthusiasts. We have recently begun the translation
+              project and we expect this effort to continue for quite some time
+              until we finish inshaAllah.
             </Typography>
             <Typography variant="h5">Finally</Typography>
             <Typography>
               The speech (kalaam) of Ahlulbayt is a guiding light (noor) and we
-              pray that Allah guide us all through it. We also ask Allah to
-              forgive us for any shortcomings or deficiencies in conveying his
-              message. If you have any questions or comments please feel free to
-              contact us. Thank you for visiting the website and we look forward
-              to your support and feedback.
+              pray that Allah guide us all through this light. We ask Allah for
+              forgiveness for any shortcomings or deficiencies in this
+              translation. If you have any questions or comments please feel
+              free to contact us. Thank you for visiting the website and we look
+              forward to your support and feedback.
             </Typography>
           </Stack>
           <Box mt={7} />
