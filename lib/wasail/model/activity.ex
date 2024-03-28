@@ -17,6 +17,7 @@ defmodule Wasail.Activity do
         select: %{
           id: a.id,
           activity_type: a.activity_type,
+          user_agent: a.user_agent,
           ip: i.ip,
           country: i.country,
           region: i.region,
@@ -51,6 +52,7 @@ defmodule Wasail.Activity do
     |> Ecto.Changeset.cast(attrs, [
       :ip_info_id,
       :activity_type,
+      :user_agent,
       :report_id,
       :chapter_id,
       :search_str,

@@ -24,31 +24,34 @@ defmodule Wasail.ActivitySvc do
     end
   end
 
-  def record_report_activity(ip, report_id) do
+  def record_report_activity(ip, user_agent, report_id) do
     ip_rec = get_ip_info(ip)
 
     Wasail.Activity.insert(%{
       ip_info_id: ip_rec.id,
+      user_agent: user_agent,
       activity_type: "view_report",
       report_id: report_id
     })
   end
 
-  def record_chapter_activity(ip, chapter_id) do
+  def record_chapter_activity(ip, user_agent, chapter_id) do
     ip_rec = get_ip_info(ip)
 
     Wasail.Activity.insert(%{
       ip_info_id: ip_rec.id,
+      user_agent: user_agent,
       activity_type: "view_chapter",
       chapter_id: chapter_id
     })
   end
 
-  def record_search_activity(ip, search_str) do
+  def record_search_activity(ip, user_agent, search_str) do
     ip_rec = get_ip_info(ip)
 
     Wasail.Activity.insert(%{
       ip_info_id: ip_rec.id,
+      user_agent: user_agent,
       activity_type: "search",
       search_str: search_str
     })

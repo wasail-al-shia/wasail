@@ -113,6 +113,7 @@ defmodule WasailWeb.Graphql.Types do
     field :id, non_null(:integer)
     field :activity_type, non_null(:string)
     field :ip, non_null(:string)
+    field :user_agent, :string
     field :country, :string
     field :region, :string
     field :city, :string

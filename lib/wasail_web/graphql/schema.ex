@@ -365,5 +365,12 @@ defmodule WasailWeb.Graphql.Schema do
         {:ok, %{status: :ok, message: "Processed report feedback"}}
       end)
     end
+
+    # @desc "Delete Activity"
+    # field :delete_activity, :mutation_response do
+    #   arg(:older_than_days, :integer)
+    #   middleware(WasailWeb.Graphql.RequireAdmin)
+    #   resolve(&BookResolver.delete_book/2)
+    # end
   end
 end

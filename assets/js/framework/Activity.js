@@ -19,6 +19,7 @@ import {
   navReportLink,
   navSearchReultsLink,
 } from "../utils/app";
+import { UAParser } from "ua-parser-js";
 
 const columns = [
   {
@@ -26,7 +27,22 @@ const columns = [
     label: "Date",
     format: (v, _rowData) => formatIsoStrToLocal(v),
   },
-  { id: "ip", label: "IP" },
+  {
+    id: "ip",
+    label: "IP",
+  },
+  {
+    id: "userAgent",
+    label: "User Agent",
+    format: (v, _rowData) => {
+      if (!v) return "-";
+      const v2 =
+        "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.94 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
+      const parser = new UAParser();
+      const { browser, device, os } = parser.setUA(v2).getResult();
+      return [browser.name, os.name, device.type].filter((x) => x).join(", ");
+    },
+  },
   {
     id: "region",
     label: "Region/Country",
@@ -60,6 +76,7 @@ const fetchRecentActivity = ({ queryKey: [_, n] }) =>
     recentActivity(n: ${n}) {
       id
       activityType
+      userAgent
       ip
       country
       region
@@ -85,6 +102,7 @@ export default function () {
     ["totalActivityCount"],
     fetchActivityCount
   );
+
   return (
     <Spinner open={isFetching}>
       <Subheader />

@@ -3,6 +3,7 @@ defmodule Wasail.Schema.Activity do
 
   schema "activity" do
     belongs_to :ip_info, Wasail.Schema.IpInfo
+    field :user_agent, :string
     field :report_id, :integer
     field :chapter_id, :integer
     field :search_str, :string
