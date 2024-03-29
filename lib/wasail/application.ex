@@ -18,7 +18,9 @@ defmodule Wasail.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Wasail.PubSub},
       # Start the Endpoint (http/https)
-      WasailWeb.Endpoint
+      WasailWeb.Endpoint,
+      # Quantum scheduler
+      Wasail.Scheduler
       # Start a worker by calling: Wasail.Worker.start_link(arg)
       # {Wasail.Worker, arg}
     ]

@@ -53,6 +53,12 @@ config :ueberauth, Ueberauth,
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "674843619114-5hi78muj3l1p5dvadvi5ufvg5kqj7618.apps.googleusercontent.com"
 
+config :wasail, Wasail.Scheduler,
+  jobs: [
+    # Runs every midnight:
+    {"@daily", {Wasail.Activity, :delete_old_records, []}}
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

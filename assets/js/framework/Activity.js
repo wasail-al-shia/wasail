@@ -36,10 +36,7 @@ const columns = [
     label: "User Agent",
     format: (v, _rowData) => {
       if (!v) return "-";
-      const v2 =
-        "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.94 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
-      const parser = new UAParser();
-      const { browser, device, os } = parser.setUA(v2).getResult();
+      const { browser, device, os } = UAParser(v);
       return [browser.name, os.name, device.type].filter((x) => x).join(", ");
     },
   },
@@ -108,7 +105,7 @@ export default function () {
       <Subheader />
       <MainWrapper>
         <Typography variant="h6">
-          Total Activity Count: {totalActivityCount}
+          Activity Cnt Last 30 Days: {totalActivityCount}
         </Typography>
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: "90vh" }}>

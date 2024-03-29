@@ -70,7 +70,8 @@ defmodule Wasail.MixProject do
       {:hackney, "~> 1.20"},
       {:sweet_xml, "~> 0.7.4"},
       {:content_disposition, "~> 1.0"},
-      {:retry, "~> 0.18.0"}
+      {:retry, "~> 0.18.0"},
+      {:quantum, "~> 3.0"}
     ]
   end
 

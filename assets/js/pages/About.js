@@ -103,13 +103,10 @@ export default () => {
                 following what has been transmitted in this regard.&quot;
               </Quote>
               He exhaustively collected the reliable narrations from the
-              infallibles and organized them in order to&nbsp;
-              <strong>
-                make the compilation sufficient and accessible for the mukallaf
-                so that there is no need to refer to anyone else (besides the
-                infallibles) for all matters of religion
-              </strong>
-              :
+              infallibles and organized them in order to make the compilation
+              sufficient and accessible for the mukallaf so that there is no
+              need to refer to anyone else (besides the infallibles) for all
+              matters of religion:
               <Quote>
                 &quot;Exhaustively seeking the jurisprudential branches (furu’a
                 al fiqheeya) and the narrated judgments (ahkam al marweeyah) and
@@ -120,29 +117,33 @@ export default () => {
                 besides them in all matters of dunya and deen.&quot;
               </Quote>
               This work by Shaykh Hurr Amili is a significant contribution to
-              the preservation and dissemination of Shia hadiths.&nbsp;
-              <strong>
-                Above all, it is the best source and the greatest gift to those
-                of the Shia who wish to base their deen (religion) firmly on the
-                teachings of Ahlulbayt (as).
-              </strong>
-              &nbsp; May Allah elevate the status of Shaykh Hurr Amili and
-              reward him abundantly.
+              the preservation and dissemination of Shia hadiths. Above all, it
+              is the best source and the greatest gift to those of the Shia who
+              wish to base their deen (religion) firmly on the teachings of
+              Ahlulbayt (as). May Allah elevate the status of Shaykh Hurr Amili
+              and reward him abundantly.
             </Typography>
             <Typography variant="h5">Translation Notes</Typography>
             <Typography>
               This site presents a translation of this important work in order
-              to make it accessible to the english speaking audience. We are
-              careful to translate the hadith such that, it is as faithful as
-              possible to the original in conveying the precise meanings. Arabic
-              is an eloquent language and for many words and expressions it is
-              often impossible to find the best equivalent word or expression in
-              english. In many cases, and especially for well known Arabic
-              words, we quote the transliterated form of the word directly (e.g.
-              wilayah, ibaadah, aql, kufr, etc). In other cases, we offer more
-              than one applicable meanings in parenthesis. And where needed we
-              provide further explanation of the term or expression in a comment
-              below the hadith.
+              to make it accessible to the english speaking audience. We
+              endeavor to carefully translate each hadith such that the
+              translation is as faithful as possible in conveying the original
+              meaning. Arabic is an eloquent language and for many words it is
+              often impossible to find the best equivalent word in english. When
+              the word is popularly known we resort to a direct transliteration
+              (e.g. wilayah, ibaadah, aql, kufr, etc). In other cases, we offer
+              more than one applicable meanings in parenthesis.
+            </Typography>
+            <Typography>
+              In addition, vivid imagery and expressions are often used to make
+              a point or emphasize an idea. These include metaphorical or
+              idiomatic expressions that are unique to the arabic language.
+              Translations of such expressions require a balance between literal
+              word-for-word translation and rewording it to capture the intended
+              meaning. In many situations, whenever needed we have provided
+              further explanation of the term or expression in a comment below
+              the hadith.
             </Typography>
             <Typography>
               For your reference the Arabic text is provided along with the

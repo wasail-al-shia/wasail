@@ -1,4 +1,5 @@
 defmodule Wasail.Activity do
+  require Logger
   import Ecto.Query
   alias Wasail.IpInfo
   alias Wasail.Repo
@@ -70,5 +71,42 @@ defmodule Wasail.Activity do
       %Activity{} = a -> Repo.delete(a)
       nil -> nil
     end
+  end
+
+  def delete_old_records(n \\ 30) do
+    Repo.transaction(fn ->
+      delete_old_activity_records(n)
+      delete_orphan_ip_info_records()
+    end)
+  end
+
+  def delete_old_activity_records(n) do
+    # find activity records older than n days
+    {num_deleted, _} =
+      from(a in Activity,
+        where: a.inserted_at < ^DateTime.add(DateTime.utc_now(), n * -1, :day)
+      )
+      |> Repo.delete_all()
+
+    Logger.info("Deleted #{num_deleted} activity records")
+  end
+
+  def delete_orphan_ip_info_records do
+    # subquery to find all ip_info ids referenced in the activity table
+    referenced_parent_ids_subquery =
+      from(c in Activity,
+        select: c.ip_info_id,
+        distinct: true
+      )
+
+    # left join to find ip_info records not referenced by any activity
+    orphan_parents_query =
+      from(p in IpInfo,
+        where: p.id not in subquery(referenced_parent_ids_subquery)
+      )
+
+    # delete these ip_info records
+    {num_deleted, _} = Repo.delete_all(orphan_parents_query)
+    Logger.info("Deleted #{num_deleted} ip_info records")
   end
 end
