@@ -25,21 +25,8 @@ defmodule Wasail.Book do
         select: count(r.id)
       )
 
-    n = Repo.one(count_reports_query)
-
-    case book_id do
-      1 ->
-        # total reports in ws volume 1
-        t = 1299
-        n / t * 100
-
-      2 ->
-        t = 2865 - 1299
-        n / t * 100
-
-      _ ->
-        0
-    end
+    Repo.one(count_reports_query)
+    |> Wasail.Util.Sys.percent_complete(book_id)
   end
 
   def insert(rec) do

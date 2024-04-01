@@ -84,4 +84,26 @@ defmodule Wasail.Report do
       nil -> nil
     end
   end
+
+  def get_all_report_no_by_book_id(book_id) do
+    report_query =
+      from(b in Book,
+        join: s in Section,
+        on: s.book_id == b.id,
+        join: c in Chapter,
+        on: c.section_id == s.id,
+        join: r in Report,
+        on: r.chapter_id == c.id,
+        where: b.id == ^book_id,
+        select: r.report_no
+      )
+
+    Repo.all(report_query)
+  end
+
+  def find_missing(book_id) do
+    xs1 = Wasail.Util.Sys.report_range(book_id) |> MapSet.new()
+    xs2 = get_all_report_no_by_book_id(book_id) |> MapSet.new()
+    MapSet.difference(xs1, xs2)
+  end
 end
