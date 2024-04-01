@@ -116,6 +116,16 @@ export default () => {
                 can refer to the hadith of the infallibles not to anyone else
                 besides them in all matters of dunya and deen.&quot;
               </Quote>
+              He did not limit himself to just Kutub-e-Araba, but also reached
+              out to other collections which were considered reliable and
+              mutawaatir by their compilers and the ulama of his times:
+              <Quote>
+                &quot;There exist (besides Kutub e Araba) many reliable books
+                from the compositions of other trustworthy and noble authors,
+                all of which considered their hadith collections mutawaatir
+                without there being any ikhtilaaf or doubt among the virtuous
+                ulamaa regarding their authenticity.&quot;
+              </Quote>
               This work by Shaykh Hurr Amili is a significant contribution to
               the preservation and dissemination of Shia hadiths. Above all, it
               is the best source and the greatest gift to those of the Shia who
@@ -191,7 +201,7 @@ export default () => {
             <Typography>
               We are a team of individuals committed to disseminating the
               teachings of Ahlulbayt (peace be upon them) and our goal is to
-              make it accessible and available for all those who seek it. This
+              make them accessible and available for all those who seek it. This
               website is the result of a collaborative effort by language and
               technology enthusiasts. We have recently begun the translation
               project and we expect this effort to continue for quite some time

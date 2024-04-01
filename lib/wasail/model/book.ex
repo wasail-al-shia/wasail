@@ -13,23 +13,28 @@ defmodule Wasail.Book do
   end
 
   def percent_complete(book_id) do
+    count_reports_query =
+      from(b in Book,
+        join: s in Section,
+        on: s.book_id == b.id,
+        join: c in Chapter,
+        on: c.section_id == s.id,
+        join: r in Report,
+        on: r.chapter_id == c.id,
+        where: b.id == ^book_id,
+        select: count(r.id)
+      )
+
+    n = Repo.one(count_reports_query)
+
     case book_id do
       1 ->
-        count_reports_query =
-          from(b in Book,
-            join: s in Section,
-            on: s.book_id == b.id,
-            join: c in Chapter,
-            on: c.section_id == s.id,
-            join: r in Report,
-            on: r.chapter_id == c.id,
-            where: b.id == ^book_id,
-            select: count(r.id)
-          )
-
-        n = Repo.one(count_reports_query)
         # total reports in ws volume 1
         t = 1299
+        n / t * 100
+
+      2 ->
+        t = 2865 - 1299
         n / t * 100
 
       _ ->

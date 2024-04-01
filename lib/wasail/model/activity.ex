@@ -26,6 +26,7 @@ defmodule Wasail.Activity do
           chapter_id: a.chapter_id,
           report_id: a.report_id,
           search_str: a.search_str,
+          desc: a.desc,
           inserted_at: a.inserted_at
         }
       )

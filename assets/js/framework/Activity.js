@@ -46,6 +46,7 @@ const columns = [
     format: (v, rowData) => `${v} (${rowData.country})`,
   },
   { id: "city", label: "City" },
+  { id: "activityType", label: "Type" },
   {
     id: "chapterId",
     format: (v) => (v ? <Link to={navChapterLink(v)}>{v}</Link> : null),
@@ -81,6 +82,7 @@ const fetchRecentActivity = ({ queryKey: [_, n] }) =>
       chapterId
       reportId
       searchStr
+      desc
       insertedAt
     }
   }`).then(({ recentActivity }) => recentActivity);

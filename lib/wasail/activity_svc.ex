@@ -24,6 +24,17 @@ defmodule Wasail.ActivitySvc do
     end
   end
 
+  def record_download_book_activity(ip, user_agent, book_code, volume_no) do
+    ip_rec = get_ip_info(ip)
+    type = "download_#{book_code}_#{volume_no}"
+
+    Wasail.Activity.insert(%{
+      ip_info_id: ip_rec.id,
+      user_agent: user_agent,
+      activity_type: type
+    })
+  end
+
   def record_report_activity(ip, user_agent, report_id) do
     ip_rec = get_ip_info(ip)
 
