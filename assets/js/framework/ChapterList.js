@@ -172,15 +172,6 @@ export default () => {
     deletePayload: {
       chapterId: chapter.id,
     },
-    transformPayload: (payload) =>
-      replace(payload, [
-        {
-          key: "nameEng",
-          value: payload.nameEng
-            ? capitalizeFirstLetter(payload.nameEng)
-            : null,
-        },
-      ]),
   });
 
   const ReportRangeChapter = ({ chapterId }) => {

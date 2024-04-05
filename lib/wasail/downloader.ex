@@ -5,12 +5,16 @@ defmodule Wasail.Downloader do
   @f_lib "https://lfile.ir/feqhi-library/book<NUM>.pdf"
   # 1 - 155
   @h_lib "https://lfile.ir/hadith-library/<NUM>.pdf"
+  # 1 - 790
+  @o_lib "https://lfile.ir/osul-library/book<NUM>.pdf"
+
   @download_dir "/Users/sbhinderwala/arabic_books/"
 
   def skip?(n, type) do
     case type do
       "f" -> File.exists?(@download_dir <> "f_book#{n}")
       "h" -> File.exists?(@download_dir <> "h_book#{n}")
+      "o" -> File.exists?(@download_dir <> "o_book#{n}")
       _ -> raise "unknown type #{type}"
     end
   end
@@ -24,6 +28,7 @@ defmodule Wasail.Downloader do
       case type do
         "f" -> 637
         "h" -> 155
+        "o" -> 790
         _ -> raise "unknown type"
       end
 
@@ -45,6 +50,7 @@ defmodule Wasail.Downloader do
     case type do
       "f" -> String.replace(@f_lib, "<NUM>", "#{n}")
       "h" -> String.replace(@h_lib, "<NUM>", "#{n}")
+      "o" -> String.replace(@o_lib, "<NUM>", "#{n}")
       _ -> raise "unkown type"
     end
   end

@@ -60,7 +60,7 @@ const Theme = createTheme({
     },
     h6: {
       fontSize: "1.0rem",
-      fontWeight: 400,
+      fontWeight: 500,
     },
     h6a: {
       fontSize: "1.5rem",

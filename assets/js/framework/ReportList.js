@@ -142,6 +142,7 @@ export default () => {
       size: "small",
       md: 12,
       fullWidth: true,
+      defaultValue: "Hadith " + (nextSeqNo || ""),
       rules: { required: true },
     },
   ];
@@ -208,7 +209,7 @@ export default () => {
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
         <Stack spacing={3}>
-          <Typography align="center" variant="h5">
+          <Typography align="center" variant="h6">
             {sectionName(chapter.section)}
           </Typography>
           <Typography align="center" variant="h5">
@@ -254,9 +255,6 @@ export default () => {
           onlyDirty: false,
           mutationApi: "addReportFrag",
           basePayload: { chapterId: chapter.id },
-          defaultValues: nextSeqNo
-            ? { headingEng: "Hadith " + nextSeqNo }
-            : null,
           transformPayload,
         }}
       />
