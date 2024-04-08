@@ -29,4 +29,22 @@ defmodule Wasail.Util.Sys do
       _ -> []
     end
   end
+
+  @sitemap_file "priv/static/sitemap.txt"
+  @site_url "https://wasail-al-shia.net"
+
+  def generate_sitemap do
+    File.rm(@sitemap_file)
+
+    {:ok, file} = File.open(@sitemap_file, [:write])
+    IO.write(file, "#{@site_url}\n")
+    IO.write(file, "#{@site_url}/about\n")
+
+    Wasail.Chapter.get_ids()
+    |> Enum.each(fn id ->
+      IO.write(file, "#{@site_url}/c/#{id}\n")
+    end)
+
+    File.close(file)
+  end
 end

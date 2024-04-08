@@ -209,7 +209,7 @@ export default () => {
       <BreadCrumbs crumbDefs={crumbDefs} />
       <MainWrapper>
         <Stack spacing={3}>
-          <Typography align="center" variant="h6">
+          <Typography align="center" variant="h5">
             {sectionName(chapter.section)}
           </Typography>
           <Typography align="center" variant="h5">
@@ -248,7 +248,7 @@ export default () => {
       <FabAddButton
         buttonText="Report"
         dataEntryProps={{
-          key: "addreport",
+          key: `addreport${nextSeqNo}`,
           title: "Add report",
           fields: reportFields.concat(reportFragFields),
           dataQueryKeys: ["reports"],

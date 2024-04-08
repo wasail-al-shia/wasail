@@ -1,5 +1,6 @@
 defmodule Wasail.Chapter do
   require Logger
+  import Ecto.Query
   alias Wasail.Repo
   alias Wasail.Schema.Chapter, as: Chapter
   alias Wasail.Util.Query, as: QueryUtil
@@ -51,5 +52,16 @@ defmodule Wasail.Chapter do
       %Chapter{} = c -> Repo.delete(c)
       nil -> nil
     end
+  end
+
+  def get_ids() do
+    query =
+      from(
+        c in Chapter,
+        order_by: {:asc, c.id},
+        select: c.id
+      )
+
+    Repo.all(query)
   end
 end
