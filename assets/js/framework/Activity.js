@@ -45,13 +45,12 @@ const columns = [
   },
   {
     id: "region",
-    label: "Region/Country",
-    format: (v, rowData) => `${v} (${rowData.country})`,
+    label: "Region",
+    format: (v, rowData) => `${rowData.city}, ${v} (${rowData.country})`,
   },
-  { id: "city", label: "City" },
   {
     id: "activityType",
-    label: "Type",
+    label: "Activity",
     format: (v, rowData) => {
       switch (v) {
         case "view_chapter":
