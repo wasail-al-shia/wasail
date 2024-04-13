@@ -17,7 +17,7 @@ import { useContactDialogProps } from "../utils/contact";
 import { backend } from "../utils/axiosConfig";
 import SearchInput from "../kmui/SearchInput";
 import { isNumeric } from "../utils/string";
-import { navSearchReultsLink, navWsReportLink } from "../utils/app";
+import { navSearchResultsLink, navWsReportLink } from "../utils/app";
 import { Link } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu";
 
@@ -124,7 +124,6 @@ function NavBar() {
                 noWrap
                 component={Link}
                 to={"/"}
-                margin="0.5rem"
                 sx={{
                   "&:hover": {
                     fontWeight: 700,
@@ -135,6 +134,7 @@ function NavBar() {
                   textDecoration: "none",
                   textTransform: "uppercase",
                   cursor: "pointer",
+                  pt: 2,
                 }}
               >
                 WASAIL AL SHIA
@@ -148,7 +148,7 @@ function NavBar() {
                     ? navigate(navWsReportLink(Number(searchStr)), {
                         state: { showBackButton: true },
                       })
-                    : navigate(navSearchReultsLink(searchStr), {
+                    : navigate(navSearchResultsLink(searchStr), {
                         state: { searchStr },
                       })
                 }

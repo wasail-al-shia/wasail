@@ -11,6 +11,7 @@ export default function ({ name, link, onClick }) {
       to={link}
       onClick={onClick}
       sx={{
+        pt: 2,
         color: "#fff",
         textDecoration: "none",
         textTransform: "uppercase",

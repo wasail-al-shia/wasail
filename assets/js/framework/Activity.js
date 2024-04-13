@@ -19,7 +19,7 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import {
   navChapterLink,
   navReportLink,
-  navSearchReultsLink,
+  navSearchResultsLink,
 } from "../utils/app";
 import { UAParser } from "ua-parser-js";
 import WsTable from "../kmui/WsTable";
@@ -49,26 +49,36 @@ const columns = [
     format: (v, rowData) => `${v} (${rowData.country})`,
   },
   { id: "city", label: "City" },
-  { id: "activityType", label: "Type" },
   {
-    id: "chapterId",
-    format: (v) => (v ? <Link to={navChapterLink(v)}>{v}</Link> : null),
-    label: "Chapter Id",
-  },
-  {
-    id: "reportId",
-    format: (v) => (v ? <Link to={navReportLink(v)}>{v}</Link> : null),
-    label: "Report Id",
-  },
-  {
-    id: "searchStr",
-    format: (v) =>
-      v ? (
-        <Link to={navSearchReultsLink(v)} state={{ searchStr: v }}>
-          {v}
-        </Link>
-      ) : null,
-    label: "Search",
+    id: "activityType",
+    label: "Type",
+    format: (v, rowData) => {
+      switch (v) {
+        case "view_chapter":
+          return (
+            <Link
+              to={navChapterLink(rowData.chapterId)}
+            >{`chapter: ${rowData.chapterId}`}</Link>
+          );
+        case "view_report":
+          return (
+            <Link
+              to={navReportLink(rowData.reportId)}
+            >{`report: ${rowData.reportId}`}</Link>
+          );
+        case "search":
+          return (
+            <Link
+              to={navSearchResultsLink(rowData.searchStr)}
+              state={{ searchStr: rowData.searchStr }}
+            >
+              {`srch: ${rowData.searchStr}`}
+            </Link>
+          );
+        default:
+          return v;
+      }
+    },
   },
 ];
 
@@ -124,13 +134,13 @@ export default function () {
       <Container sx={{ marginTop: 10 }} maxWidth="lg">
         <Box sx={{ height: HEADER_HEIGHT }} />
         <Grid container spacing={5}>
-          <Grid xs={10}>
+          <Grid xs={9}>
             <Typography variant="h6">
               Activity Cnt 30 Days: {totalActivityCount}
             </Typography>
             <WsTable vh={90} columnDefs={columns} data={recentActivity} />
           </Grid>
-          <Grid xs={2}>
+          <Grid xs={3}>
             <Typography variant="h6">Unique Visitors:</Typography>
             <WsTable
               vh={90}

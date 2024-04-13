@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { MAX_WIDTH_CONTENT, HEADER_HEIGHT } from "../consts";
 import SearchInput from "../kmui/SearchInput";
-import { navSearchReultsLink, navWsReportLink } from "../utils/app";
+import { navSearchResultsLink, navWsReportLink } from "../utils/app";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { isNumeric } from "../utils/string";
 import TopMenu from "./TopMenu";
@@ -122,7 +122,7 @@ export default function Header() {
                       ? navigate(navWsReportLink(Number(searchStr)), {
                           state: { showBackButton: true },
                         })
-                      : navigate(navSearchReultsLink(searchStr), {
+                      : navigate(navSearchResultsLink(searchStr), {
                           state: { searchStr },
                         })
                   }
