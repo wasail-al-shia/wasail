@@ -1,12 +1,11 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
-import MainWrapper from "./MainWrapper";
-import Subheader from "./Subheader";
 import Spinner from "../kmui/Spinner";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,6 +13,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { formatIsoStrToLocal } from "../utils/date";
+import Container from "@mui/material/Container";
+import { HEADER_HEIGHT } from "../consts";
 import {
   navChapterLink,
   navReportLink,
@@ -104,8 +105,8 @@ export default function () {
 
   return (
     <Spinner open={isFetching}>
-      <Subheader />
-      <MainWrapper>
+      <Container sx={{ marginTop: 10 }} maxWidth="lg">
+        <Box sx={{ height: HEADER_HEIGHT }} />
         <Typography variant="h6">
           Activity Cnt Last 30 Days: {totalActivityCount}
         </Typography>
@@ -144,7 +145,7 @@ export default function () {
             </Table>
           </TableContainer>
         </Paper>
-      </MainWrapper>
+      </Container>
     </Spinner>
   );
 }

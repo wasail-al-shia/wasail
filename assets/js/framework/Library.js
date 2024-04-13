@@ -6,8 +6,8 @@ import { DialogContext } from "../context/DialogContext";
 import BookCover from "../kmui/BookCover";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
-import MainWrapper from "./MainWrapper";
-import Subheader from "./Subheader";
+import { HEADER_HEIGHT } from "../consts";
+import Container from "@mui/material/Container";
 
 const fetchBooks = () =>
   request(`{
@@ -50,24 +50,6 @@ export default () => {
       md: 6,
     },
     {
-      name: "code",
-      label: "Book Code",
-      type: "text",
-      fullWidth: true,
-      size: "small",
-      rules: { required: true },
-      md: 6,
-    },
-    {
-      name: "volumeNo",
-      label: "Vol No",
-      type: "number",
-      rules: { required: true },
-      defaultValue: nextVolSeqNo,
-      size: "small",
-      sx: { width: 100 },
-    },
-    {
       name: "authorEng",
       label: "Author",
       fullWidth: true,
@@ -77,19 +59,39 @@ export default () => {
       md: 6,
     },
     {
+      name: "code",
+      label: "Book Code",
+      type: "text",
+      fullWidth: true,
+      size: "small",
+      rules: { required: true },
+      md: 4,
+    },
+    {
+      name: "volumeNo",
+      label: "Vol No",
+      type: "number",
+      rules: { required: true },
+      defaultValue: nextVolSeqNo,
+      size: "small",
+      md: 4,
+      sx: { width: 100 },
+    },
+    {
       name: "librarySeqNo",
       label: "Lib Seq No",
       type: "number",
       rules: { required: true },
+      defaultValue: "1",
       size: "small",
+      md: 4,
       sx: { width: 150 },
     },
   ];
 
   return (
     <Spinner open={isFetching}>
-      <Subheader />
-      <MainWrapper>
+      <Container sx={{ marginTop: HEADER_HEIGHT }} maxWidth="lg">
         <Grid
           container
           direction="row"
@@ -122,18 +124,18 @@ export default () => {
             </Grid>
           ))}
         </Grid>
-      </MainWrapper>
-      <FabAddButton
-        buttonText="Book"
-        dataEntryProps={{
-          key: nextVolSeqNo,
-          title: "Add Book",
-          fields: addBookFields,
-          dataQueryKeys: ["books"],
-          mutationApi: "addBook",
-          wrapInInput: true,
-        }}
-      />
+        <FabAddButton
+          buttonText="Book"
+          dataEntryProps={{
+            key: nextVolSeqNo,
+            title: "Add Book",
+            fields: addBookFields,
+            dataQueryKeys: ["books"],
+            mutationApi: "addBook",
+            wrapInInput: true,
+          }}
+        />
+      </Container>
     </Spinner>
   );
 };

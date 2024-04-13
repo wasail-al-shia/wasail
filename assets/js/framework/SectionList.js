@@ -4,15 +4,17 @@ import { request } from "../utils/graph-ql";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { DialogContext } from "../context/DialogContext";
 import FabAddButton from "../kmui/FabAddButton";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import Spinner from "../kmui/Spinner";
-import MainWrapper from "./MainWrapper";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { bookName, sectionName, navSectionLink } from "../utils/app";
+import Container from "@mui/material/Container";
+import { HEADER_HEIGHT } from "../consts";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -213,8 +215,9 @@ export default () => {
   return (
     <Spinner open={fetchingSections || fetchingBook}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper>
-        <Stack spacing={3}>
+      <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+      <Container maxWidth="lg">
+        <Stack sx={{ marginTop: 5 }} spacing={3}>
           <Typography align="center" variant="h5">
             {bookName(book)}
           </Typography>
@@ -222,18 +225,18 @@ export default () => {
             <SectionCard key={section.id} section={section} />
           ))}
         </Stack>
-      </MainWrapper>
-      <FabAddButton
-        buttonText="Section"
-        dataEntryProps={{
-          key: nextSectionNo,
-          title: "Add Section",
-          fields: sectionDialogFields,
-          dataQueryKeys: ["sections"],
-          mutationApi: "addSection",
-          basePayload: { bookId: book.id },
-        }}
-      />
+        <FabAddButton
+          buttonText="Section"
+          dataEntryProps={{
+            key: nextSectionNo,
+            title: "Add Section",
+            fields: sectionDialogFields,
+            dataQueryKeys: ["sections"],
+            mutationApi: "addSection",
+            basePayload: { bookId: book.id },
+          }}
+        />
+      </Container>
     </Spinner>
   );
 };

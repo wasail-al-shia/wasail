@@ -10,6 +10,7 @@ const SessionContext = React.createContext();
 const fetchUserInfo = () =>
   request(`{
     userInfo {
+      uid
       name
       email
       avatarUrl

@@ -15,6 +15,8 @@ import SearchInput from "../kmui/SearchInput";
 import { navSearchReultsLink, navWsReportLink } from "../utils/app";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { isNumeric } from "../utils/string";
+import TopMenu from "./TopMenu";
+import BurgerMenu from "./BurgerMenu";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -42,6 +44,46 @@ export default function Header() {
     />
   );
 
+  const Title = () => (
+    <Typography
+      sx={{ color: "primary.paper" }}
+      variant={onSmallScreen ? "siteHeaderSmall" : "siteHeader"}
+    >
+      Wasail Al Shia
+    </Typography>
+  );
+
+  const Login = () =>
+    loggedIn ? (
+      <Tooltip title={`Logout ${name}`}>
+        <Box
+          component="img"
+          sx={{
+            height: "1.5rem",
+            width: "1.5rem",
+            borderRadius: "50%",
+          }}
+          alt="Avatar"
+          onClick={() => {
+            backend.delete("/auth/logout").then((response) => {
+              console.log("Logout response:", response);
+              logout();
+            });
+          }}
+          referrerPolicy="no-referrer"
+          src={avatarUrl}
+        />
+      </Tooltip>
+    ) : (
+      <IconButton
+        sx={{ marginLeft: "auto" }}
+        variant="contained"
+        href="/auth/google"
+      >
+        <LockOpenIcon />
+      </IconButton>
+    );
+
   return (
     <Box>
       <AppBar sx={{ padding: 0, margin: 0 }} position="fixed">
@@ -55,63 +97,38 @@ export default function Header() {
             }}
             variant="dense"
           >
-            {renderLogo()}
-            <Box m={3} />
-            <Typography
-              mt={2}
-              sx={{ color: "primary.paper" }}
-              variant={onSmallScreen ? "siteHeaderSmall" : "siteHeader"}
-              onClick={() => isAdmin && navigate("/")}
-            >
-              Wasail Al Shia
-            </Typography>
             <Stack
-              sx={{ marginLeft: "auto" }}
-              alignItems="center"
-              spacing={3}
+              sx={{
+                minHeight: HEADER_HEIGHT,
+                maxHeight: HEADER_HEIGHT,
+                maxWidth: MAX_WIDTH_CONTENT,
+                width: "100%",
+                border: "2px solid red",
+              }}
               direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={10}
             >
-              <SearchInput
-                onEnter={(searchStr) =>
-                  isNumeric(searchStr) &&
-                  Number(searchStr) <= mostRecentReport.id
-                    ? navigate(navWsReportLink(Number(searchStr)), {
-                        state: { showBackButton: true },
-                      })
-                    : navigate(navSearchReultsLink(searchStr), {
-                        state: { searchStr },
-                      })
-                }
-              />
-              {loggedIn ? (
-                <Tooltip title={`Logout ${name}`}>
-                  <Box
-                    component="img"
-                    sx={{
-                      height: "1.5rem",
-                      width: "1.5rem",
-                      borderRadius: "50%",
-                    }}
-                    alt="Avatar"
-                    onClick={() => {
-                      backend.delete("/auth/logout").then((response) => {
-                        console.log("Logout response:", response);
-                        logout();
-                      });
-                    }}
-                    referrerPolicy="no-referrer"
-                    src={avatarUrl}
-                  />
-                </Tooltip>
-              ) : (
-                <IconButton
-                  sx={{ marginLeft: "auto" }}
-                  variant="contained"
-                  href="/auth/google"
-                >
-                  <LockOpenIcon />
-                </IconButton>
-              )}
+              <Stack direction="row" alignItems="center" spacing={5}>
+                {!onSmallScreen ? renderLogo() : <BurgerMenu />}
+              </Stack>
+              {!onSmallScreen && <TopMenu />}
+              <Stack direction="row" alignItems="center" spacing={5}>
+                <SearchInput
+                  onEnter={(searchStr) =>
+                    isNumeric(searchStr) &&
+                    Number(searchStr) <= mostRecentReport.id
+                      ? navigate(navWsReportLink(Number(searchStr)), {
+                          state: { showBackButton: true },
+                        })
+                      : navigate(navSearchReultsLink(searchStr), {
+                          state: { searchStr },
+                        })
+                  }
+                />
+                <Login />
+              </Stack>
             </Stack>
           </Toolbar>
         </Stack>

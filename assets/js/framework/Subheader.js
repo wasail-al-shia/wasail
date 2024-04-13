@@ -8,52 +8,14 @@ import { SessionContext } from "../context/SessionContext";
 import { DialogContext } from "../context/DialogContext";
 import { formatIsoStrToLocal } from "../utils/date";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useContactDialogProps } from "../utils/contact";
 
 export default function () {
   const { pathname } = useLocation();
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin, mostRecentReport } = React.useContext(SessionContext);
   const onSmallScreen = useMediaQuery("(max-width:600px)");
-  const contactDialogFields = [
-    {
-      name: "name",
-      label: "Name",
-      type: "text",
-      fullWidth: true,
-      size: "small",
-      rules: { required: true },
-      md: 12,
-    },
-    {
-      name: "email",
-      label: "Email",
-      type: "text",
-      fullWidth: true,
-      size: "small",
-      rules: { required: true },
-      md: 12,
-    },
-    {
-      name: "subject",
-      label: "Subject",
-      type: "text",
-      fullWidth: true,
-      size: "small",
-      rules: { required: true },
-      md: 12,
-    },
-    {
-      name: "comment",
-      label: "Comment",
-      type: "text",
-      size: "small",
-      fullWidth: true,
-      multiline: true,
-      rules: { required: true },
-      rows: 6,
-      md: 12,
-    },
-  ];
+  const contactDialogProps = useContactDialogProps();
   return (
     <Stack
       sx={{
@@ -99,14 +61,7 @@ export default function () {
           </Button>
           <Button
             sx={{ minWidth: 0, color: "primary.dark2" }}
-            onClick={() =>
-              openDialog("dataEntry", {
-                title: "Conctact Us",
-                fields: contactDialogFields,
-                mutationApi: "processContactForm",
-                btnText: "Send",
-              })
-            }
+            onClick={() => openDialog("dataEntry", contactDialogProps)}
           >
             Contact
           </Button>

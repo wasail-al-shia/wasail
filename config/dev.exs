@@ -5,7 +5,7 @@ config :wasail, Wasail.Repo,
   url: "ecto://postgres:postgres@localhost/wasail_dev",
   show_sensitive_data_on_connection_error: true,
   port: 5433,
-  pool_size: 10
+  pool_size: 3
 
 # Use following command to run postgres in docker:
 # docker run --restart=always  --name pg-wasail -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=wasail_dev -v pgdata:/var/lib/postgresql/data_wasail  -d -p 5433:5432 postgres

@@ -4,8 +4,9 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { MAX_WIDTH_CONTENT, HEADER_HEIGHT } from "../consts";
+import { HEADER_HEIGHT } from "../consts";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Container from "@mui/material/Container";
 
 export default function ({ crumbDefs }) {
   const onSmallScreen = useMediaQuery("(max-width:600px)");
@@ -26,31 +27,31 @@ export default function ({ crumbDefs }) {
   return (
     <Stack
       sx={{
-        backgroundColor: "primary.header2",
         marginTop: HEADER_HEIGHT,
+        backgroundColor: "primary.header2",
         position: "fixed",
         width: "100%",
         zIndex: 1,
       }}
       alignItems="center"
     >
-      <Breadcrumbs
-        sx={{
-          minHeight: HEADER_HEIGHT,
-          maxWidth: MAX_WIDTH_CONTENT,
-          minWidth: `min(98vw, ${MAX_WIDTH_CONTENT}px)`,
-          paddingTop: 3,
-          paddingLeft: 3,
-          ".MuiBreadcrumbs-separator": {
-            margin: 2,
-          },
-        }}
-        separator={<NavigateNextIcon />}
-      >
-        {crumbDefs.slice(onSmallScreen ? -3 : 0).map((def) => (
-          <Crumb key={def.crumbName} def={def} />
-        ))}
-      </Breadcrumbs>
+      <Container maxWidth="lg">
+        <Breadcrumbs
+          sx={{
+            minHeight: HEADER_HEIGHT,
+            paddingTop: 3,
+            paddingLeft: 3,
+            ".MuiBreadcrumbs-separator": {
+              margin: 2,
+            },
+          }}
+          separator={<NavigateNextIcon />}
+        >
+          {crumbDefs.slice(onSmallScreen ? -3 : 0).map((def) => (
+            <Crumb key={def.crumbName} def={def} />
+          ))}
+        </Breadcrumbs>
+      </Container>
     </Stack>
   );
 }

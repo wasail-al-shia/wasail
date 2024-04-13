@@ -12,10 +12,11 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import MainWrapper from "./MainWrapper";
+import Container from "@mui/material/Container";
 import BackButton from "../kmui/BackButton";
 import { DialogContext } from "../context/DialogContext";
 import Tooltip from "@mui/material/Tooltip";
+import { HEADER_HEIGHT } from "../consts";
 import {
   generatePlainText,
   navSectionLink,
@@ -195,7 +196,8 @@ export default ({ wsReportId }) => {
   return (
     <Spinner open={fetchingReport}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper>
+      <Container maxWidth="lg">
+        <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
         {state?.showBackButton && (
           <Box sx={{ width: "100%" }}>
             <BackButton />
@@ -251,7 +253,7 @@ export default ({ wsReportId }) => {
               ))}
           </Stack>
         </Stack>
-      </MainWrapper>
+      </Container>
     </Spinner>
   );
 };

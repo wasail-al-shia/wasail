@@ -22,5 +22,6 @@ aws ecs update-service --cluster WasailCluster --service WasailAppService3 --for
 
 echo "Removing dangling images..." 
 docker image prune --filter="dangling=true" --force
+# docker system prune -a -f
 
 echo "Success!"

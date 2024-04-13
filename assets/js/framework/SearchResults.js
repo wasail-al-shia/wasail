@@ -1,8 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
-import MainWrapper from "./MainWrapper";
-import Subheader from "./Subheader";
+import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import parse from "html-react-parser";
 import { useLocation } from "react-router-dom";
@@ -13,6 +12,7 @@ import Spinner from "../kmui/Spinner";
 import ReportHeader from "../kmui/ReportHeader";
 import BackButton from "../kmui/BackButton";
 import { stemmer } from "stemmer";
+import { HEADER_HEIGHT } from "../consts";
 
 const fetchSearchResults = ({ queryKey: [_, queryStr] }) =>
   request(`{
@@ -45,8 +45,8 @@ export default function () {
 
   return (
     <Spinner open={isFetching}>
-      <Subheader />
-      <MainWrapper>
+      <Container sx={{ marginTop: 5 }} maxWidth="lg">
+        <Box sx={{ height: HEADER_HEIGHT }} />
         {searchResults.length == 0 ? (
           <Stack alignItems="center">
             <Box sx={{ width: "100%" }}>
@@ -135,7 +135,7 @@ export default function () {
             </Stack>
           </>
         )}
-      </MainWrapper>
+      </Container>
     </Spinner>
   );
 }

@@ -9,9 +9,11 @@ import { DialogContext } from "../context/DialogContext";
 import FabAddButton from "../kmui/FabAddButton";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import Spinner from "../kmui/Spinner";
-import MainWrapper from "./MainWrapper";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
+import { HEADER_HEIGHT } from "../consts";
 import {
   navBookLink,
   bookName,
@@ -233,8 +235,9 @@ export default () => {
   return (
     <Spinner open={fetchingChapters || fetchingSection}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper>
+      <Container maxWidth="lg">
         <Stack alignItems="center" spacing={3}>
+          <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
           <Typography align="center" variant="h5">
             {section.book && bookName(section.book)}
           </Typography>
@@ -245,7 +248,7 @@ export default () => {
             <ChapterCard key={chapter.id} chapter={chapter} />
           ))}
         </Stack>
-      </MainWrapper>
+      </Container>
       <FabAddButton
         buttonText="Chapter"
         dataEntryProps={{

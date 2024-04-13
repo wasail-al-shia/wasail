@@ -4,12 +4,14 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
+import { HEADER_HEIGHT } from "../consts";
 import {
   bookName,
   sectionName,
@@ -19,7 +21,7 @@ import {
   navBookLink,
   navSectionLink,
 } from "../utils/app";
-import MainWrapper from "./MainWrapper";
+import Container from "@mui/material/Container";
 import { replace } from "../utils/obj";
 import { flipParenthesis } from "../utils/string";
 
@@ -207,8 +209,9 @@ export default () => {
   return (
     <Spinner open={fetchingChapter || fetchingReports}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <MainWrapper>
+      <Container maxWidth="lg">
         <Stack spacing={3}>
+          <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
           <Typography align="center" variant="h5">
             {sectionName(chapter.section)}
           </Typography>
@@ -244,7 +247,7 @@ export default () => {
               />
             ))}
         </Stack>
-      </MainWrapper>
+      </Container>
       <FabAddButton
         buttonText="Report"
         dataEntryProps={{

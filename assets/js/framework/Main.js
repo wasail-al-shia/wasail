@@ -4,10 +4,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Theme from "./Theme";
 import Header from "./Header";
+import NavBar from "./NavBar";
 import { SessionProvider } from "../context/SessionContext";
 import { DialogProvider } from "../context/DialogContext";
 import { SnackProvider } from "../context/SnackContext";
 import { Outlet } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,8 +31,10 @@ export default function Main() {
           <SnackProvider>
             <DialogProvider>
               <CssBaseline />
-              <Header />
-              <Outlet />
+              <Box sx={{ backgroundColor: "primary.backdrop" }}>
+                <NavBar />
+                <Outlet />
+              </Box>
             </DialogProvider>
           </SnackProvider>
         </SessionProvider>

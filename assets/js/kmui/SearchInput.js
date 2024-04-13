@@ -12,13 +12,13 @@ export default function SearchInput({ onEnter, clearOnEnter = false }) {
       sx={{
         border: "1px solid",
         borderColor: "primary.dark",
-        backgroundColor: "#fff",
+        backgroundColor: "primary.backdrop",
         borderRadius: 1,
         height: "1.8rem",
         p: "2px 2px",
         display: "flex",
         alignItems: "center",
-        width: "15rem",
+        width: "14rem",
         boxShadow: "none",
       }}
     >

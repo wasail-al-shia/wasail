@@ -50,7 +50,7 @@ export default function ({ book, onEdit }) {
           transition: "transform 0.15s ease-in-out",
           "&:hover": {
             border: "2px solid #fff",
-            transform: "scale3d(1.07, 1.07, 1.07)",
+            transform: "scale3d(1.05, 1.05, 1.05)",
             cursor: "pointer",
             filter: "brightness(120%)",
           },
