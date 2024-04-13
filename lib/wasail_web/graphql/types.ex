@@ -124,6 +124,11 @@ defmodule WasailWeb.Graphql.Types do
     field :inserted_at, non_null(:naive_datetime)
   end
 
+  object :unique_visitors_by_day do
+    field :date, non_null(:date)
+    field :num_visitors, non_null(:integer)
+  end
+
   object :report_range do
     field :entity_id, non_null(:integer)
     field :start_report_no, non_null(:integer)

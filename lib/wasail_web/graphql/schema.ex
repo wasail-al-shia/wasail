@@ -109,6 +109,15 @@ defmodule WasailWeb.Graphql.Schema do
       end)
     end
 
+    @desc "Get unique visitors by day"
+    field :unique_visitors_by_day, non_null(list_of(non_null(:unique_visitors_by_day))) do
+      arg(:n, non_null(:integer))
+
+      resolve(fn %{n: n}, _info ->
+        {:ok, Wasail.Activity.get_unique_visitors_by_day(n)}
+      end)
+    end
+
     @desc "Get total activity count"
     field :total_activity_count, non_null(:integer) do
       resolve(fn _args, _info ->

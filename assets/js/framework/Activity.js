@@ -12,15 +12,17 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { formatIsoStrToLocal } from "../utils/date";
+import { formatIsoStrToLocal, formatIsoStrToLocalDate } from "../utils/date";
 import Container from "@mui/material/Container";
 import { HEADER_HEIGHT } from "../consts";
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import {
   navChapterLink,
   navReportLink,
   navSearchReultsLink,
 } from "../utils/app";
 import { UAParser } from "ua-parser-js";
+import WsTable from "../kmui/WsTable";
 
 const columns = [
   {
@@ -88,6 +90,14 @@ const fetchRecentActivity = ({ queryKey: [_, n] }) =>
     }
   }`).then(({ recentActivity }) => recentActivity);
 
+const fetchUniqueVisitors = ({ queryKey: [_, n] }) =>
+  request(`{
+    uniqueVisitorsByDay(n: ${n}) {
+      date
+      numVisitors
+    }
+  }`).then(({ uniqueVisitorsByDay }) => uniqueVisitorsByDay);
+
 const fetchActivityCount = () =>
   request(`{
     totalActivityCount
@@ -98,6 +108,12 @@ export default function () {
     ["recentActivity", 200],
     fetchRecentActivity
   );
+
+  const { data: uniqueVisitors = [] } = useQuery(
+    ["uniqueVisitors", 30],
+    fetchUniqueVisitors
+  );
+
   const { data: totalActivityCount = 0 } = useQuery(
     ["totalActivityCount"],
     fetchActivityCount
@@ -107,44 +123,32 @@ export default function () {
     <Spinner open={isFetching}>
       <Container sx={{ marginTop: 10 }} maxWidth="lg">
         <Box sx={{ height: HEADER_HEIGHT }} />
-        <Typography variant="h6">
-          Activity Cnt Last 30 Days: {totalActivityCount}
-        </Typography>
-        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: "90vh" }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {recentActivity.map((row) => {
-                  return (
-                    <TableRow key={row.id} hover tabIndex={-1}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format ? column.format(value, row) : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
+        <Grid container spacing={5}>
+          <Grid xs={10}>
+            <Typography variant="h6">
+              Activity Cnt 30 Days: {totalActivityCount}
+            </Typography>
+            <WsTable vh={90} columnDefs={columns} data={recentActivity} />
+          </Grid>
+          <Grid xs={2}>
+            <Typography variant="h6">Unique Visitors:</Typography>
+            <WsTable
+              vh={90}
+              columnDefs={[
+                {
+                  id: "date",
+                  label: "Date",
+                  format: (v, _rowData) => formatIsoStrToLocalDate(v),
+                },
+                {
+                  id: "numVisitors",
+                  label: "# Visitors",
+                },
+              ]}
+              data={uniqueVisitors}
+            />
+          </Grid>
+        </Grid>
       </Container>
     </Spinner>
   );

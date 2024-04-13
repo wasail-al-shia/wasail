@@ -34,6 +34,29 @@ defmodule Wasail.Activity do
     query |> Repo.all()
   end
 
+  # select date(a.inserted_at), count(distinct i.ip)
+  # from activity a, ip_info i
+  # where a.ip_info_id  = i.id
+  # group by date(a.inserted_at)
+  # order by date(a.inserted_at) desc;
+
+  def get_unique_visitors_by_day(n \\ 30) do
+    query =
+      from(a in Activity,
+        join: i in IpInfo,
+        on: a.ip_info_id == i.id,
+        where: a.inserted_at > ago(^n, "day"),
+        group_by: fragment("date(a0.inserted_at)"),
+        order_by: [desc: fragment("date(a0.inserted_at)")],
+        select: %{
+          date: fragment("date(a0.inserted_at)"),
+          num_visitors: fragment("count(distinct(i1.ip))")
+        }
+      )
+
+    query |> Repo.all()
+  end
+
   def total() do
     query =
       from(a in Activity,
