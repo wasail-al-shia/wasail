@@ -57,10 +57,11 @@ defmodule Wasail.Activity do
     query |> Repo.all()
   end
 
-  def total() do
+  def count(n) do
     query =
       from(a in Activity,
-        select: count(a.id)
+        select: count(a.id),
+        where: a.inserted_at > ago(^n, "day")
       )
 
     Repo.one(query)

@@ -118,10 +118,12 @@ defmodule WasailWeb.Graphql.Schema do
       end)
     end
 
-    @desc "Get total activity count"
-    field :total_activity_count, non_null(:integer) do
-      resolve(fn _args, _info ->
-        {:ok, Wasail.Activity.total()}
+    @desc "Get activity count"
+    field :activity_count, non_null(:integer) do
+      arg(:n, non_null(:integer))
+
+      resolve(fn %{n: n}, _info ->
+        {:ok, Wasail.Activity.count(n)}
       end)
     end
 

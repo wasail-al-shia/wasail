@@ -37,9 +37,9 @@ const columns = [
     },
   },
   {
-    id: "region",
+    id: "country",
     label: "Region",
-    format: (v, rowData) => `${rowData.city}, ${v} (${rowData.country})`,
+    format: (v, rowData) => (v ? `${rowData.city}, ${v.region} (${v})` : "-"),
   },
   {
     id: "activityType",
@@ -100,30 +100,34 @@ const fetchUniqueVisitors = ({ queryKey: [_, n] }) =>
     }
   }`).then(({ uniqueVisitorsByDay }) => uniqueVisitorsByDay);
 
-const fetchActivityCount = () =>
+const fetchActivityCount = ({ queryKey: [_, n] }) =>
   request(`{
-    totalActivityCount
-  }`).then(({ totalActivityCount }) => totalActivityCount);
+    activityCount(n: ${n})
+  }`).then(({ activityCount }) => activityCount);
+
+const NUM_DAYS = 30;
 
 export default function () {
   const { data: recentActivity = [], isFetching } = useQuery(
-    ["recentActivity", 200],
+    ["recentActivity", 300],
     fetchRecentActivity
   );
 
   const { data: uniqueVisitors = [] } = useQuery(
-    ["uniqueVisitors", 30],
+    ["uniqueVisitors", NUM_DAYS],
     fetchUniqueVisitors
   );
 
-  const { data: totalActivityCount = 0 } = useQuery(
-    ["totalActivityCount"],
+  const { data: activityCount = 0 } = useQuery(
+    ["activityCount", NUM_DAYS],
     fetchActivityCount
   );
 
-  const avgUniq =
+  const avgUniq = (
     uniqueVisitors.map((x) => x.numVisitors).reduce((acc, n) => acc + n, 0) /
-    30;
+    NUM_DAYS
+  ).toFixed(1);
+  const avgCnt = (activityCount / NUM_DAYS).toFixed(1);
 
   return (
     <Spinner open={isFetching}>
@@ -131,14 +135,12 @@ export default function () {
         <Box sx={{ height: HEADER_HEIGHT }} />
         <Grid container spacing={5}>
           <Grid xs={9}>
-            <Typography variant="h6">
-              Activity Cnt 30 Days: {totalActivityCount}
-            </Typography>
+            <Typography variant="h6">Avg Daily Activity: {avgCnt}</Typography>
             <WsTable vh={90} columnDefs={columns} data={recentActivity} />
           </Grid>
           <Grid xs={3}>
             <Typography variant="h6">
-              {`Avg Daily Visitors: ${avgUniq.toFixed(2)}`}
+              {`Avg Daily Visitors: ${avgUniq}`}
             </Typography>
             <WsTable
               vh={90}
