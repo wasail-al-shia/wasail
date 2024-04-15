@@ -10,7 +10,6 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { SessionContext } from "../context/SessionContext";
 import { navBookLink } from "../utils/app";
 import { useDownload } from "../hooks/useDownload";
-import Tooltip from "@mui/material/Tooltip";
 import { HtmlTooltip } from "./HtmlTooltip";
 
 const fetchPercentComplete = ({ queryKey: [_, bookId] }) =>

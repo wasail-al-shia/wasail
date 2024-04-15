@@ -30,6 +30,7 @@ defmodule WasailWeb.Router do
     pipe_through(:api)
 
     post "/download_book", PageController, :download_book
+    post "/record_page_view", PageController, :record_page_view
   end
 
   scope "/auth", WasailWeb do
@@ -40,7 +41,7 @@ defmodule WasailWeb.Router do
     delete "/logout", AuthController, :delete
   end
 
-  scope "/iql" do
+  scope "/was_igql" do
     # TODO: restrict to admins
     forward("/", Absinthe.Plug.GraphiQL,
       schema: WasailWeb.Graphql.Schema,

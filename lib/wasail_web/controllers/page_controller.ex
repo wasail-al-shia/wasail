@@ -1,6 +1,7 @@
 defmodule WasailWeb.PageController do
   require Logger
   use WasailWeb, :controller
+  import Plug.Conn
 
   # disable default phoenix app layout
   plug(:put_root_layout, false)
@@ -17,6 +18,22 @@ defmodule WasailWeb.PageController do
   def user_details(conn, _params) do
     session = get_session(conn)
     json(conn, session["user_info"])
+  end
+
+  def record_page_view(conn, %{"page" => page}) do
+    ip = conn.remote_ip |> Tuple.to_list() |> Enum.join(".")
+    user_agent = get_req_header(conn, "user-agent") |> List.first()
+    session = get_session(conn)
+    user_info = session["user_info"]
+
+    case user_info do
+      %{is_admin: true} ->
+        json(conn, %{status: :ok, desc: "skipping record page view for admin"})
+
+      _ ->
+        Wasail.ActivitySvc.record_page_activity(ip, user_agent, page)
+        json(conn, %{status: :ok, desc: "recorded page view"})
+    end
   end
 
   def download_book(conn, %{"bookCode" => book_code, "volumeNo" => volume_no}) do

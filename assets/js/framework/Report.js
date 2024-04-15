@@ -136,7 +136,7 @@ export default ({ report, onEdit }) => {
             onClick={() =>
               openDialog("dataEntry", {
                 key: "addText",
-                title: "Add Text",
+                title: `Add Text: ${report.headingEng}`,
                 fields: textFields,
                 onlyDirty: false,
                 dataQueryKeys: ["reports"],
@@ -153,7 +153,7 @@ export default ({ report, onEdit }) => {
             onClick={() =>
               openDialog("dataEntry", {
                 key: "addComment",
-                title: "Add Comment",
+                title: `Add Comment: ${report.headingEng}`,
                 fields: commentFields,
                 onlyDirty: false,
                 dataQueryKeys: ["reports"],

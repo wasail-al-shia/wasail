@@ -4,9 +4,11 @@ import Box from "@mui/material/Box";
 export default ({ children }) => (
   <Box
     sx={{
-      margin: 5,
       backgroundColor: "primary.backdrop",
-      padding: 5,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
       fontStyle: "italic",
     }}
   >

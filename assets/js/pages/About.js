@@ -8,7 +8,14 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { Link } from "react-router-dom";
 import { HEADER_HEIGHT } from "../consts";
+import { backend } from "../utils/axiosConfig";
+import { SessionContext } from "../context/SessionContext";
 export default () => {
+  const { isAdmin } = React.useContext(SessionContext);
+  React.useEffect(() => {
+    const url = "/rest/record_page_view";
+    if (!isAdmin) backend.post(url, { page: "about" });
+  });
   return (
     <Container maxWidth="lg">
       <Box sx={{ height: HEADER_HEIGHT }} />
@@ -67,63 +74,72 @@ export default () => {
             &nbsp; of this book, that for a long time he had this idea in mind,
             to collect narrations about sharia and practical laws from reliable
             books:
-            <Quote>
-              &quot;And indeed, I have often demanded of my mind and my pen, and
-              I have stirred up (awakened) my resolutions and my ambitions, to
-              compose a book sufficient in achieving my ambition, an
-              all-inclusive comprehensive book that is adequate in ilm
-              (knowledge) and amal (religious deeds), with hadiths of shar’iee
-              (legal) issues, and texts of faru’iee (practical, subsidiary)
-              rulings, narrated in the reliable, trusted books.&quot;
-            </Quote>
+          </Typography>
+          <Quote>
+            &quot;And indeed, I have often demanded of my mind and my pen, and I
+            have stirred up (awakened) my resolutions and my ambitions, to
+            compose a book sufficient in achieving my ambition, an all-inclusive
+            comprehensive book that is adequate in ilm (knowledge) and amal
+            (religious deeds), with hadiths of shar’iee (legal) issues, and
+            texts of faru’iee (practical, subsidiary) rulings, narrated in the
+            reliable, trusted books.&quot;
+          </Quote>
+          <Typography>
             The Shaykh laments the chaotic and lacking state of the hadith
             literature during his time:
-            <Quote>
-              &quot;For whoever peruses the (existing) books of hadith and looks
-              into what they contain of hadiths, and the speech of their
-              authors, finds them not free from superfluousness (unnecessarily
-              lengthened), some interpretations, difficulty in acquisition,
-              scattered reports, variation in selection, frequent repetition,
-              and the inclusion of what is termed “fiqh” but does not contain
-              anything based on the ahkam of fiqh, and omission of many hadiths
-              of legal issues.&quot;
-            </Quote>
+          </Typography>
+          <Quote>
+            &quot;For whoever peruses the (existing) books of hadith and looks
+            into what they contain of hadiths, and the speech of their authors,
+            finds them not free from superfluousness (unnecessarily lengthened),
+            some interpretations, difficulty in acquisition, scattered reports,
+            variation in selection, frequent repetition, and the inclusion of
+            what is termed “fiqh” but does not contain anything based on the
+            ahkam of fiqh, and omission of many hadiths of legal issues.&quot;
+          </Quote>
+          <Typography>
             He then spent twenty years of his life to accomplish this task:
-            <Quote>
-              &quot;I embarked on compiling it, for myself, my children, and
-              whoever seeks guidance through it after me, exerting my utmost
-              effort in gathering it, correcting and refining it, simplifying
-              its access, and perfecting its arrangement. Picking the jewels of
-              those reports from their mines, compiling those noble texts from
-              their sources, threading the pearls of those treasures into a
-              single strand, harmonizing the scattered valuable insights,
-              dedicating a chapter for each issue as much as possible, following
-              what has been transmitted in this regard.&quot;
-            </Quote>
+          </Typography>
+          <Quote>
+            &quot;I embarked on compiling it, for myself, my children, and
+            whoever seeks guidance through it after me, exerting my utmost
+            effort in gathering it, correcting and refining it, simplifying its
+            access, and perfecting its arrangement. Picking the jewels of those
+            reports from their mines, compiling those noble texts from their
+            sources, threading the pearls of those treasures into a single
+            strand, harmonizing the scattered valuable insights, dedicating a
+            chapter for each issue as much as possible, following what has been
+            transmitted in this regard.&quot;
+          </Quote>
+          <Typography>
             He exhaustively collected the reliable narrations from the
             infallibles and organized them in order to make the compilation
             sufficient and accessible for the mukallaf so that there is no need
             to refer to anyone else (besides the infallibles) for all matters of
             religion:
-            <Quote>
-              &quot;Exhaustively seeking the jurisprudential branches (furu’a al
-              fiqheeya) and the narrated judgments (ahkam al marweeyah) and the
-              legal sunnah (al sunan al shareeya), .... for in it is the
-              preservation of the hadiths of the infallibles, and gathering of
-              the commands and prohibitions for the mukallafeen so that they can
-              refer to the hadith of the infallibles not to anyone else besides
-              them in all matters of dunya and deen.&quot;
-            </Quote>
+          </Typography>
+          <Quote>
+            &quot;Exhaustively seeking the jurisprudential branches (furu’a al
+            fiqheeya) and the narrated judgments (ahkam al marweeyah) and the
+            legal sunnah (al sunan al shareeya), .... for in it is the
+            preservation of the hadiths of the infallibles, and gathering of the
+            commands and prohibitions for the mukallafeen so that they can refer
+            to the hadith of the infallibles not to anyone else besides them in
+            all matters of dunya and deen.&quot;
+          </Quote>
+          <Typography>
             He did not limit himself to just Kutub-e-Araba, but also reached out
             to other collections which were considered reliable and mutawaatir
             by their compilers and the ulama of his times:
-            <Quote>
-              &quot;There exist (besides Kutub e Araba) many reliable books from
-              the compositions of other trustworthy and noble authors, all of
-              which considered their hadith collections mutawaatir without there
-              being any ikhtilaaf or doubt among the virtuous ulamaa regarding
-              their authenticity.&quot;
-            </Quote>
+          </Typography>
+          <Quote>
+            &quot;There exist (besides Kutub e Araba) many reliable books from
+            the compositions of other trustworthy and noble authors, all of
+            which considered their hadith collections mutawaatir without there
+            being any ikhtilaaf or doubt among the virtuous ulamaa regarding
+            their authenticity.&quot;
+          </Quote>
+          <Typography>
             This work by Shaykh Hurr Amili is a significant contribution to the
             preservation and dissemination of Shia hadiths. Above all, it is the
             best source and the greatest gift to those of the Shia who wish to
@@ -198,11 +214,9 @@ export default () => {
           <Typography>
             We are a team of individuals committed to disseminating the
             teachings of Ahlulbayt (peace be upon them) and our goal is to make
-            them accessible and available for all those who seek it. This
-            website is the result of a collaborative effort by language and
-            technology enthusiasts. We have recently begun the translation
-            project and we expect this effort to continue for quite some time
-            until we finish inshaAllah.
+            them accessible and available for all those who seek it. We have
+            recently begun the translation project and we expect this effort to
+            continue for quite some time until we finish inshaAllah.
           </Typography>
           <Typography variant="h5">Finally</Typography>
           <Typography>
