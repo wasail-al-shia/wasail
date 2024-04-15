@@ -3,11 +3,14 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { DialogContext } from "../context/DialogContext";
+import { SessionContext } from "../context/SessionContext";
 import BookCover from "../kmui/BookCover";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
 import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import { formatIsoStrToLocal } from "../utils/date";
 
 const fetchBooks = () =>
   request(`{
@@ -32,6 +35,7 @@ const fetchBooks = () =>
 
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
+  const { mostRecentReport } = React.useContext(SessionContext);
   const { data: books = [], isFetching: isFetching } = useQuery(
     ["books"],
     fetchBooks
@@ -124,6 +128,13 @@ export default () => {
             </Grid>
           ))}
         </Grid>
+        <Typography
+          align="center"
+          sx={{ margin: 5, fontSize: "0.9rem", fontWeight: 300 }}
+        >
+          (Last Updated On:&nbsp;
+          {formatIsoStrToLocal(mostRecentReport.insertedAt)})
+        </Typography>
         <FabAddButton
           buttonText="Book"
           dataEntryProps={{

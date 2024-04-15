@@ -38,8 +38,9 @@ const columns = [
   },
   {
     id: "country",
-    label: "Region",
-    format: (v, rowData) => (v ? `${rowData.city}, ${v.region} (${v})` : "-"),
+    label: "Location",
+    format: (v, rowData) =>
+      v ? `${rowData.city}, ${rowData.region} (${v})` : "-",
   },
   {
     id: "activityType",
