@@ -9,7 +9,8 @@ config :wasail,
   bcc_emails: ["shuaybi@gmail.com"],
   ses_verified_identity_for_smtp: {"Wasail Al Shia", "wasail.al.shia@gmail.com"},
   ip_info_url: "http://ipinfo.io/",
-  ws_query_url: "https://wasail-al-shia.net/query"
+  ws_query_url: "https://wasail-al-shia.net/query",
+  ws_site_url: "https://wasail-al-shia.net/"
 
 # Configures the endpoint
 config :wasail, WasailWeb.Endpoint,

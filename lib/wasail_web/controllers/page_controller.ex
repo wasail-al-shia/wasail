@@ -58,4 +58,8 @@ defmodule WasailWeb.PageController do
     |> put_resp_header("file-name", file_nm)
     |> send_resp(:ok, content)
   end
+
+  def sitemap(conn, _params) do
+    text(conn, Wasail.Util.Sys.generate_sitemap_text())
+  end
 end

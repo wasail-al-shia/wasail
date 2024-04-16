@@ -60,6 +60,7 @@ defmodule WasailWeb.Router do
   scope "/", WasailWeb do
     pipe_through :browser
     get "/ping", PageController, :ping
+    get "/sitemap", PageController, :sitemap
 
     get "/*path", PageController, :index
   end
