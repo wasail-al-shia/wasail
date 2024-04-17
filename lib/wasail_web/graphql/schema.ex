@@ -103,6 +103,7 @@ defmodule WasailWeb.Graphql.Schema do
     @desc "Get recent activity"
     field :recent_activity, non_null(list_of(non_null(:activity))) do
       arg(:n, non_null(:integer))
+      middleware(WasailWeb.Graphql.RequireAdmin)
 
       resolve(fn %{n: n}, _info ->
         {:ok, Wasail.Activity.get_most_recent(n)}
@@ -112,6 +113,7 @@ defmodule WasailWeb.Graphql.Schema do
     @desc "Get unique visitors by day"
     field :unique_visitors_by_day, non_null(list_of(non_null(:unique_visitors_by_day))) do
       arg(:n, non_null(:integer))
+      middleware(WasailWeb.Graphql.RequireAdmin)
 
       resolve(fn %{n: n}, _info ->
         {:ok, Wasail.Activity.get_unique_visitors_by_day(n)}
@@ -121,6 +123,7 @@ defmodule WasailWeb.Graphql.Schema do
     @desc "Get activity count"
     field :activity_count, non_null(:integer) do
       arg(:n, non_null(:integer))
+      middleware(WasailWeb.Graphql.RequireAdmin)
 
       resolve(fn %{n: n}, _info ->
         {:ok, Wasail.Activity.count(n)}

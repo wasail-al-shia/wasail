@@ -132,7 +132,7 @@ export default () => {
           align="center"
           sx={{ margin: 5, fontSize: "0.9rem", fontWeight: 300 }}
         >
-          (Last Updated On:&nbsp;
+          (Site Last Updated On:&nbsp;
           {formatIsoStrToLocal(mostRecentReport.insertedAt)})
         </Typography>
         <FabAddButton
