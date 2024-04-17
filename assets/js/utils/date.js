@@ -1,10 +1,13 @@
 export const formatIsoStrToLocal = (dtIsoStr) => {
-  var options = { year: "numeric", month: "short", day: "numeric" };
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
   return new Date(dtIsoStr + "Z").toLocaleString("en-US", options);
-  // {
-  //   timeStyle: "short",
-  //   dateStyle: "short",
-  // });
 };
 
 export const formatIsoStrToLocalDate = (dtIsoStr) => {
