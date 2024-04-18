@@ -5,6 +5,7 @@ defmodule WasailWeb.Graphql.Types do
   object :mutation_response do
     field :status, :string
     field :message, :string
+    field :id, :integer
   end
 
   object :user_info do

@@ -22,7 +22,12 @@ const fetchMostRecentReport = () =>
   request(`{
     mostRecentReport {
       id
+      reportNo
       insertedAt
+      chapter {
+        id
+        chapterNo
+      }
     }
   }`).then(({ mostRecentReport }) => mostRecentReport);
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { request } from "../utils/graph-ql";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ import Container from "@mui/material/Container";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { HEADER_HEIGHT } from "../consts";
+import Button from "@mui/material/Button";
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import {
   navBookLink,
   bookName,
@@ -35,6 +37,10 @@ const fetchSection = ({ queryKey: [_, sectionId] }) =>
         nameEng
         code
         volumeNo
+      }
+      chapters {
+        id
+        chapterNo
       }
     }
   }`).then(({ section }) => section);
@@ -66,7 +72,8 @@ export default () => {
   const navigate = useNavigate();
   const { sectionId } = useParams();
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin } = React.useContext(SessionContext);
+  const { isAdmin, mostRecentReport } = React.useContext(SessionContext);
+  const queryClient = useQueryClient();
   const { data: chapters = [], isFetching: fetchingChapters } = useQuery(
     ["chapters", sectionId],
     fetchChapters
@@ -80,6 +87,10 @@ export default () => {
     ["reportRangeSection", sectionId],
     fetchReportRangeSection
   );
+
+  React.useEffect(() => {
+    if (isAdmin) queryClient.invalidateQueries(["section"]);
+  }, []);
 
   const nextChapterNo = (section) =>
     Math.max(...section.chapters.map((c) => c.chapterNo)) + 1;
@@ -244,6 +255,27 @@ export default () => {
           <Typography align="center" variant="h5">
             {sectionName(section)}
           </Typography>
+          {isAdmin && (
+            <Button
+              startIcon={<AddToPhotosIcon />}
+              onClick={() => {
+                openDialog("batchChapter", {
+                  key: section.id + section.chapters.length,
+                  section,
+                  mostRecentReport:
+                    section.chapters.length > 0 ? mostRecentReport : null,
+                  dataQueryKeys: [
+                    "chapters",
+                    "reports",
+                    "reportRangeSection",
+                    "mostRecentReport",
+                  ],
+                });
+              }}
+            >
+              Chapter
+            </Button>
+          )}
           {chapters.map((chapter) => (
             <ChapterCard key={chapter.id} chapter={chapter} />
           ))}

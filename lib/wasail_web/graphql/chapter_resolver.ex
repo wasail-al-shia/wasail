@@ -24,7 +24,8 @@ defmodule WasailWeb.Graphql.ChapterResolver do
         {:ok,
          %{
            status: :ok,
-           message: "Added chapter #{chapter.id}, no #{chapter.chapter_no}"
+           message: "Added chapter #{chapter.id}, no #{chapter.chapter_no}",
+           id: chapter.id
          }}
     end
   end

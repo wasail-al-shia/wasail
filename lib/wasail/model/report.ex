@@ -32,10 +32,12 @@ defmodule Wasail.Report do
   end
 
   def get_most_recent() do
-    Report
-    |> order_by(desc: :inserted_at)
-    |> limit(1)
+    from(r in Report,
+      order_by: [desc: r.report_no],
+      limit: 1
+    )
     |> Repo.one()
+    |> Repo.preload(:chapter)
   end
 
   def get_by_chapter_id(chapter_id) do
