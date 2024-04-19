@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { getMutation } from "../utils/graph-ql";
 import { SnackContext } from "../context/SnackContext";
 import { flipParenthesis } from "../utils/string";
+import { capitalizeFirstLetter } from "../utils/string";
 
 export default function ({
   open,
@@ -46,14 +47,21 @@ export default function ({
       .split(/[\r\n]+/)
       .filter((x) => x.trim().length > 0);
 
-    console.log("engTexts:", engTexts);
-    console.log("arbTexts:", arbTexts);
+    console.log("ARB:");
+    for (let i = 0; i < arbTexts.length; i++) {
+      console.log(`arb[${i}] (${arbTexts[i].length}): ${arbTexts[i]}`);
+    }
+    console.log("ENG:");
+    for (let i = 0; i < engTexts.length; i++) {
+      console.log(`eng[${i}] (${engTexts[i].length}): ${engTexts[i]}`);
+    }
+
     if (engTexts.length != arbTexts.length) throw "Length mismatch";
 
     const chapterPayload = {
       sectionId: section.id,
       chapterNo: data.chapterNo,
-      nameEng: data.chapterNameEng,
+      nameEng: capitalizeFirstLetter(data.chapterNameEng),
       nameArb: data.chapterNameArb,
     };
     const response = await addChapterMutation.mutateAsync(chapterPayload);

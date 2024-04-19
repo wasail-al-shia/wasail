@@ -255,6 +255,9 @@ export default () => {
           <Typography align="center" variant="h5">
             {sectionName(section)}
           </Typography>
+          {chapters.map((chapter) => (
+            <ChapterCard key={chapter.id} chapter={chapter} />
+          ))}
           {isAdmin && (
             <Button
               startIcon={<AddToPhotosIcon />}
@@ -276,9 +279,6 @@ export default () => {
               Chapter
             </Button>
           )}
-          {chapters.map((chapter) => (
-            <ChapterCard key={chapter.id} chapter={chapter} />
-          ))}
         </Stack>
       </Container>
       <FabAddButton
