@@ -3,7 +3,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Theme from "./Theme";
-import Header from "./Header";
 import NavBar from "./NavBar";
 import { SessionProvider } from "../context/SessionContext";
 import { DialogProvider } from "../context/DialogContext";

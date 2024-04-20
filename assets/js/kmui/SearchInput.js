@@ -14,11 +14,11 @@ export default function SearchInput({ onEnter, clearOnEnter = false }) {
         borderColor: "primary.dark",
         backgroundColor: "primary.backdrop",
         borderRadius: 1,
-        height: "1.8rem",
+        height: "1.75rem",
         p: "2px 2px",
         display: "flex",
         alignItems: "center",
-        width: "14rem",
+        width: "min(33vw, 16rem)",
         boxShadow: "none",
       }}
     >
