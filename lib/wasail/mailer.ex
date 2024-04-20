@@ -16,6 +16,8 @@ defmodule Wasail.Mailer do
     section = chapter.section
     book = section.book
 
+    site_url = Application.get_env(:wasail, :ws_site_url)
+
     payload = %{
       data: %{
         sender_name: to_name,
@@ -25,6 +27,7 @@ defmodule Wasail.Mailer do
         section_no: section.section_no,
         section_nm: section.name_eng,
         book_nm_vol: "#{book.name_eng} Vol. #{book.volume_no}",
+        report_url: "#{site_url}/h/#{report.report_no}",
         comment: comment
       }
     }

@@ -8,8 +8,7 @@
     Dear <%= @data[:sender_name] %>,
     <br/>
     <br/>
-    Thank you for your feedback. We received your comments. We will review
-    and respond soon insha Allah.
+    Thank you for your feedback. We will review and respond soon insha Allah.
     <br/>
     <br/>
     Best regards,
@@ -18,13 +17,15 @@
     <br/>
     <br/>
     <h3>Report:</h3>
-    Hadith: <%= @data[:report_no] %>
+    Link: <%= @data[:report_url] %>
     <br/>
-    Chapter <%= @data[:chapter_no] %>: <%= @data[:chapter_nm] %>
+    Book: <%= @data[:book_nm_vol] %>
     <br/>
     Section <%= @data[:section_no] %>: <%= @data[:section_nm] %>
     <br/>
-    Book: <%= @data[:book_nm_vol] %>
+    Chapter <%= @data[:chapter_no] %>: <%= @data[:chapter_nm] %>
+    <br/>
+    Hadith: <%= @data[:report_no] %>
     <br/>
     <h3>Your comment:</h3>
     <%= @data[:comment] %>

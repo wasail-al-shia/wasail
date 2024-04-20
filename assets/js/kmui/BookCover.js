@@ -33,6 +33,7 @@ export default function ({ book, onEdit }) {
         backgroundColor: "primary.main",
         color: "primary.paper",
         padding: "1rem",
+        boxShadow: "5px 5px 5px #333",
       }}
       spacing={5}
     >
@@ -48,14 +49,18 @@ export default function ({ book, onEdit }) {
           color: "primary.paper",
           transition: "transform 0.15s ease-in-out",
           "&:hover": {
-            border: "2px solid #fff",
+            border: "1px solid #aaa",
             transform: "scale3d(1.05, 1.05, 1.05)",
             cursor: "pointer",
             filter: "brightness(120%)",
           },
         }}
       >
-        <Typography variant="h6" component="div">
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ color: "secondary.light" }}
+        >
           English Translation
           {isAdmin && (
             <EditNoteIcon
@@ -75,10 +80,12 @@ export default function ({ book, onEdit }) {
             Volume {book.volumeNo}
           </Typography>
         )}
-        <Typography variant="footer">
+        <Typography variant="footer" sx={{ color: "primary.header2" }}>
           ({percentComplete.toFixed(2)}% complete)
         </Typography>
-        <Typography variant="h6">{book.authorEng}</Typography>
+        <Typography variant="h6" sx={{ color: "primary.header2" }}>
+          {book.authorEng}
+        </Typography>
       </Stack>
       <Stack>
         <HtmlTooltip
@@ -89,13 +96,13 @@ export default function ({ book, onEdit }) {
           <Button
             size="small"
             variant="contained"
-            color="secondary"
             sx={{
+              color: "secondary.light",
               backgroundColor: "primary.main",
               "&:hover": {
                 backgroundColor: "primary.main",
                 transform: "scale3d(1.05, 1.05, 1.05)",
-                border: "2px solid #fff",
+                border: "1px solid #aaa",
                 cursor: "pointer",
                 filter: "brightness(120%)",
               },

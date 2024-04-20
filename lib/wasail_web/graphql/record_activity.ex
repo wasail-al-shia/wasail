@@ -7,10 +7,12 @@ defmodule WasailWeb.Graphql.RecordActivity do
 
   def call(%Absinthe.Resolution{} = resolution, _config) do
     # IO.inspect(Map.keys(resolution.definition))
-    # IO.inspect(resolution.definition.name)
+    IO.inspect(resolution.definition.name)
     # IO.inspect(resolution.arguments)
 
     user_agent = resolution.context.user_agent
+
+    Logger.info("recording activity")
 
     case String.match?(user_agent, ~r/bot|crawl|spider/i) do
       false ->
@@ -30,6 +32,15 @@ defmodule WasailWeb.Graphql.RecordActivity do
               "search" ->
                 search_str = resolution.arguments.query_str
                 Wasail.ActivitySvc.record_search_activity(ip, user_agent, search_str)
+
+              "processReportFeedback" ->
+                report_id = resolution.arguments.report_id
+                name = resolution.arguments.name
+                Wasail.ActivitySvc.record_feedback_activity(ip, user_agent, report_id, name)
+
+              "processContactForm" ->
+                name = resolution.arguments.name
+                Wasail.ActivitySvc.record_contact(ip, user_agent, name)
 
               _ ->
                 Logger.error("Can't record unknown activity")

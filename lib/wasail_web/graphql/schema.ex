@@ -346,6 +346,8 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:subject, non_null(:string))
       arg(:comment, non_null(:string))
 
+      middleware(WasailWeb.Graphql.RecordActivity)
+
       resolve(fn %{subject: subject, comment: comment, name: name, email: email}, _info ->
         Task.async(fn ->
           try do
@@ -366,6 +368,7 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:name, non_null(:string))
       arg(:email, non_null(:string))
       arg(:comment, non_null(:string))
+      middleware(WasailWeb.Graphql.RecordActivity)
 
       resolve(fn %{report_id: report_id, comment: comment, name: name, email: email}, _info ->
         Task.async(fn ->

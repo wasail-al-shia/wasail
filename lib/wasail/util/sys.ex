@@ -36,7 +36,7 @@ defmodule Wasail.Util.Sys do
     url = Application.get_env(:wasail, :ws_site_url)
 
     home = url
-    about = url <> "about"
+    about = url <> "/about"
 
     chapter_links =
       Wasail.Chapter.get_ids()
