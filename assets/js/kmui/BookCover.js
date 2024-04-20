@@ -33,7 +33,7 @@ export default function ({ book, onEdit }) {
         backgroundColor: "primary.main",
         color: "primary.paper",
         padding: "1rem",
-        boxShadow: "5px 5px 5px #333",
+        boxShadow: "5px 5px 5px #583c00",
       }}
       spacing={5}
     >

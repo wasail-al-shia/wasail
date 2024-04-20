@@ -27,7 +27,6 @@ export default function () {
         sx={{
           minWidth: 0,
           color: "primary.header2",
-          xcolor: pathname == "/" ? "secondary.dark" : "primary.dark2",
         }}
         component={Link}
         to="/"
@@ -38,7 +37,6 @@ export default function () {
         sx={{
           minWidth: 0,
           color: "primary.header2",
-          xcolor: pathname == "/about" ? "secondary.dark" : "primary.dark2",
         }}
         component={Link}
         to="/about"

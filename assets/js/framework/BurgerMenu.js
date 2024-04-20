@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { DialogContext } from "../context/DialogContext";
 import { useNavigate } from "react-router-dom";
 import { useContactDialogProps } from "../utils/contact";
-import Typography from "@mui/material/Typography";
+import { SessionContext } from "../context/SessionContext";
 import {
   usePopupState,
   bindTrigger,
@@ -14,6 +14,7 @@ import {
 } from "material-ui-popup-state/hooks";
 
 const BurgerMenu = () => {
+  const { isAdmin } = React.useContext(SessionContext);
   const navigate = useNavigate();
   const popupState = usePopupState({
     variant: "popover",
@@ -45,6 +46,16 @@ const BurgerMenu = () => {
         >
           Contact
         </MenuItem>
+        {isAdmin && (
+          <MenuItem
+            onClick={() => {
+              popupState.close();
+              navigate("/a");
+            }}
+          >
+            Activity
+          </MenuItem>
+        )}
       </Menu>
     </Box>
   );
