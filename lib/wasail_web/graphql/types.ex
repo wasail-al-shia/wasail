@@ -67,6 +67,7 @@ defmodule WasailWeb.Graphql.Types do
     field :chapter, non_null(:chapter)
     field :review, non_null(:boolean)
     field :hide, non_null(:boolean)
+    field :notes, :string
     field :inserted_at, non_null(:naive_datetime)
 
     field :texts, list_of(:text)

@@ -159,7 +159,7 @@ export default ({ report, onEdit }) => {
                   }}
                 />
               }
-              label="Review"
+              label="Needs Review"
             />
           </FormGroup>
         )}
@@ -201,7 +201,7 @@ export default ({ report, onEdit }) => {
             }
           />
         )}
-        {isAdmin && (
+        {(isAdmin || isReviewer) && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
         <Tooltip key="feedback" title="Report feedback">
@@ -308,7 +308,7 @@ export default ({ report, onEdit }) => {
         border: "1px solid gray",
         borderRadius: 1,
         backgroundColor:
-          isAdmin && report.hide
+          (isAdmin || isReviewer) && report.hide
             ? "primary.hide"
             : (isAdmin || isReviewer) && report.review
             ? "primary.review"

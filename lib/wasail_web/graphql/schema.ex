@@ -280,10 +280,11 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:report_id, non_null(:integer))
       arg(:report_no, :integer)
       arg(:heading_eng, :string)
+      arg(:notes, :string)
       arg(:approved, :boolean)
       arg(:review, :boolean)
       arg(:hide, :boolean)
-      middleware(WasailWeb.Graphql.RequireAdmin)
+      middleware(WasailWeb.Graphql.RequireReviewer)
       resolve(&ReportResolver.update_report/2)
     end
 

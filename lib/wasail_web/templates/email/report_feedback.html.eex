@@ -8,7 +8,7 @@
     Dear <%= @data[:sender_name] %>,
     <br/>
     <br/>
-    Thank you for your feedback. We will review and respond soon insha Allah.
+    Thank you for your feedback on Hadith <%= @data[:report_no] %>. We will review and respond soon insha Allah.
     <br/>
     <br/>
     Best regards,

@@ -57,6 +57,7 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
       headingEng
       review
       hide 
+      notes
       texts {
         id
         fragmentNo
@@ -74,7 +75,7 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
 
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin } = React.useContext(SessionContext);
+  const { isAdmin, isReviewer } = React.useContext(SessionContext);
   const { chapterId } = useParams();
   const { data: reports = [], isFetching: fetchingReports } = useQuery(
     ["reports", chapterId],
@@ -102,6 +103,7 @@ export default () => {
       defaultValue: nextSeqNo,
       rules: { required: true },
       md: 4,
+      disabled: !isAdmin,
     },
     {
       name: "review",
@@ -146,6 +148,19 @@ export default () => {
       fullWidth: true,
       defaultValue: "Hadith " + (nextSeqNo || ""),
       rules: { required: true },
+      disabled: !isAdmin,
+    },
+    {
+      name: "notes",
+      label: "Internal Notes",
+      type: "text",
+      multiline: true,
+      rows: 4,
+      inputProps: {
+        style: { fontSize: "1.1rem", fontFamily: "Overpass Variable" },
+      },
+      md: 12,
+      fullWidth: true,
     },
   ];
 
@@ -219,7 +234,7 @@ export default () => {
             {chapterName(chapter)}
           </Typography>
           {reports
-            .filter((r) => isAdmin || !r.hide)
+            .filter((r) => isAdmin || isReviewer || !r.hide)
             .map((report) => (
               <Report
                 key={report.id}
@@ -238,7 +253,7 @@ export default () => {
                     },
                     basePayload: { reportId: report.id },
                     transformPayload,
-                    deleteApi: "deleteReport",
+                    deleteApi: isAdmin ? "deleteReport" : null,
                     deletePayload: {
                       reportId: report.id,
                     },
