@@ -14,6 +14,7 @@ defmodule WasailWeb.Graphql.Types do
     field :email, :string
     field :avatar_url, :string
     field :is_admin, :boolean
+    field :is_reviewer, :boolean
   end
 
   object :book do

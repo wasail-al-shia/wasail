@@ -17,10 +17,20 @@ import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 import { navReportLink } from "../utils/app";
 import ReportHeader from "../kmui/ReportHeader";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { useMutation, useQueryClient } from "react-query";
+import { getMutation } from "../utils/graph-ql";
 
 export default ({ report, onEdit }) => {
-  const { isAdmin } = React.useContext(SessionContext);
+  const { isAdmin, isReviewer } = React.useContext(SessionContext);
   const { openDialog } = React.useContext(DialogContext);
+  const responseKeys = ["message", "status", "id"];
+  const queryClient = useQueryClient();
+  const updateReviewMutation = useMutation(
+    getMutation("updateReviewFlag", responseKeys)
+  );
   const nextSeqNo =
     report.texts.length > 0
       ? Math.max(...report.texts.map((t) => t.fragmentNo)) + 1
@@ -63,7 +73,7 @@ export default ({ report, onEdit }) => {
         style: { fontSize: "1.1rem", fontFamily: "Overpass Variable" },
       },
       multiline: true,
-      rows: 10,
+      rows: 15,
       md: 12,
     },
   ];
@@ -130,6 +140,29 @@ export default ({ report, onEdit }) => {
     <Stack direction="row" justifyContent="space-between">
       <ReportHeader report={report} />
       <Stack direction="row" alignItems="center">
+        {isReviewer && (
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  size="small"
+                  checked={report.review}
+                  onChange={(event) => {
+                    updateReviewMutation.mutate(
+                      { reportId: report.id, review: event.target.checked },
+                      {
+                        onSuccess: (_response) => {
+                          queryClient.invalidateQueries("reports");
+                        },
+                      }
+                    );
+                  }}
+                />
+              }
+              label="Review"
+            />
+          </FormGroup>
+        )}
         {isAdmin && (
           <AddIcon
             size="small"
@@ -276,8 +309,8 @@ export default ({ report, onEdit }) => {
         borderRadius: 1,
         backgroundColor:
           isAdmin && report.hide
-            ? "primary.light"
-            : isAdmin && report.review
+            ? "primary.hide"
+            : (isAdmin || isReviewer) && report.review
             ? "primary.review"
             : "primary.paper",
         padding: 6,

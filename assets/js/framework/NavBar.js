@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu";
 
 function NavBar() {
-  const { name, avatarUrl, logout, isAdmin, mostRecentReport } =
+  const { name, avatarUrl, logout, isAdmin, isReviewer, mostRecentReport } =
     React.useContext(SessionContext);
   const { openDialog } = React.useContext(DialogContext);
   const contactDialogProps = useContactDialogProps();
@@ -41,7 +41,7 @@ function NavBar() {
     {
       name: "activity",
       link: "/a",
-      hide: !isAdmin,
+      hide: !isAdmin && !isReviewer,
     },
   ];
 

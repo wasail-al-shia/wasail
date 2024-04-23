@@ -16,7 +16,7 @@
     Admin - Wasail Al Shia
     <br/>
     <br/>
-    <h3>Report:</h3>
+    <h3>Hadith <%= @data[:report_no] %></h3>
     Link: <%= @data[:report_url] %>
     <br/>
     Book: <%= @data[:book_nm_vol] %>
@@ -25,9 +25,7 @@
     <br/>
     Chapter <%= @data[:chapter_no] %>: <%= @data[:chapter_nm] %>
     <br/>
-    Hadith: <%= @data[:report_no] %>
-    <br/>
-    <h3>Your comment:</h3>
+    <h3>Your Comment:</h3>
     <%= @data[:comment] %>
   </body>
 </html>

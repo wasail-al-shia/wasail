@@ -75,7 +75,7 @@ export default function ({
         chapterId: chapterId,
         reportNo: i + startNo,
         review: true,
-        hide: false,
+        hide: true,
         headingEng: `Hadith ${i + startNo}`,
         textEng: engTexts[i],
         textArb: flipParenthesis(arbTexts[i]),

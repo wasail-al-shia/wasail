@@ -30,6 +30,9 @@ defmodule WasailWeb.PageController do
       %{is_admin: true} ->
         json(conn, %{status: :ok, desc: "skipping record page view for admin"})
 
+      %{is_reviewer: true} ->
+        json(conn, %{status: :ok, desc: "skipping record page view for reviewer"})
+
       _ ->
         Wasail.ActivitySvc.record_page_activity(ip, user_agent, page)
         json(conn, %{status: :ok, desc: "recorded page view"})

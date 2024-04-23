@@ -15,6 +15,7 @@ const fetchUserInfo = () =>
       email
       avatarUrl
       isAdmin
+      isReviewer
     }
   }`).then(({ userInfo }) => userInfo);
 

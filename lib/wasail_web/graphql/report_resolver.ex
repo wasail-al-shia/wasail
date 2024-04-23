@@ -78,6 +78,23 @@ defmodule WasailWeb.Graphql.ReportResolver do
     end
   end
 
+  def update_review_flag(
+        %{report_id: report_id, review: review} = params,
+        _info
+      ) do
+    Logger.info("update review flag params: #{inspect(params)}")
+
+    case Report.update_review_flag(report_id, review) do
+      {:error, changeset} ->
+        message = "Could not update review flag: #{inspect(error_details(changeset))}"
+        Logger.error(message)
+        {:error, message: message}
+
+      {:ok, report} ->
+        {:ok, %{status: :ok, message: "Updated review flag for report id: #{report.id}"}}
+    end
+  end
+
   def delete_report(%{report_id: report_id}, _info) do
     # Logger.info("delete report: #{inspect(report_id)}")
 

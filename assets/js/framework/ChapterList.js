@@ -72,7 +72,8 @@ export default () => {
   const navigate = useNavigate();
   const { sectionId } = useParams();
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin, mostRecentReport } = React.useContext(SessionContext);
+  const { isAdmin, isReviewer, mostRecentReport } =
+    React.useContext(SessionContext);
   const queryClient = useQueryClient();
   const { data: chapters = [], isFetching: fetchingChapters } = useQuery(
     ["chapters", sectionId],
@@ -218,7 +219,10 @@ export default () => {
           <span
             style={{
               fontWeight: "600",
-              color: isAdmin && anyUnderReview(chapter) ? "#D04405" : null,
+              color:
+                (isAdmin || isReviewer) && anyUnderReview(chapter)
+                  ? "#D04405"
+                  : null,
             }}
           >
             Chapter {chapter.chapterNo}:&nbsp;

@@ -26,16 +26,23 @@ defmodule WasailWeb.AuthController do
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     # Logger.info("In callback: #{inspect(auth)}")
 
+    is_admin = Wasail.Util.Sys.is_admin(auth.uid)
+    is_reviewer = Wasail.Util.Sys.is_reviewer(auth.info.email)
+
     user_info =
       %{
         uid: auth.uid,
         name: auth.info.name,
         email: auth.info.email,
         avatar_url: auth.info.image,
-        is_admin: Wasail.Util.Sys.is_admin(auth.uid)
+        is_admin: is_admin,
+        is_reviewer: is_reviewer || is_admin
       }
 
     # Logger.info("Logged in user info: #{inspect(user_info)}")
+    ip = conn.remote_ip |> Tuple.to_list() |> Enum.join(".")
+    user_agent = get_req_header(conn, "user-agent") |> List.first()
+    Wasail.ActivitySvc.record_login(ip, user_agent, auth.info.email, auth.uid)
 
     conn
     |> put_session(:user_info, user_info)

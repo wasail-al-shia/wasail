@@ -13,6 +13,7 @@ const Theme = createTheme({
       contrastText: "#d9d3cf",
 
       dark2: "#773e16",
+      hide: "#ddd",
 
       header: "#b7aca4",
       header1: "#cec6c2",

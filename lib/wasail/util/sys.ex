@@ -5,6 +5,10 @@ defmodule Wasail.Util.Sys do
     uid in Application.get_env(:wasail, :admin_uids)
   end
 
+  def is_reviewer(email) do
+    email in Application.get_env(:wasail, :reviewers)
+  end
+
   def sleep(seconds) do
     :timer.sleep(seconds * 1000)
   end

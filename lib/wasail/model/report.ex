@@ -61,6 +61,21 @@ defmodule Wasail.Report do
     |> Repo.update()
   end
 
+  def update_review_flag(report_id, review) do
+    changeset =
+      report_id
+      |> get()
+      |> Ecto.Changeset.change(review: review)
+
+    case Repo.update(changeset) do
+      {:ok, updated_record} ->
+        {:ok, updated_record}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
+  end
+
   def changeset(%Report{} = report, attrs \\ %{}) do
     report
     |> Ecto.Changeset.cast(attrs, [
