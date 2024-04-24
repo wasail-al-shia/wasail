@@ -39,6 +39,27 @@ defmodule WasailWeb.PageController do
     end
   end
 
+  def get_file(conn, %{"bucket" => bucket, "filename" => filename}) do
+    content =
+      ExAws.S3.download_file("wasail.#{bucket}", filename, :memory)
+      |> ExAws.stream!()
+      |> Enum.into([])
+      |> IO.iodata_to_binary()
+
+    content_disposition = ContentDisposition.format(disposition: "inline", filename: filename)
+    mime_type = "application/pdf"
+
+    user_agent = get_req_header(conn, "user-agent") |> List.first()
+    ip = conn.remote_ip |> Tuple.to_list() |> Enum.join(".")
+    Wasail.ActivitySvc.record_download_file_activity(ip, user_agent, bucket, filename)
+
+    conn
+    |> put_resp_content_type(mime_type)
+    |> put_resp_header("content-disposition", content_disposition)
+    |> put_resp_header("file-name", filename)
+    |> send_resp(:ok, content)
+  end
+
   def download_book(conn, %{"bookCode" => book_code, "volumeNo" => volume_no}) do
     file_nm = "#{book_code}#{volume_no}.pdf"
 

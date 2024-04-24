@@ -61,6 +61,7 @@ defmodule WasailWeb.Router do
     pipe_through :browser
     get "/ping", PageController, :ping
     get "/sitemap", PageController, :sitemap
+    get "/file/:bucket/:filename", PageController, :get_file
 
     get "/*path", PageController, :index
   end

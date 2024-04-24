@@ -54,6 +54,7 @@ const fetchChapters = ({ queryKey: [_, sectionId] }) =>
       nameArb
       reports {
         id
+        hide
         review
       }
     }
@@ -199,6 +200,8 @@ export default () => {
 
   const anyUnderReview = (chapter) => chapter.reports.some((r) => r.review);
 
+  const anyUnhidden = (chapter) => chapter.reports.some((r) => !r.hide);
+
   const ChapterCard = ({ chapter }) => (
     <Stack
       sx={{
@@ -259,9 +262,11 @@ export default () => {
           <Typography align="center" variant="h5">
             {sectionName(section)}
           </Typography>
-          {chapters.map((chapter) => (
-            <ChapterCard key={chapter.id} chapter={chapter} />
-          ))}
+          {chapters
+            .filter((c) => isAdmin || isReviewer || anyUnhidden(c))
+            .map((chapter) => (
+              <ChapterCard key={chapter.id} chapter={chapter} />
+            ))}
           {isAdmin && (
             <Button
               startIcon={<AddToPhotosIcon />}

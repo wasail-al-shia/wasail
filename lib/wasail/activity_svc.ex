@@ -35,6 +35,18 @@ defmodule Wasail.ActivitySvc do
     })
   end
 
+  def record_download_file_activity(ip, user_agent, bucket, filename) do
+    ip_rec = get_ip_info(ip)
+    type = "file: #{filename}"
+
+    Wasail.Activity.insert(%{
+      ip_info_id: ip_rec.id,
+      user_agent: user_agent,
+      activity_type: type,
+      desc: bucket
+    })
+  end
+
   def record_report_activity(ip, user_agent, report_id) do
     ip_rec = get_ip_info(ip)
 
