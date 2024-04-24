@@ -45,7 +45,7 @@ defmodule Wasail.Util.Sys do
     chapter_links =
       Wasail.Chapter.get_ids()
       |> Enum.map(fn id ->
-        "#{url}c/#{id}"
+        "#{url}/c/#{id}"
       end)
 
     Enum.concat([home, about], chapter_links)

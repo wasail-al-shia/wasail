@@ -19,7 +19,7 @@ export default function ({
   open,
   onClose,
   section,
-  mostRecentReport,
+  defaultValues,
   dataQueryKeys = [],
 }) {
   const { createSnack } = React.useContext(SnackContext);
@@ -32,6 +32,11 @@ export default function ({
     getMutation("addChapter", responseKeys)
   );
   const queryClient = useQueryClient();
+
+  // need to update default values so dirty form state is accurate
+  React.useEffect(() => {
+    if (open && defaultValues != null) reset(defaultValues);
+  }, [open]);
 
   const closeAndReset = () => {
     onClose();
@@ -115,7 +120,6 @@ export default function ({
                 type="number"
                 name="chapterNo"
                 label="Chapter No"
-                defaultValue={mostRecentReport?.chapter.chapterNo + 1}
                 sx={{ width: 120 }}
                 size="small"
                 rules={{ required: true }}
@@ -124,7 +128,6 @@ export default function ({
                 control={control}
                 type="number"
                 name="startingReportNo"
-                defaultValue={mostRecentReport?.reportNo + 1}
                 label="Start With"
                 sx={{ width: 120 }}
                 size="small"
@@ -196,7 +199,7 @@ export default function ({
           <Button type="submit" color="primary">
             Add Reports
           </Button>
-          <Button onClick={closeAndReset} color="primary">
+          <Button onClick={onClose} color="primary">
             Cancel
           </Button>
         </DialogActions>

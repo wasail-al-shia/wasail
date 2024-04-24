@@ -274,9 +274,18 @@ export default () => {
                 openDialog("batchChapter", {
                   key: section.id + section.chapters.length,
                   section,
-                  mostRecentReport:
-                    section.chapters.length > 0 ? mostRecentReport : null,
+                  defaultValues: {
+                    chapterNo:
+                      section.chapters.length > 0
+                        ? mostRecentReport?.chapter.chapterNo + 1
+                        : null,
+                    startingReportNo:
+                      section.chapters.length > 0
+                        ? mostRecentReport?.reportNo + 1
+                        : null,
+                  },
                   dataQueryKeys: [
+                    "section",
                     "chapters",
                     "reports",
                     "reportRangeSection",
