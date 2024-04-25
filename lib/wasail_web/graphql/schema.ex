@@ -268,15 +268,6 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&ReportResolver.add_report_frag/2)
     end
 
-    @desc "updateReviewFlag"
-    field :update_review_flag, :mutation_response do
-      arg(:report_id, non_null(:integer))
-      arg(:review, non_null(:boolean))
-      middleware(WasailWeb.Graphql.RequireReviewer)
-      middleware(WasailWeb.Graphql.RecordActivity)
-      resolve(&ReportResolver.update_review_flag/2)
-    end
-
     @desc "Update Report"
     field :update_report, :mutation_response do
       arg(:report_id, non_null(:integer))

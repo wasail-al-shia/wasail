@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { DialogContext } from "../context/DialogContext";
-import FabAddButton from "../kmui/FabAddButton";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import Spinner from "../kmui/Spinner";
 import Box from "@mui/material/Box";
@@ -14,8 +13,9 @@ import Container from "@mui/material/Container";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { HEADER_HEIGHT } from "../consts";
+import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
-import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
+import AddIcon from "@mui/icons-material/Add";
 import {
   navBookLink,
   bookName,
@@ -256,6 +256,31 @@ export default () => {
       <Container maxWidth="lg">
         <Stack alignItems="center" spacing={3}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+          {isAdmin && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                openDialog("dataEntry", {
+                  key: nextChapterNo,
+                  title: "Add Chapter",
+                  fields: chapterDialogFields,
+                  dataQueryKeys: ["chapters"],
+                  mutationApi: "addChapter",
+                  basePayload: { sectionId: section.id },
+                  transformPayload: (payload) =>
+                    replace(payload, [
+                      {
+                        key: "nameEng",
+                        value: capitalizeFirstLetter(payload.nameEng),
+                      },
+                    ]),
+                })
+              }
+            >
+              + chapter
+            </Button>
+          )}
           <Typography align="center" variant="h5">
             {section.book && bookName(section.book)}
           </Typography>
@@ -267,56 +292,42 @@ export default () => {
             .map((chapter) => (
               <ChapterCard key={chapter.id} chapter={chapter} />
             ))}
-          {isAdmin && (
-            <Button
-              startIcon={<AddToPhotosIcon />}
-              onClick={() => {
-                openDialog("batchChapter", {
-                  key: section.id + section.chapters.length,
-                  section,
-                  defaultValues: {
-                    chapterNo:
-                      section.chapters.length > 0
-                        ? mostRecentReport?.chapter.chapterNo + 1
-                        : null,
-                    startingReportNo:
-                      section.chapters.length > 0
-                        ? mostRecentReport?.reportNo + 1
-                        : null,
-                  },
-                  dataQueryKeys: [
-                    "section",
-                    "chapters",
-                    "reports",
-                    "reportRangeSection",
-                    "mostRecentReport",
-                  ],
-                });
-              }}
-            >
-              Chapter
-            </Button>
-          )}
         </Stack>
       </Container>
-      <FabAddButton
-        buttonText="Chapter"
-        dataEntryProps={{
-          key: nextChapterNo,
-          title: "Add Chapter",
-          fields: chapterDialogFields,
-          dataQueryKeys: ["chapters"],
-          mutationApi: "addChapter",
-          basePayload: { sectionId: section.id },
-          transformPayload: (payload) =>
-            replace(payload, [
-              {
-                key: "nameEng",
-                value: capitalizeFirstLetter(payload.nameEng),
+      {isAdmin && (
+        <Fab
+          sx={{ paddingRight: 7 }}
+          variant="extended"
+          size="small"
+          color="primary"
+          onClick={() => {
+            openDialog("batchChapter", {
+              key: section.id + section.chapters.length,
+              section,
+              defaultValues: {
+                chapterNo:
+                  section.chapters.length > 0
+                    ? mostRecentReport?.chapter.chapterNo + 1
+                    : null,
+                startingReportNo:
+                  section.chapters.length > 0
+                    ? mostRecentReport?.reportNo + 1
+                    : null,
               },
-            ]),
-        }}
-      />
+              dataQueryKeys: [
+                "section",
+                "chapters",
+                "reports",
+                "reportRangeSection",
+                "mostRecentReport",
+              ],
+            });
+          }}
+        >
+          <AddIcon sx={{ mr: 1 }} />
+          Batch
+        </Fab>
+      )}
     </Spinner>
   );
 };

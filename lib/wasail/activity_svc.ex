@@ -101,17 +101,6 @@ defmodule Wasail.ActivitySvc do
     })
   end
 
-  def record_review_activity(ip, user_agent, report_id) do
-    ip_rec = get_ip_info(ip)
-
-    Wasail.Activity.insert(%{
-      ip_info_id: ip_rec.id,
-      user_agent: user_agent,
-      activity_type: "review",
-      report_id: report_id
-    })
-  end
-
   def record_feedback_activity(ip, user_agent, report_id, name) do
     ip_rec = get_ip_info(ip)
 

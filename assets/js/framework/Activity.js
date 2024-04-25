@@ -59,12 +59,6 @@ const columns = [
               to={navReportLink(rowData.reportId)}
             >{`report: ${rowData.reportId}`}</Link>
           );
-        case "review":
-          return (
-            <Link
-              to={navReportLink(rowData.reportId)}
-            >{`review: ${rowData.reportId}`}</Link>
-          );
         case "feedback":
           return (
             <Link

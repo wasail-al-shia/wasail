@@ -22,7 +22,7 @@ const contactDialogFields = [
   },
   {
     name: "comment",
-    label: "Comment",
+    label: "Message",
     type: "text",
     fullWidth: true,
     multiline: true,

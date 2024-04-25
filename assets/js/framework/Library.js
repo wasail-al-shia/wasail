@@ -130,7 +130,7 @@ export default () => {
         </Grid>
         <Typography
           align="center"
-          sx={{ margin: 5, fontSize: "0.9rem", fontWeight: 300 }}
+          sx={{ margin: 10, fontSize: "0.9rem", fontWeight: 300 }}
         >
           (Site Last Updated On:&nbsp;
           {formatIsoStrToLocal(mostRecentReport.insertedAt)})

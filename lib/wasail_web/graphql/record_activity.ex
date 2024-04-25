@@ -6,15 +6,6 @@ defmodule WasailWeb.Graphql.RecordActivity do
         %Absinthe.Resolution{context: %{user_info: %{is_admin: true}}} = resolution,
         _config
       ) do
-    if resolution.definition.name == "updateReviewFlag", do: record_activity(resolution)
-    resolution
-  end
-
-  def call(
-        %Absinthe.Resolution{context: %{user_info: %{is_reviewer: true}}} = resolution,
-        _config
-      ) do
-    if resolution.definition.name == "updateReviewFlag", do: record_activity(resolution)
     resolution
   end
 
@@ -31,7 +22,7 @@ defmodule WasailWeb.Graphql.RecordActivity do
   def record_activity(resolution) do
     user_agent = resolution.context.user_agent
     ip = resolution.context.client_ip
-    Logger.info("In record activity for #{inspect(resolution.definition)}")
+    # Logger.info("In record activity for #{inspect(resolution.definition)}")
 
     case String.match?(user_agent, ~r/bot|crawl|spider/i) do
       false ->
@@ -58,17 +49,6 @@ defmodule WasailWeb.Graphql.RecordActivity do
               "processContactForm" ->
                 name = resolution.arguments.name
                 Wasail.ActivitySvc.record_contact(ip, user_agent, name)
-
-              "updateReviewFlag" ->
-                report_id = resolution.arguments.report_id
-                review = resolution.arguments.review
-
-                if review,
-                  do: Wasail.ActivitySvc.record_review_activity(ip, user_agent, report_id)
-
-              _ ->
-                Logger.error("Can't record unknown activity")
-                nil
             end
           rescue
             err -> Logger.error("Error recording activity: #{inspect(err)}")
