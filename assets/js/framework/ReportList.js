@@ -221,6 +221,8 @@ export default () => {
     },
   ];
 
+  const hue = Math.floor(Math.random() * 60) + 1;
+  //console.log("hue=", hue);
   return (
     <Spinner open={fetchingChapter || fetchingReports}>
       <BreadCrumbs crumbDefs={crumbDefs} />
@@ -238,6 +240,7 @@ export default () => {
             .map((report) => (
               <Report
                 key={report.id}
+                hue={hue}
                 report={{ ...report, chapter }}
                 onEdit={() =>
                   openDialog("dataEntry", {

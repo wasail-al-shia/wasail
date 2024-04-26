@@ -23,13 +23,13 @@ import Checkbox from "@mui/material/Checkbox";
 import { useMutation, useQueryClient } from "react-query";
 import { getMutation } from "../utils/graph-ql";
 
-export default ({ report, onEdit }) => {
+export default ({ report, onEdit, hue }) => {
   const { isAdmin, isReviewer } = React.useContext(SessionContext);
   const { openDialog } = React.useContext(DialogContext);
   const responseKeys = ["message", "status", "id"];
   const queryClient = useQueryClient();
-  const updateReviewMutation = useMutation(
-    getMutation("updateReviewFlag", responseKeys)
+  const updateReportMutation = useMutation(
+    getMutation("updateReport", responseKeys)
   );
   const nextSeqNo =
     report.texts.length > 0
@@ -148,7 +148,7 @@ export default ({ report, onEdit }) => {
                   size="small"
                   checked={report.review}
                   onChange={(event) => {
-                    updateReviewMutation.mutate(
+                    updateReportMutation.mutate(
                       { reportId: report.id, review: event.target.checked },
                       {
                         onSuccess: (_response) => {
@@ -159,7 +159,30 @@ export default ({ report, onEdit }) => {
                   }}
                 />
               }
-              label="Needs Review"
+              label="Review"
+            />
+          </FormGroup>
+        )}
+        {isReviewer && (
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  size="small"
+                  checked={report.hide}
+                  onChange={(event) => {
+                    updateReportMutation.mutate(
+                      { reportId: report.id, hide: event.target.checked },
+                      {
+                        onSuccess: (_response) => {
+                          queryClient.invalidateQueries("reports");
+                        },
+                      }
+                    );
+                  }}
+                />
+              }
+              label="Hide"
             />
           </FormGroup>
         )}
@@ -275,7 +298,13 @@ export default ({ report, onEdit }) => {
   );
 
   const Comment = ({ comment }) => (
-    <Stack sx={{ backgroundColor: "primary.backdrop", padding: 5 }} spacing={5}>
+    <Stack
+      sx={{
+        backgroundColor: `hsl(${hue}, 55%, 95.65%)`,
+        padding: 5,
+      }}
+      spacing={5}
+    >
       <Typography align="justify" variant="comment">
         {parse(comment.commentEng)}
         {isAdmin && (
@@ -312,7 +341,7 @@ export default ({ report, onEdit }) => {
             ? "primary.hide"
             : (isAdmin || isReviewer) && report.review
             ? "primary.review"
-            : "primary.paper",
+            : `hsl(${hue}, 50%, 97.65%)`,
         padding: 6,
       }}
     >
