@@ -31,6 +31,7 @@ defmodule WasailWeb.Router do
 
     post "/download_book", PageController, :download_book
     post "/record_page_view", PageController, :record_page_view
+    get "/book_stats/:book_id", PageController, :book_stats
   end
 
   scope "/auth", WasailWeb do

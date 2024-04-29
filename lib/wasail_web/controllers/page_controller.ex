@@ -86,4 +86,21 @@ defmodule WasailWeb.PageController do
   def sitemap(conn, _params) do
     text(conn, Wasail.Util.Sys.generate_sitemap_text())
   end
+
+  def book_stats(conn, %{"book_id" => book_id}) do
+    bid = String.to_integer(book_id)
+    missing = Wasail.Report.find_missing(bid)
+    num_reports = Wasail.Book.num_reports(bid)
+
+    range = Wasail.Report.get_all_report_no_by_book_id(book_id)
+    duplicates = range -- Enum.uniq(range)
+
+    json(conn, %{
+      req_num: Wasail.Util.Sys.total_number_of_reports(bid),
+      existing_num: num_reports,
+      missing: missing,
+      duplicates: duplicates,
+      percent_complete: Wasail.Util.Sys.percent_complete(num_reports, bid)
+    })
+  end
 end

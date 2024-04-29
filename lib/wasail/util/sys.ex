@@ -14,8 +14,15 @@ defmodule Wasail.Util.Sys do
   end
 
   def total_number_of_reports(book_id) do
-    report_range(book_id)
-    |> Enum.count()
+    n =
+      report_range(book_id)
+      |> Enum.count()
+
+    # vol 2 (pg 98) chapter 53 has no hadith but
+    # just a comment which in the database looks
+    # likte a hadith, so we need to add 1 to the
+    # return value
+    if book_id == 2, do: n + 1, else: n
   end
 
   def percent_complete(n, book_id) do
@@ -32,6 +39,9 @@ defmodule Wasail.Util.Sys do
     case book_id do
       1 -> 0..1299
       2 -> 1300..2865
+      3 -> 2866..4375
+      4 -> 4376..5737
+      5 -> 5738..7195
       _ -> []
     end
   end

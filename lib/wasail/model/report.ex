@@ -120,6 +120,8 @@ defmodule Wasail.Report do
   def find_missing(book_id) do
     xs1 = Wasail.Util.Sys.report_range(book_id) |> MapSet.new()
     xs2 = get_all_report_no_by_book_id(book_id) |> MapSet.new()
+
     MapSet.difference(xs1, xs2)
+    |> Enum.map(fn x -> x end)
   end
 end

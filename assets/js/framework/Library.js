@@ -86,7 +86,7 @@ export default () => {
       label: "Lib Seq No",
       type: "number",
       rules: { required: true },
-      defaultValue: "1",
+      defaultValue: 1,
       size: "small",
       md: 4,
       sx: { width: 150 },

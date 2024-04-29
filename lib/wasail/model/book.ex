@@ -13,6 +13,10 @@ defmodule Wasail.Book do
   end
 
   def percent_complete(book_id) do
+    Wasail.Util.Sys.percent_complete(num_reports(book_id), book_id)
+  end
+
+  def num_reports(book_id) do
     count_reports_query =
       from(b in Book,
         join: s in Section,
@@ -26,7 +30,6 @@ defmodule Wasail.Book do
       )
 
     Repo.one(count_reports_query)
-    |> Wasail.Util.Sys.percent_complete(book_id)
   end
 
   def insert(rec) do
