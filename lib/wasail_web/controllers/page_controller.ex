@@ -96,11 +96,14 @@ defmodule WasailWeb.PageController do
     duplicates = range -- Enum.uniq(range)
 
     json(conn, %{
-      req_num: Wasail.Util.Sys.total_number_of_reports(bid),
+      required_num: Wasail.Util.Sys.total_number_of_reports(bid),
       existing_num: num_reports,
-      missing: missing,
+      percent_complete: Wasail.Util.Sys.percent_complete(num_reports, bid),
       duplicates: duplicates,
-      percent_complete: Wasail.Util.Sys.percent_complete(num_reports, bid)
+      hidden: Wasail.Report.get_hidden(book_id),
+      under_review: Wasail.Report.get_under_review(book_id),
+      missing: Enum.take(missing, 10),
+      total_missing: Enum.count(missing)
     })
   end
 end

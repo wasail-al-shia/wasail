@@ -9,6 +9,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import Tooltip from "@mui/material/Tooltip";
 import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import CopyToClipboardButton from "../kmui/CopyToClipboardButton";
@@ -226,6 +227,24 @@ export default ({ report, onEdit, hue }) => {
         )}
         {(isAdmin || isReviewer) && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
+        )}
+        {isAdmin && (
+          <IconButton
+            disabled={report.texts.length != 1}
+            size="small"
+            onClick={() =>
+              openDialog("splitReport", {
+                report,
+                defaultValues: { ...report.texts[0] },
+                dataQueryKeys: ["reports"],
+              })
+            }
+          >
+            <VerticalSplitIcon
+              sx={{ color: report.texts.length != 1 ? "disabled" : "#000" }}
+              size="small"
+            />
+          </IconButton>
         )}
         <Tooltip key="feedback" title="Report feedback">
           <IconButton

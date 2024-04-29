@@ -2,11 +2,13 @@ import React from "react";
 import ConfirmDialog from "../kmui/ConfirmDialog";
 import DataEntry from "../dialogs/DataEntry";
 import BatchChapter from "../dialogs/BatchChapter";
+import SplitReport from "../dialogs/SplitReport";
 
 const dialogMapping = {
   confirmDialog: ConfirmDialog,
   dataEntry: DataEntry,
   batchChapter: BatchChapter,
+  splitReport: SplitReport,
 };
 const DialogContext = React.createContext();
 
