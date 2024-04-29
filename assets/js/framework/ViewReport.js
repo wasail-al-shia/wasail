@@ -123,11 +123,11 @@ export default ({ wsReportId }) => {
         {report.headingEng}
       </Typography>
       <Stack direction="row" alignItems="center">
-        <Tooltip title="Report feedback">
+        <Tooltip title="Send Comment">
           <IconButton
             onClick={() =>
               openDialog("dataEntry", {
-                title: "Report feedback on " + report.headingEng,
+                title: "Send Comment On " + report.headingEng,
                 basePayload: { report_id: report.id },
                 fields: reportFeedbackFields,
                 mutationApi: "processReportFeedback",

@@ -9,6 +9,13 @@ defmodule WasailWeb.Graphql.RecordActivity do
     resolution
   end
 
+  def call(
+        %Absinthe.Resolution{context: %{user_info: %{is_reviewer: true}}} = resolution,
+        _config
+      ) do
+    resolution
+  end
+
   def call(%Absinthe.Resolution{} = resolution, _config) do
     # IO.inspect(Map.keys(resolution.definition))
     IO.inspect(resolution.definition.name)

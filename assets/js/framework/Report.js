@@ -231,7 +231,7 @@ export default ({ report, onEdit, hue }) => {
           <IconButton
             onClick={() =>
               openDialog("dataEntry", {
-                title: "Report feedback on " + report.headingEng,
+                title: "Send Comment On " + report.headingEng,
                 basePayload: { report_id: report.id },
                 fields: reportFeedbackFields,
                 mutationApi: "processReportFeedback",
