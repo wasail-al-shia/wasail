@@ -36,7 +36,7 @@ defmodule WasailWeb.AuthController do
         email: auth.info.email,
         avatar_url: auth.info.image,
         is_admin: is_admin,
-        is_reviewer: is_reviewer || is_admin
+        is_reviewer: is_reviewer
       }
 
     # Logger.info("Logged in user info: #{inspect(user_info)}")

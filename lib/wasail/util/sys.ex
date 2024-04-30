@@ -6,7 +6,7 @@ defmodule Wasail.Util.Sys do
   end
 
   def is_reviewer(email) do
-    email in Application.get_env(:wasail, :reviewers)
+    email in Application.get_env(:wasail, :reviewer_uids)
   end
 
   def sleep(seconds) do

@@ -222,10 +222,7 @@ export default () => {
           <span
             style={{
               fontWeight: "600",
-              color:
-                (isAdmin || isReviewer) && anyUnderReview(chapter)
-                  ? "#D04405"
-                  : null,
+              color: isReviewer && anyUnderReview(chapter) ? "#D04405" : null,
             }}
           >
             Chapter {chapter.chapterNo}:&nbsp;
@@ -288,7 +285,7 @@ export default () => {
             {sectionName(section)}
           </Typography>
           {chapters
-            .filter((c) => isAdmin || isReviewer || anyUnhidden(c))
+            .filter((c) => isReviewer || anyUnhidden(c))
             .map((chapter) => (
               <ChapterCard key={chapter.id} chapter={chapter} />
             ))}

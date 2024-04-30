@@ -3,9 +3,20 @@ import Config
 config :wasail,
   ecto_repos: [Wasail.Repo],
   bk_cd_ws: "ws",
-  #                  shuaybi                tasneemshoeb             wasail.al.shia
-  admin_uids: ["xx_113405576099734332839", "xx_108485062904594919718", "115106629340710687706"],
-  reviewers: ["tasneemshoeb@gmail.com", "adeebafhussain6@gmail.com", "shuaybi@gmail.com"],
+  admin_uids: [
+    # wasail.al.shia
+    "115106629340710687706"
+  ],
+  reviewer_uids: [
+    # shuaybi
+    "113405576099734332839",
+    # tasneemshoeb
+    "108485062904594919718",
+    # adeebafhussain6
+    "113626093844537576080",
+    # wasail.al.shia
+    "115106629340710687706"
+  ],
   admin_emails: ["wasail.al.shia@gmail.com"],
   bcc_emails: ["shuaybi@gmail.com"],
   ses_verified_identity_for_smtp: {"Wasail Al Shia", "wasail.al.shia@gmail.com"},

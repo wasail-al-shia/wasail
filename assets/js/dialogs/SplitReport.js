@@ -71,12 +71,11 @@ export default function ({
     const response = await updateTextMutation.mutateAsync(updateTextPayload);
     console.log("Update text mutation response=", response);
 
-    var startNo = 2;
     const payloadList = [];
     for (let i = 1; i < engTexts.length; i++) {
       payloadList.push({
         reportId: report.id,
-        fragmentNo: i + startNo - 1,
+        fragmentNo: i + 1,
         textEng: engTexts[i],
         textArb: arbTexts[i],
       });

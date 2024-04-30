@@ -236,7 +236,7 @@ export default () => {
             {chapterName(chapter)}
           </Typography>
           {reports
-            .filter((r) => isAdmin || isReviewer || !r.hide)
+            .filter((r) => isReviewer || !r.hide)
             .map((report) => (
               <Report
                 key={report.id}

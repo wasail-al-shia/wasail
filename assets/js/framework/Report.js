@@ -225,7 +225,7 @@ export default ({ report, onEdit, hue }) => {
             }
           />
         )}
-        {(isAdmin || isReviewer) && (
+        {isReviewer && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
         )}
         {isAdmin && (
@@ -356,9 +356,9 @@ export default ({ report, onEdit, hue }) => {
         border: "1px solid gray",
         borderRadius: 1,
         backgroundColor:
-          (isAdmin || isReviewer) && report.hide
+          isReviewer && report.hide
             ? "primary.hide"
-            : (isAdmin || isReviewer) && report.review
+            : isReviewer && report.review
             ? "primary.review"
             : `hsl(${hue}, 50%, 97.65%)`,
         padding: 6,
