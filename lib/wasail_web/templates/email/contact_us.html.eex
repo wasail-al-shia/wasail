@@ -8,7 +8,7 @@
     Dear <%= @data[:name] %>,
     <br/>
     <br/>
-    We received your message. We will review and respond soon insha Allah.
+    Thank you for your message. We will review and respond soon insha Allah.
     <br/>
     <br/>
     Best regards,

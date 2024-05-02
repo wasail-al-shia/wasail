@@ -27,7 +27,7 @@ defmodule WasailWeb.AuthController do
     # Logger.info("In callback: #{inspect(auth)}")
 
     is_admin = Wasail.Util.Sys.is_admin(auth.uid)
-    is_reviewer = Wasail.Util.Sys.is_reviewer(auth.info.email)
+    is_reviewer = Wasail.Util.Sys.is_reviewer(auth.uid)
 
     user_info =
       %{

@@ -24,6 +24,7 @@ import {
 import Container from "@mui/material/Container";
 import { replace } from "../utils/obj";
 import { flipParenthesis } from "../utils/string";
+import { randomHue } from "../utils/sys";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -221,8 +222,9 @@ export default () => {
     },
   ];
 
-  const hue = Math.floor(Math.random() * 60) + 1;
-  //console.log("hue=", hue);
+  const hue = randomHue();
+  console.log("hue=", hue);
+
   return (
     <Spinner open={fetchingChapter || fetchingReports}>
       <BreadCrumbs crumbDefs={crumbDefs} />
