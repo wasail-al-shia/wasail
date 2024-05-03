@@ -106,6 +106,27 @@ defmodule Wasail.Repo.Migrations.CoreTables do
       timestamps()
     end
 
+    create table(:easy_guide_category) do
+      add :category, :string, null: false
+      add :cat_seq_no, :string, null: false
+      timestamps()
+    end
+
+    create table(:easy_guide) do
+      add :title, :string, null: false
+      add :description, :text, null: false
+      add :category_id, references(:easy_guide_category), null: false
+      timestamps()
+    end
+
+    create table(:easy_guide_fragment) do
+      add :easy_guide_id, references(:easy_guide), null: false
+      add :frag_seq_no, :string, null: false
+      add :report_id, references(:report)
+      add :html, :text
+      timestamps()
+    end
+
     execute(
       "ALTER TABLE text ADD COLUMN fts_eng tsvector GENERATED ALWAYS AS (to_tsvector('english', text_eng)) STORED"
     )

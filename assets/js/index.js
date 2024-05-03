@@ -13,8 +13,11 @@ import ReportList from "./framework/ReportList";
 import ViewReport from "./framework/ViewReport";
 import WsReport from "./framework/WsReport";
 import SearchResults from "./framework/SearchResults";
-import Activity from "./framework/Activity";
 import About from "./pages/About";
+import Activity from "./framework/Activity";
+import EasyGuideCategoryList from "./framework/EasyGuideCategoryList";
+import EasyGuideList from "./framework/EasyGuideList";
+import EasyGuide from "./framework/EasyGuide";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +51,18 @@ const router = createBrowserRouter([
       {
         path: "q/:queryStr",
         element: <SearchResults />,
+      },
+      {
+        path: "egc",
+        element: <EasyGuideCategoryList />,
+      },
+      {
+        path: "eg/:categoryId",
+        element: <EasyGuideList />,
+      },
+      {
+        path: "g/:guideId",
+        element: <EasyGuide />,
       },
       {
         path: "a",

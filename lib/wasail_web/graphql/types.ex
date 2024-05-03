@@ -17,6 +17,31 @@ defmodule WasailWeb.Graphql.Types do
     field :is_reviewer, :boolean
   end
 
+  object :easy_guide_category do
+    field :id, non_null(:integer)
+    field :name, non_null(:string)
+    field :description, non_null(:string)
+    field :cat_seq_no, non_null(:integer)
+  end
+
+  object :easy_guide do
+    field :id, non_null(:integer)
+    field :easy_guide_category_id, non_null(:integer)
+    field :title, non_null(:string)
+    field :eg_seq_no, non_null(:integer)
+    field :fragments, list_of(:easy_guide_fragment)
+    field :easy_guide_category, non_null(:easy_guide_category)
+  end
+
+  object :easy_guide_fragment do
+    field :id, non_null(:integer)
+    field :easy_guide_id, non_null(:integer)
+    field :frag_seq_no, non_null(:integer)
+    field :html, :string
+    field :report_id, :integer
+    field :report, :report
+  end
+
   object :book do
     field :id, non_null(:integer)
     field :name_eng, non_null(:string)

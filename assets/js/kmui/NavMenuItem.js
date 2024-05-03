@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
-export default function ({ name, link, onClick }) {
+export default function ({ name, link, onClick, sx }) {
   return (
     <Typography
       variant="h7"
@@ -18,9 +18,9 @@ export default function ({ name, link, onClick }) {
         cursor: "pointer",
         "&:hover": {
           fontWeight: 700,
-          color: "primary.backdrop",
           transform: "scale3d(1.05, 1.05, 1.05)",
         },
+        ...sx,
       }}
     >
       {name}

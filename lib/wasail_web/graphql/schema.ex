@@ -8,7 +8,8 @@ defmodule WasailWeb.Graphql.Schema do
     ChapterResolver,
     ReportResolver,
     TextResolver,
-    CommentResolver
+    CommentResolver,
+    EasyGuideResolver
   }
 
   import_types(WasailWeb.Graphql.Types)
@@ -22,6 +23,29 @@ defmodule WasailWeb.Graphql.Schema do
           _ -> {:ok, %{}}
         end
       end)
+    end
+
+    @desc "Get easy guide categories"
+    field :easy_guide_categories, list_of(non_null(:easy_guide_category)) do
+      resolve(&EasyGuideResolver.categories/2)
+    end
+
+    @desc "Get easy guide category"
+    field :easy_guide_category, non_null(:easy_guide_category) do
+      arg(:category_id, non_null(:integer))
+      resolve(&EasyGuideResolver.category/2)
+    end
+
+    @desc "Get easy guides"
+    field :easy_guides, list_of(non_null(:easy_guide)) do
+      arg(:category_id, non_null(:integer))
+      resolve(&EasyGuideResolver.easy_guides/2)
+    end
+
+    @desc "Get easy guide"
+    field :easy_guide, non_null(:easy_guide) do
+      arg(:id, non_null(:integer))
+      resolve(&EasyGuideResolver.easy_guide/2)
     end
 
     @desc "Get books"
@@ -157,6 +181,84 @@ defmodule WasailWeb.Graphql.Schema do
   end
 
   mutation do
+    @desc "Add easy guide category"
+    field :add_easy_guide_category, :mutation_response do
+      arg(:name, non_null(:string))
+      arg(:description, non_null(:string))
+      arg(:cat_seq_no, non_null(:integer))
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.add_category/2)
+    end
+
+    @desc "Update easy guide category"
+    field :update_easy_guide_category, :mutation_response do
+      arg(:id, non_null(:integer))
+      arg(:name, :string)
+      arg(:description, :string)
+      arg(:cat_seq_no, :integer)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.update_category/2)
+    end
+
+    @desc "Add easy guide"
+    field :add_easy_guide, :mutation_response do
+      arg(:easy_guide_category_id, non_null(:integer))
+      arg(:title, non_null(:string))
+      arg(:eg_seq_no, non_null(:integer))
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.add_easy_guide/2)
+    end
+
+    @desc "Update easy guide"
+    field :update_easy_guide, :mutation_response do
+      arg(:id, non_null(:integer))
+      arg(:title, :string)
+      arg(:eg_seq_no, :integer)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.update_easy_guide/2)
+    end
+
+    @desc "Add easy guide fragment"
+    field :add_easy_guide_fragment, :mutation_response do
+      arg(:easy_guide_id, non_null(:integer))
+      arg(:frag_seq_no, non_null(:integer))
+      arg(:html, :string)
+      arg(:report_id, :integer)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.add_fragment/2)
+    end
+
+    @desc "Update easy guide fragment"
+    field :update_easy_guide_fragment, :mutation_response do
+      arg(:id, non_null(:integer))
+      arg(:frag_seq_no, :integer)
+      arg(:report_id, :integer)
+      arg(:html, :string)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.update_fragment/2)
+    end
+
+    @desc "Delete category"
+    field :delete_category, :mutation_response do
+      arg(:id, :integer)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.delete_category/2)
+    end
+
+    @desc "Delete easy guide"
+    field :delete_easy_guide, :mutation_response do
+      arg(:id, :integer)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.delete_easy_guide/2)
+    end
+
+    @desc "Delete easy guide fragment"
+    field :delete_easy_guide_fragment, :mutation_response do
+      arg(:id, :integer)
+      middleware(WasailWeb.Graphql.RequireAdmin)
+      resolve(&EasyGuideResolver.delete_fragment/2)
+    end
+
     @desc "Add book"
     field :add_book, :mutation_response do
       arg(:input, non_null(:book_input))

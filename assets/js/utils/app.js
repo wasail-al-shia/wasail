@@ -59,3 +59,5 @@ export const navChapterLink = (chapterId) => `/c/${chapterId}`;
 export const navReportLink = (reportId) => `/r/${reportId}`;
 export const navWsReportLink = (reportNo) => `/h/${reportNo}`;
 export const navSearchResultsLink = (queryStr) => `/q/${queryStr}`;
+export const navEasyGuideCatLink = (categoryId) => `/eg/${categoryId}`;
+export const navEasyGuideLink = (guideId) => `/g/${guideId}`;

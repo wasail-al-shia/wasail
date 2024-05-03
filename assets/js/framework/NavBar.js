@@ -31,6 +31,11 @@ function NavBar() {
 
   const pages = [
     {
+      name: "easy guide",
+      link: "/egc",
+      sx: { color: "secondary.light", fontWeight: 700 },
+    },
+    {
       name: "about",
       link: "/about",
     },
@@ -171,6 +176,7 @@ function NavBar() {
                       key={page.name}
                       name={page.name}
                       link={page.link}
+                      sx={page.sx}
                       onClick={page.onClick}
                     />
                   ))}
