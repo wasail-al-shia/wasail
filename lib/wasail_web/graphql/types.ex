@@ -22,6 +22,7 @@ defmodule WasailWeb.Graphql.Types do
     field :name, non_null(:string)
     field :description, non_null(:string)
     field :cat_seq_no, non_null(:integer)
+    field :easy_guides, list_of(:easy_guide)
   end
 
   object :easy_guide do

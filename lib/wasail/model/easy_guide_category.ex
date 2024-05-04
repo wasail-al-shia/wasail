@@ -11,6 +11,8 @@ defmodule Wasail.EasyGuideCategory do
     EasyGuideCategory
     |> order_by(asc: :cat_seq_no)
     |> Repo.all()
+
+    # |> Repo.preload(:easy_guides)
   end
 
   def insert(rec) do

@@ -18,6 +18,7 @@ import { navEasyGuideCatLink } from "../utils/app";
 import Container from "@mui/material/Container";
 import Badge from "@mui/material/Badge";
 import { randomHue } from "../utils/sys";
+import truncate from "lodash/truncate";
 
 const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
   request(`{
@@ -77,7 +78,8 @@ const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
 
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin } = React.useContext(SessionContext);
+  const { isAdmin, onPhone, onTablet, onDesktop } =
+    React.useContext(SessionContext);
   const { guideId } = useParams();
   const { data: easyGuide = {}, isFetching: fetchingEasyGuide } = useQuery(
     ["easyGuide", guideId],
@@ -126,7 +128,10 @@ export default () => {
       crumbName: easyGuide.easyGuideCategory?.name,
     },
     {
-      crumbName: easyGuide.title,
+      crumbName: truncate(easyGuide.title, {
+        length: onPhone ? 40 : onTablet ? 80 : 120,
+        separator: " ",
+      }),
     },
   ];
 
@@ -149,12 +154,12 @@ export default () => {
     <Spinner open={fetchingEasyGuide}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <Container maxWidth="lg">
-        <Stack sx={{ backgroundColor: "primary.paper" }} spacing={5}>
+        <Stack sx={{ backgroundColor: "primary.paper" }} spacing={7}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
           <Typography variant="h5" align="center">
             {easyGuide.title}
           </Typography>
-          <Stack sx={{ padding: 10 }} spacing={5}>
+          <Stack sx={{ paddingLeft: 10, paddingRight: 10 }} spacing={5}>
             {easyGuide.easyGuideFragments?.map((f) => {
               return (
                 <Badge

@@ -116,14 +116,14 @@ export default () => {
       <Container maxWidth="lg">
         <Stack sx={{ marginTop: 5 }} spacing={3}>
           <Typography variant="h4" align="center">
-            Easy Guide to Islamic Practices
+            Easy Guide To Islamic Practices
           </Typography>
           <Typography variant="h6">
             Each guide is a curated collection of hadith that concisely covers
             essential areas of fiqh in an accessible yet comprehensive way
             providing quick access to the most crucial and practical knowledge
             relevant to everyday life without being overwhelmed by the sheer
-            number of narrations. While ths guide covers the most common
+            number of narrations. While this guide covers the most common
             situations and scenarios, we encourage you to explore the more
             extensive collection of hadith for less frequent or unique
             circumstances.

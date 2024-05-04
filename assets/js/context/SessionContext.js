@@ -34,7 +34,13 @@ const fetchMostRecentReport = () =>
 
 const SessionProvider = (props) => {
   const theme = useTheme();
-  const onTablet = useMediaQuery(theme.breakpoints.down("lg"));
+  const p = useMediaQuery(theme.breakpoints.down("md"));
+  const t = useMediaQuery(theme.breakpoints.down("lg"));
+  const d = useMediaQuery(theme.breakpoints.down("xl"));
+
+  const onPhone = p;
+  const onTablet = !p && t;
+  const onDesktop = !t && d;
 
   const userInfoQueryKey = "userInfo";
   const { data: userInfo = {}, isFetching: fetchingUserInfo } = useQuery(
@@ -53,7 +59,9 @@ const SessionProvider = (props) => {
   return (
     <SessionContext.Provider
       value={{
+        onPhone,
         onTablet,
+        onDesktop,
         logout,
         mostRecentReport,
         ...userInfo,

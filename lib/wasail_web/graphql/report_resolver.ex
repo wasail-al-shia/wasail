@@ -75,7 +75,7 @@ defmodule WasailWeb.Graphql.ReportResolver do
 
       {:ok, report} ->
         cond do
-          !is_nil(params.easy_guide_id) and !is_nil(params.easy_guide_frag_no) ->
+          Map.has_key?(params, :easy_guide_id) and Map.has_key?(params, :easy_guide_frag_no) ->
             Wasail.EasyGuideFragment.insert(%{
               report_id: report_id,
               easy_guide_id: params.easy_guide_id,
