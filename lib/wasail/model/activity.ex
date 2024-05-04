@@ -25,6 +25,7 @@ defmodule Wasail.Activity do
           city: i.city,
           chapter_id: a.chapter_id,
           report_id: a.report_id,
+          easy_guide_id: a.easy_guide_id,
           search_str: a.search_str,
           desc: a.desc,
           inserted_at: a.inserted_at
@@ -81,6 +82,7 @@ defmodule Wasail.Activity do
       :user_agent,
       :report_id,
       :chapter_id,
+      :easy_guide_id,
       :search_str,
       :desc
     ])

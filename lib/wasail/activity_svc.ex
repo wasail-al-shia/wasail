@@ -69,6 +69,17 @@ defmodule Wasail.ActivitySvc do
     })
   end
 
+  def record_easy_guide_activity(ip, user_agent, guide_id) do
+    ip_rec = get_ip_info(ip)
+
+    Wasail.Activity.insert(%{
+      ip_info_id: ip_rec.id,
+      user_agent: user_agent,
+      activity_type: "view_easy_guide",
+      easy_guide_id: guide_id
+    })
+  end
+
   def record_search_activity(ip, user_agent, search_str) do
     ip_rec = get_ip_info(ip)
 

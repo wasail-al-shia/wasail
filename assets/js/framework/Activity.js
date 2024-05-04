@@ -13,6 +13,7 @@ import {
   navChapterLink,
   navReportLink,
   navSearchResultsLink,
+  navEasyGuideLink,
 } from "../utils/app";
 import { UAParser } from "ua-parser-js";
 import WsTable from "../kmui/WsTable";
@@ -59,6 +60,12 @@ const columns = [
               to={navReportLink(rowData.reportId)}
             >{`report: ${rowData.reportId}`}</Link>
           );
+        case "view_easy_guide":
+          return (
+            <Link
+              to={navEasyGuideLink(rowData.easyGuideId)}
+            >{`easy_guide: ${rowData.easyGuideId}`}</Link>
+          );
         case "feedback":
           return (
             <Link
@@ -96,6 +103,7 @@ const fetchRecentActivity = ({ queryKey: [_, n] }) =>
       region
       city
       chapterId
+      easyGuideId
       reportId
       searchStr
       desc

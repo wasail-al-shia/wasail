@@ -46,6 +46,7 @@ defmodule WasailWeb.Graphql.Schema do
     field :easy_guide, non_null(:easy_guide) do
       arg(:id, non_null(:integer))
       resolve(&EasyGuideResolver.easy_guide/2)
+      middleware(WasailWeb.Graphql.RecordActivity)
     end
 
     @desc "Get all easy guides"

@@ -44,6 +44,10 @@ defmodule WasailWeb.Graphql.RecordActivity do
                 chapter_id = resolution.arguments.chapter_id
                 Wasail.ActivitySvc.record_chapter_activity(ip, user_agent, chapter_id)
 
+              "easyGuide" ->
+                guide_id = resolution.arguments.id
+                Wasail.ActivitySvc.record_easy_guide_activity(ip, user_agent, guide_id)
+
               "search" ->
                 search_str = resolution.arguments.query_str
                 Wasail.ActivitySvc.record_search_activity(ip, user_agent, search_str)

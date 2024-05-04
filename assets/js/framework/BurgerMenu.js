@@ -30,14 +30,16 @@ const BurgerMenu = () => {
     >
       <MenuIcon {...bindTrigger(popupState)} />
       <Menu {...bindMenu(popupState)}>
-        <MenuItem
-          onClick={() => {
-            popupState.close();
-            navigate("/egc");
-          }}
-        >
-          Easy Guide
-        </MenuItem>
+        {isAdmin && (
+          <MenuItem
+            onClick={() => {
+              popupState.close();
+              navigate("/egc");
+            }}
+          >
+            Easy Guide
+          </MenuItem>
+        )}
         <MenuItem
           onClick={() => {
             popupState.close();

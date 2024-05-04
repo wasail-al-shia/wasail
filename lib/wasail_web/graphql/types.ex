@@ -148,6 +148,7 @@ defmodule WasailWeb.Graphql.Types do
     field :city, :string
     field :chapter_id, :integer
     field :report_id, :integer
+    field :easy_guide_id, :integer
     field :search_str, :string
     field :desc, :string
     field :inserted_at, non_null(:naive_datetime)
