@@ -74,6 +74,18 @@ defmodule WasailWeb.Graphql.ReportResolver do
         {:error, message: message}
 
       {:ok, report} ->
+        cond do
+          !is_nil(params.easy_guide_id) and !is_nil(params.easy_guide_frag_no) ->
+            Wasail.EasyGuideFragment.insert(%{
+              report_id: report_id,
+              easy_guide_id: params.easy_guide_id,
+              frag_seq_no: params.easy_guide_frag_no
+            })
+
+          true ->
+            nil
+        end
+
         {:ok, %{status: :ok, message: "Updated report with id: #{report.id}"}}
     end
   end

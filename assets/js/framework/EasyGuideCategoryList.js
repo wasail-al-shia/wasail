@@ -118,6 +118,14 @@ export default () => {
           <Typography variant="h4" align="center">
             Easy Guide to Islamic Practices
           </Typography>
+          <Typography variant="h6" align="center">
+            "Tired of sifting through vast hadith collections to find the
+            guidance you need? Our easy guide offers a curated selection of the
+            most essential and practical hadith, organized by everyday
+            situations. These are the hadith that offer wisdom and solutions to
+            the common challenges we all face. For deeper exploration, easily
+            refer to our comprehensive encyclopedia of hadith."
+          </Typography>
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}

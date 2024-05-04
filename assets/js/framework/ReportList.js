@@ -25,6 +25,8 @@ import Container from "@mui/material/Container";
 import { replace } from "../utils/obj";
 import { flipParenthesis } from "../utils/string";
 import { randomHue } from "../utils/sys";
+import groupBy from "lodash/groupBy";
+import maxBy from "lodash/maxBy";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -74,12 +76,50 @@ const fetchReports = ({ queryKey: [, chapterId] }) =>
     }
   }`).then(({ reports }) => reports);
 
+const fetchEasyGuideReportFragments = () =>
+  request(`{
+      easyGuideReportFragments {
+        reportId
+        easyGuide {
+          id
+          abbreviated
+        }
+      }
+    }`).then(({ easyGuideReportFragments }) =>
+    groupBy(
+      easyGuideReportFragments.map((f) => ({
+        reportId: f.reportId,
+        abbreviated: f.easyGuide.abbreviated,
+      })),
+      (x) => x.reportId
+    )
+  );
+
+const fetchAllEasyGuides = () =>
+  request(`{
+      allEasyGuides {
+        id
+        abbreviated
+        easyGuideFragments {
+          id
+          fragSeqNo
+        }
+      }
+    }`).then(({ allEasyGuides }) =>
+    allEasyGuides.map((g) => ({
+      id: g.id,
+      abbreviated: g.abbreviated,
+      maxFragSeqNo: maxBy(g.easyGuideFragments, (f) => f.fragSeqNo).fragSeqNo,
+    }))
+  );
+
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin, isReviewer } = React.useContext(SessionContext);
   const { chapterId } = useParams();
+  const reportsDataQueryKey = ["reports", chapterId];
   const { data: reports = [], isFetching: fetchingReports } = useQuery(
-    ["reports", chapterId],
+    reportsDataQueryKey,
     fetchReports
   );
   const { data: chapter, isFetching: fetchingChapter } = useQuery({
@@ -91,6 +131,15 @@ export default () => {
       },
     },
   });
+  const egFragDataQueryKey = ["easyGuideReportFragments"];
+  const { data: easyGuideReportFragments = [] } = useQuery(
+    egFragDataQueryKey,
+    fetchEasyGuideReportFragments
+  );
+  const { data: allEasyGuides = [] } = useQuery(
+    ["allEasyGuides"],
+    fetchAllEasyGuides
+  );
   const nextSeqNo =
     reports.length > 0 ? Math.max(...reports.map((r) => r.reportNo)) + 1 : null;
 
@@ -149,6 +198,25 @@ export default () => {
       fullWidth: true,
       defaultValue: "Hadith " + (nextSeqNo || ""),
       rules: { required: true },
+      disabled: !isAdmin,
+    },
+    {
+      name: "easyGuideFragNo",
+      label: "Easy Guide Frag No",
+      type: "number",
+      size: "small",
+      md: 6,
+      disabled: !isAdmin,
+    },
+    {
+      name: "easyGuide",
+      label: "Easy Guide",
+      type: "autocomplete",
+      options: allEasyGuides,
+      defaultValue: null,
+      md: 6,
+      getOptionLabel: (g) => (g ? `${g.abbreviated} (${g.maxFragSeqNo})` : ""),
+      isOptionEqualToValue: (x, y) => x.id == y.id,
       disabled: !isAdmin,
     },
     {
@@ -223,7 +291,6 @@ export default () => {
   ];
 
   const hue = randomHue();
-  console.log("hue=", hue);
 
   return (
     <Spinner open={fetchingChapter || fetchingReports}>
@@ -242,13 +309,15 @@ export default () => {
             .map((report) => (
               <Report
                 key={report.id}
+                dataQueryKeys={[reportsDataQueryKey, egFragDataQueryKey]}
                 hue={hue}
                 report={{ ...report, chapter }}
+                easyGuideFragments={easyGuideReportFragments[report.id]}
                 onEdit={() =>
                   openDialog("dataEntry", {
                     key: report.id,
                     title: "Update report",
-                    dataQueryKeys: ["reports"],
+                    dataQueryKeys: [reportsDataQueryKey, egFragDataQueryKey],
                     fields: reportFields,
                     mutationApi: "updateReport",
                     defaultValues: {
@@ -274,7 +343,7 @@ export default () => {
           key: `addreport${nextSeqNo}`,
           title: "Add report",
           fields: reportFields.concat(reportFragFields),
-          dataQueryKeys: ["reports"],
+          dataQueryKeys: [reportsDataQueryKey],
           onlyDirty: false,
           mutationApi: "addReportFrag",
           basePayload: { chapterId: chapter.id },
@@ -298,6 +367,11 @@ const transformPayload = (payload) => {
     {
       key: "textArb",
       value: payload.textArb && flipParenthesis(payload.textArb),
+    },
+    {
+      key: "easyGuide",
+      newKey: "easyGuideId",
+      value: payload.easyGuide?.id,
     },
   ]);
 };

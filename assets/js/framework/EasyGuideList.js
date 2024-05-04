@@ -30,6 +30,7 @@ const fetchEasyGuides = ({ queryKey: [_, categoryId] }) =>
     easyGuides(categoryId: ${categoryId}) {
       id
       title
+      abbreviated
       egSeqNo
     }
   }`).then(({ easyGuides }) => easyGuides);
@@ -54,6 +55,14 @@ export default () => {
       rules: { required: true },
       fullWidth: true,
       md: 12,
+    },
+    {
+      name: "abbreviated",
+      label: "Abbreviated",
+      type: "text",
+      size: "small",
+      rules: { required: true },
+      md: 6,
     },
     {
       name: "egSeqNo",

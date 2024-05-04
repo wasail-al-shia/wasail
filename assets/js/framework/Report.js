@@ -7,6 +7,7 @@ import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import Tooltip from "@mui/material/Tooltip";
+import Chip from "@mui/material/Chip";
 import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
@@ -24,7 +25,15 @@ import Checkbox from "@mui/material/Checkbox";
 import { useMutation, useQueryClient } from "react-query";
 import { getMutation } from "../utils/graph-ql";
 
-export default ({ report, onEdit, hue }) => {
+export default ({
+  report,
+  onEdit,
+  onFragmentEdit,
+  dataQueryKeys,
+  easyGuideFragments,
+  hue,
+  lightness = 97.65,
+}) => {
   const { isAdmin, isReviewer } = React.useContext(SessionContext);
   const { openDialog } = React.useContext(DialogContext);
   const responseKeys = ["message", "status", "id"];
@@ -140,7 +149,20 @@ export default ({ report, onEdit, hue }) => {
   const ReportHeading = () => (
     <Stack direction="row" justifyContent="space-between">
       <ReportHeader report={report} />
-      <Stack direction="row" alignItems="center">
+      <Stack direction="row" spacing={3} alignItems="center">
+        {isReviewer && easyGuideFragments && (
+          <Stack direction="row" spacing={3}>
+            {easyGuideFragments.map((f) => (
+              <Chip
+                size="small"
+                color="error"
+                variant="outlined"
+                key={f.abbreviated}
+                label={f.abbreviated}
+              />
+            ))}
+          </Stack>
+        )}
         {isReviewer && (
           <FormGroup>
             <FormControlLabel
@@ -153,7 +175,9 @@ export default ({ report, onEdit, hue }) => {
                       { reportId: report.id, review: event.target.checked },
                       {
                         onSuccess: (_response) => {
-                          queryClient.invalidateQueries("reports");
+                          dataQueryKeys.forEach((key) =>
+                            queryClient.invalidateQueries(key)
+                          );
                         },
                       }
                     );
@@ -176,7 +200,9 @@ export default ({ report, onEdit, hue }) => {
                       { reportId: report.id, hide: event.target.checked },
                       {
                         onSuccess: (_response) => {
-                          queryClient.invalidateQueries("reports");
+                          dataQueryKeys.forEach((key) =>
+                            queryClient.invalidateQueries(key)
+                          );
                         },
                       }
                     );
@@ -196,7 +222,7 @@ export default ({ report, onEdit, hue }) => {
                 title: `Add Text: ${report.headingEng}`,
                 fields: textFields,
                 onlyDirty: false,
-                dataQueryKeys: ["reports"],
+                dataQueryKeys,
                 mutationApi: "addText",
                 defaultValues: { reportId: report.id },
                 basePayload: { reportId: report.id },
@@ -213,7 +239,7 @@ export default ({ report, onEdit, hue }) => {
                 title: `Add Comment: ${report.headingEng}`,
                 fields: commentFields,
                 onlyDirty: false,
-                dataQueryKeys: ["reports"],
+                dataQueryKeys,
                 mutationApi: "addComment",
                 defaultValues: {
                   reportId: report.id,
@@ -225,8 +251,15 @@ export default ({ report, onEdit, hue }) => {
             }
           />
         )}
-        {isReviewer && (
+        {isReviewer && onEdit && (
           <EditNoteIcon sx={{ marginLeft: 2 }} size="small" onClick={onEdit} />
+        )}
+        {isReviewer && onFragmentEdit && (
+          <EditNoteIcon
+            sx={{ marginLeft: 2 }}
+            size="small"
+            onClick={onFragmentEdit}
+          />
         )}
         {isAdmin && (
           <IconButton
@@ -236,7 +269,7 @@ export default ({ report, onEdit, hue }) => {
               openDialog("splitReport", {
                 report,
                 defaultValues: { ...report.texts[0] },
-                dataQueryKeys: ["reports"],
+                dataQueryKeys,
               })
             }
           >
@@ -299,7 +332,7 @@ export default ({ report, onEdit, hue }) => {
               openDialog("dataEntry", {
                 key: report.id,
                 title: `Update Text: ${report.headingEng}`,
-                dataQueryKeys: ["reports"],
+                dataQueryKeys,
                 fields: textFields,
                 mutationApi: "updateText",
                 defaultValues: text,
@@ -319,7 +352,7 @@ export default ({ report, onEdit, hue }) => {
   const Comment = ({ comment }) => (
     <Stack
       sx={{
-        backgroundColor: `hsl(${hue}, 55%, 95.65%)`,
+        backgroundColor: `hsl(${hue}, 55%, ${lightness - 1}%)`,
         padding: 5,
       }}
       spacing={5}
@@ -333,7 +366,7 @@ export default ({ report, onEdit, hue }) => {
               openDialog("dataEntry", {
                 key: report.id,
                 title: `Update Comment: ${report.headingEng}`,
-                dataQueryKeys: ["reports"],
+                dataQueryKeys,
                 fields: commentFields,
                 mutationApi: "updateComment",
                 defaultValues: comment,
@@ -360,7 +393,7 @@ export default ({ report, onEdit, hue }) => {
             ? "primary.hide"
             : isReviewer && report.review
             ? "primary.review"
-            : `hsl(${hue}, 50%, 97.65%)`,
+            : `hsl(${hue}, 50%, ${lightness}%)`,
         padding: 6,
       }}
     >

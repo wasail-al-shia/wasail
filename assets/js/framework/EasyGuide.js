@@ -4,9 +4,11 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import parse from "html-react-parser";
 import Box from "@mui/material/Box";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
 import FabAddButton from "../kmui/FabAddButton";
@@ -14,6 +16,7 @@ import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
 import { navEasyGuideCatLink } from "../utils/app";
 import Container from "@mui/material/Container";
+import Badge from "@mui/material/Badge";
 import { randomHue } from "../utils/sys";
 
 const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
@@ -21,10 +24,12 @@ const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
     easyGuide(id: ${guideId}) {
       id
       title
-      fragments {
+      abbreviated
+      easyGuideFragments {
         id
         fragSeqNo
         html
+        reportId
         report {
           id
           chapterId
@@ -33,6 +38,22 @@ const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
           review
           hide 
           notes
+          chapter {
+            id
+            chapterNo
+            nameEng
+            section {
+              id
+              sectionNo
+              nameEng
+              book {
+                id
+                code
+                volumeNo
+                nameEng
+              }
+            }
+          }
           texts {
             id
             fragmentNo
@@ -56,10 +77,10 @@ const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
 
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin, isReviewer } = React.useContext(SessionContext);
-  const { easyGuideId } = useParams();
+  const { isAdmin } = React.useContext(SessionContext);
+  const { guideId } = useParams();
   const { data: easyGuide = {}, isFetching: fetchingEasyGuide } = useQuery(
-    ["easyGuide", easyGuidId],
+    ["easyGuide", guideId],
     fetchEasyGuide
   );
   const fragmentFields = [
@@ -95,14 +116,14 @@ export default () => {
     },
   ];
 
-  const crumbDefs = !fetchEasyGuide && [
+  const crumbDefs = !fetchingEasyGuide && [
     {
       to: "/egc",
       crumbName: "Easy Guide",
     },
     {
-      to: navEasyGuideCatLink(easyGuide.easyGuideCategory.id),
-      crumbName: easyGuide.easyGuideCategory.name,
+      to: navEasyGuideCatLink(easyGuide.easyGuideCategory?.id),
+      crumbName: easyGuide.easyGuideCategory?.name,
     },
     {
       crumbName: easyGuide.title,
@@ -110,52 +131,83 @@ export default () => {
   ];
 
   const hue = randomHue();
-  console.log("hue=", hue);
+  const updateFragmentDialogProps = (fragment) => ({
+    key: fragment.id,
+    title: "Update Fragment",
+    dataQueryKeys: ["easyGuide"],
+    fields: fragmentFields,
+    mutationApi: "updateEasyGuideFragment",
+    defaultValues: fragment,
+    basePayload: { id: fragment.id },
+    deleteApi: "deleteEasyGuideFragment",
+    deletePayload: {
+      id: fragment.id,
+    },
+  });
 
   return (
     <Spinner open={fetchingEasyGuide}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <Container maxWidth="lg">
-        <Stack spacing={3}>
+        <Stack sx={{ backgroundColor: "primary.paper" }} spacing={5}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
-          {easyGuide.fragments.map((report) => (
-            <Report
-              key={report.id}
-              hue={hue}
-              report={{ ...report, chapter }}
-              onEdit={() =>
-                openDialog("dataEntry", {
-                  key: report.id,
-                  title: "Update report",
-                  dataQueryKeys: ["reports"],
-                  fields: reportFields,
-                  mutationApi: "updateReport",
-                  defaultValues: {
-                    ...report,
-                    review: report.review ? "yes" : "no",
-                    hide: report.hide ? "yes" : "no",
-                  },
-                  basePayload: { reportId: report.id },
-                  deleteApi: isAdmin ? "deleteReport" : null,
-                  deletePayload: {
-                    reportId: report.id,
-                  },
-                })
-              }
-            />
-          ))}
+          <Typography variant="h5" align="center">
+            {easyGuide.title}
+          </Typography>
+          <Stack sx={{ padding: 10 }} spacing={5}>
+            {easyGuide.easyGuideFragments?.map((f) => {
+              return (
+                <Badge
+                  key={f.id}
+                  badgeContent={f.fragSeqNo}
+                  invisible={!isAdmin}
+                  color="primary"
+                >
+                  {f.report ? (
+                    <Report
+                      key={f.id}
+                      hue={hue}
+                      lightness={96}
+                      report={{ ...f.report, chapter: f.report.chapter }}
+                      dataQueryKeys={["easyGuide"]}
+                      onFragmentEdit={() => {
+                        openDialog("dataEntry", updateFragmentDialogProps(f));
+                      }}
+                    />
+                  ) : (
+                    <Box key={f.id}>
+                      {parse(f.html)}
+                      {isAdmin && (
+                        <EditNoteIcon
+                          sx={{ marginRight: 3 }}
+                          size="small"
+                          onClick={(e) => {
+                            openDialog(
+                              "dataEntry",
+                              updateFragmentDialogProps(f)
+                            );
+                            e.stopPropagation();
+                          }}
+                        />
+                      )}
+                    </Box>
+                  )}
+                </Badge>
+              );
+            })}
+          </Stack>
         </Stack>
       </Container>
       <FabAddButton
-        buttonText="Report"
+        buttonText="Fragment"
         dataEntryProps={{
-          key: `addreport${nextSeqNo}`,
-          title: "Add report",
-          fields: reportFields.concat(reportFragFields),
-          dataQueryKeys: ["reports"],
+          key: "TBD",
+          title: "Add fragment",
+          fields: fragmentFields,
+          dataQueryKeys: ["easyGuide"],
           onlyDirty: false,
-          mutationApi: "addReportFrag",
-          basePayload: { chapterId: chapter.id },
+          mutationApi: "addEasyGuideFragment",
+          basePayload: { easyGuideId: easyGuide.id },
         }}
       />
     </Spinner>

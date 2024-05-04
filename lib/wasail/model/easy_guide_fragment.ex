@@ -1,4 +1,6 @@
 defmodule Wasail.EasyGuideFragment do
+  require Logger
+  import Ecto.Query
   alias Wasail.Repo
   alias Wasail.Schema.EasyGuideFragment, as: EasyGuideFragment
   alias Wasail.Util.Query, as: QueryUtil
@@ -12,11 +14,20 @@ defmodule Wasail.EasyGuideFragment do
     |> Repo.all()
   end
 
-  def insert(rec),
-    do:
-      %EasyGuideFragment{}
-      |> changeset(rec)
-      |> Repo.insert()
+  def get_report_fragments() do
+    EasyGuideFragment
+    |> where([f], not is_nil(f.report_id))
+    |> Repo.all()
+    |> Repo.preload(:easy_guide)
+  end
+
+  def insert(rec) do
+    Logger.info("In insert: rec=#{inspect(rec)}")
+
+    %EasyGuideFragment{}
+    |> changeset(rec)
+    |> Repo.insert()
+  end
 
   def update(easy_guide_id, changes = %{}) do
     easy_guide_id

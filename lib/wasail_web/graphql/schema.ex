@@ -48,6 +48,16 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&EasyGuideResolver.easy_guide/2)
     end
 
+    @desc "Get all easy guides"
+    field :all_easy_guides, list_of(non_null(:easy_guide)) do
+      resolve(&EasyGuideResolver.all_easy_guides/2)
+    end
+
+    @desc "Get fragments with report ids"
+    field :easy_guide_report_fragments, list_of(non_null(:easy_guide_fragment)) do
+      resolve(&EasyGuideResolver.report_fragments/2)
+    end
+
     @desc "Get books"
     field :books, non_null(list_of(non_null(:book))) do
       resolve(&BookResolver.books/2)
@@ -204,6 +214,7 @@ defmodule WasailWeb.Graphql.Schema do
     field :add_easy_guide, :mutation_response do
       arg(:easy_guide_category_id, non_null(:integer))
       arg(:title, non_null(:string))
+      arg(:abbreviated, non_null(:string))
       arg(:eg_seq_no, non_null(:integer))
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&EasyGuideResolver.add_easy_guide/2)
@@ -213,6 +224,7 @@ defmodule WasailWeb.Graphql.Schema do
     field :update_easy_guide, :mutation_response do
       arg(:id, non_null(:integer))
       arg(:title, :string)
+      arg(:abbreviated, :string)
       arg(:eg_seq_no, :integer)
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&EasyGuideResolver.update_easy_guide/2)
@@ -379,6 +391,8 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:approved, :boolean)
       arg(:review, :boolean)
       arg(:hide, :boolean)
+      arg(:easy_guide_id, :integer)
+      arg(:easy_guide_frag_no, :integer)
       middleware(WasailWeb.Graphql.RequireReviewer)
       resolve(&ReportResolver.update_report/2)
     end

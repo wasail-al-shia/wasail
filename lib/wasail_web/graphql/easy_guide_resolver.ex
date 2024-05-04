@@ -14,8 +14,16 @@ defmodule WasailWeb.Graphql.EasyGuideResolver do
     {:ok, EasyGuide.all(category_id)}
   end
 
+  def all_easy_guides(_params, _info) do
+    {:ok, EasyGuide.all()}
+  end
+
   def easy_guide(%{id: id} = _params, _info) do
     {:ok, EasyGuide.get(id)}
+  end
+
+  def report_fragments(_params, _info) do
+    {:ok, EasyGuideFragment.get_report_fragments()}
   end
 
   def add_category(%{name: _name, cat_seq_no: _cat_seq_no} = params, _info) do
@@ -46,7 +54,10 @@ defmodule WasailWeb.Graphql.EasyGuideResolver do
     end
   end
 
-  def add_easy_guide(%{easy_guide_category_id: _i, title: _t, eg_seq_no: _e} = params, _info) do
+  def add_easy_guide(
+        %{easy_guide_category_id: _i, title: _t, abbreviated: _a, eg_seq_no: _e} = params,
+        _info
+      ) do
     case EasyGuide.insert(params) do
       {:error, changeset} ->
         message = "Could not create easy guide: #{inspect(error_details(changeset))}"

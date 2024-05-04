@@ -11,14 +11,15 @@ defmodule Wasail.Repo.Migrations.EasyGuideSchema do
 
     create table(:easy_guide) do
       add :easy_guide_category_id, references(:easy_guide_category), null: false
-      add :title, :string, null: false
       add :eg_seq_no, :integer, null: false
+      add :title, :string, null: false
+      add :abbreviated, :string, null: false
       timestamps()
     end
 
     create table(:easy_guide_fragment) do
       add :easy_guide_id, references(:easy_guide), null: false
-      add :frag_seq_no, :string, null: false
+      add :frag_seq_no, :integer, null: false
       add :report_id, references(:report)
       add :html, :text
       timestamps()
