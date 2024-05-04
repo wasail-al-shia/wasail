@@ -109,7 +109,10 @@ const fetchAllEasyGuides = () =>
     allEasyGuides.map((g) => ({
       id: g.id,
       abbreviated: g.abbreviated,
-      maxFragSeqNo: maxBy(g.easyGuideFragments, (f) => f.fragSeqNo).fragSeqNo,
+      maxFragSeqNo:
+        g.easyGuideFragments.length > 0
+          ? maxBy(g.easyGuideFragments, (f) => f.fragSeqNo).fragSeqNo
+          : 0,
     }))
   );
 
@@ -212,6 +215,7 @@ export default () => {
       name: "easyGuide",
       label: "Easy Guide",
       type: "autocomplete",
+      freeSolo: true,
       options: allEasyGuides,
       defaultValue: null,
       md: 6,
