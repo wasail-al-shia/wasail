@@ -16,6 +16,8 @@ import { HEADER_HEIGHT } from "../consts";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { navEasyGuideLink } from "../utils/app";
+import { replace } from "../utils/obj";
+import { capitalizeFirstLetter } from "../utils/string";
 
 const fetchCategory = ({ queryKey: [_, categoryId] }) =>
   request(`{
@@ -31,6 +33,7 @@ const fetchEasyGuides = ({ queryKey: [_, categoryId] }) =>
       id
       title
       abbreviated
+      hide
       egSeqNo
     }
   }`).then(({ easyGuides }) => easyGuides);
@@ -39,7 +42,7 @@ export default () => {
   const navigate = useNavigate();
   const { categoryId } = useParams();
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin } = React.useContext(SessionContext);
+  const { isReviewer, isAdmin } = React.useContext(SessionContext);
   const { data: easyGuides = [], isFetching: fetchingEasyGuides } = useQuery(
     ["easyGuides", categoryId],
     fetchEasyGuides
@@ -73,6 +76,23 @@ export default () => {
       md: 4,
       sx: { width: 150 },
     },
+    {
+      name: "hide",
+      label: "Hide?",
+      type: "radio",
+      md: 4,
+      defaultValue: "yes",
+      options: [
+        {
+          value: "yes",
+          label: "Yes",
+        },
+        {
+          value: "no",
+          label: "No",
+        },
+      ],
+    },
   ];
 
   const crumbDefs = !fetchingCategory && [
@@ -91,15 +111,16 @@ export default () => {
     dataQueryKeys: ["easyGuides"],
     fields: easyGuideDialogFields,
     mutationApi: "updateEasyGuide",
-    defaultValues: easyGuide,
+    defaultValues: { ...easyGuide, hide: easyGuide.hide ? "yes" : "no" },
     basePayload: { id: easyGuide.id },
     deleteApi: "deleteEasyGuide",
+    transformPayload,
     deletePayload: {
       id: easyGuide.id,
     },
   });
 
-  const EasyGuideCard = ({ easyGuide }) => (
+  const EasyGuideCard = ({ easyGuide, idx }) => (
     <Stack
       sx={{
         width: "100%",
@@ -114,8 +135,11 @@ export default () => {
       onClick={() => navigate(navEasyGuideLink(easyGuide.id))}
       direction="column"
     >
-      <Typography variant="h6">
-        {`${easyGuide.egSeqNo}. ${easyGuide.title}`}
+      <Typography
+        sx={{ color: easyGuide.hide ? "#D04405" : null }}
+        variant="h6"
+      >
+        {`${idx + 1}. ${easyGuide.title}`}
         {isAdmin && (
           <EditNoteIcon
             sx={{ marginRight: 3 }}
@@ -136,9 +160,15 @@ export default () => {
       <Container maxWidth="lg">
         <Stack alignItems="center" spacing={3}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
-          {easyGuides.map((easyGuide) => (
-            <EasyGuideCard key={easyGuide.id} easyGuide={easyGuide} />
-          ))}
+          {easyGuides
+            .filter((r) => isReviewer || !r.hide)
+            .map((easyGuide, idx) => (
+              <EasyGuideCard
+                key={easyGuide.id}
+                idx={idx}
+                easyGuide={easyGuide}
+              />
+            ))}
         </Stack>
       </Container>
       {isAdmin && (
@@ -153,6 +183,7 @@ export default () => {
               fields: easyGuideDialogFields,
               dataQueryKeys: ["easyGuides"],
               mutationApi: "addEasyGuide",
+              transformPayload,
               basePayload: { easyGuideCategoryId: easyGuideCategory.id },
             });
           }}
@@ -163,4 +194,16 @@ export default () => {
       )}
     </Spinner>
   );
+};
+const transformPayload = (payload) => {
+  return replace(payload, [
+    {
+      key: "hide",
+      value: payload.hide == "yes" ? true : false,
+    },
+    {
+      key: "title",
+      value: payload.title && capitalizeFirstLetter(payload.title),
+    },
+  ]);
 };

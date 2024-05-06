@@ -156,10 +156,20 @@ export default () => {
       <Container maxWidth="lg">
         <Stack sx={{ backgroundColor: "primary.paper" }} spacing={7}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+          <Typography
+            sx={{ color: "primary.dark2" }}
+            variant="h4"
+            align="center"
+          >
+            EASY GUIDE
+          </Typography>
           <Typography variant="h5" align="center">
             {easyGuide.title}
           </Typography>
-          <Stack sx={{ paddingLeft: 10, paddingRight: 10 }} spacing={5}>
+          <Stack
+            sx={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 10 }}
+            spacing={5}
+          >
             {easyGuide.easyGuideFragments?.map((f) => {
               return (
                 <Badge

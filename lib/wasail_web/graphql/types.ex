@@ -29,6 +29,7 @@ defmodule WasailWeb.Graphql.Types do
     field :id, non_null(:integer)
     field :title, non_null(:string)
     field :abbreviated, non_null(:string)
+    field :hide, :boolean
     field :eg_seq_no, non_null(:integer)
     field :easy_guide_fragments, list_of(:easy_guide_fragment)
     field :easy_guide_category, non_null(:easy_guide_category)

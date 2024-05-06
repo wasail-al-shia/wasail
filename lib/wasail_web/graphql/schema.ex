@@ -217,6 +217,7 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:title, non_null(:string))
       arg(:abbreviated, non_null(:string))
       arg(:eg_seq_no, non_null(:integer))
+      arg(:hide, :boolean)
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&EasyGuideResolver.add_easy_guide/2)
     end
@@ -227,6 +228,7 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:title, :string)
       arg(:abbreviated, :string)
       arg(:eg_seq_no, :integer)
+      arg(:hide, :boolean)
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&EasyGuideResolver.update_easy_guide/2)
     end

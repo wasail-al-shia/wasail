@@ -6,6 +6,7 @@ defmodule Wasail.Schema.EasyGuide do
     field :title, :string
     field :abbreviated, :string
     field :eg_seq_no, :integer
+    field :hide, :boolean
 
     has_many :easy_guide_fragments, Wasail.Schema.EasyGuideFragment,
       preload_order: [asc: :frag_seq_no]

@@ -209,7 +209,6 @@ export default () => {
       type: "number",
       size: "small",
       md: 6,
-      disabled: !isAdmin,
     },
     {
       name: "easyGuide",
@@ -221,7 +220,6 @@ export default () => {
       md: 6,
       getOptionLabel: (g) => (g ? `${g.abbreviated} (${g.maxFragSeqNo})` : ""),
       isOptionEqualToValue: (x, y) => x.id == y.id,
-      disabled: !isAdmin,
     },
     {
       name: "notes",
@@ -236,7 +234,6 @@ export default () => {
       fullWidth: true,
     },
   ];
-
   const reportFragFields = [
     {
       name: "textArb",
