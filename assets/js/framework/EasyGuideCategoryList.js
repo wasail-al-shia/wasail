@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import FabAddButton from "../kmui/FabAddButton";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import Spinner from "../kmui/Spinner";
+import Badge from "@mui/material/Badge";
 import { HEADER_HEIGHT } from "../consts";
 import Container from "@mui/material/Container";
 import { navEasyGuideCatLink } from "../utils/app";
@@ -79,7 +80,7 @@ export default () => {
     },
   });
 
-  const CategoryCard = ({ category }) => (
+  const CategoryCard = ({ idx, category }) => (
     <Stack
       sx={{
         width: "100%",
@@ -95,7 +96,7 @@ export default () => {
       direction="column"
     >
       <Typography variant="h5">
-        {category.name}
+        {`${idx + 1}. ${category.name}`}
         {isAdmin && (
           <EditNoteIcon
             sx={{ marginRight: 3 }}
@@ -133,8 +134,15 @@ export default () => {
             extensive collection of hadith for less frequent or unique
             circumstances.
           </Typography>
-          {categories.map((category) => (
-            <CategoryCard key={category.id} category={category} />
+          {categories.map((category, idx) => (
+            <Badge
+              key={category.id}
+              badgeContent={category.catSeqNo}
+              invisible={!isAdmin}
+              color="primary"
+            >
+              <CategoryCard key={category.id} idx={idx} category={category} />
+            </Badge>
           ))}
         </Stack>
         <FabAddButton

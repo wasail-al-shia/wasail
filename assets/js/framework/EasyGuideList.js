@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { navEasyGuideLink } from "../utils/app";
 import { replace } from "../utils/obj";
 import { capitalizeFirstLetter } from "../utils/string";
+import Badge from "@mui/material/Badge";
 
 const fetchCategory = ({ queryKey: [_, categoryId] }) =>
   request(`{
@@ -43,8 +44,9 @@ export default () => {
   const { categoryId } = useParams();
   const { openDialog } = React.useContext(DialogContext);
   const { isReviewer, isAdmin } = React.useContext(SessionContext);
+  const dataQueryKey = ["easyGuides", categoryId];
   const { data: easyGuides = [], isFetching: fetchingEasyGuides } = useQuery(
-    ["easyGuides", categoryId],
+    dataQueryKey,
     fetchEasyGuides
   );
   const { data: easyGuideCategory = {}, isFetching: fetchingCategory } =
@@ -108,7 +110,7 @@ export default () => {
   const updateEasyGuideDialogProps = (easyGuide) => ({
     key: easyGuide.id,
     title: "Update Easy Guide",
-    dataQueryKeys: ["easyGuides"],
+    dataQueryKeys: [dataQueryKey],
     fields: easyGuideDialogFields,
     mutationApi: "updateEasyGuide",
     defaultValues: { ...easyGuide, hide: easyGuide.hide ? "yes" : "no" },
@@ -126,7 +128,7 @@ export default () => {
         width: "100%",
         backgroundColor: easyGuide.hide ? "primary.hide" : "primary.header3",
         borderRadius: 1,
-        padding: 5,
+        padding: "0.5rem",
         "&:hover": {
           backgroundColor: "primary.header2",
           cursor: "pointer",
@@ -157,9 +159,9 @@ export default () => {
   return (
     <Spinner open={fetchingEasyGuides || fetchingCategory}>
       <BreadCrumbs crumbDefs={crumbDefs} />
+      <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
       <Container maxWidth="lg">
-        <Stack alignItems="center" spacing={3}>
-          <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+        <Stack sx={{ mt: 5 }} spacing={3}>
           <Typography
             sx={{ color: "primary.dark2" }}
             variant="h4"
@@ -173,11 +175,18 @@ export default () => {
           {easyGuides
             .filter((r) => isReviewer || !r.hide)
             .map((easyGuide, idx) => (
-              <EasyGuideCard
+              <Badge
                 key={easyGuide.id}
-                idx={idx}
-                easyGuide={easyGuide}
-              />
+                badgeContent={easyGuide.egSeqNo}
+                invisible={!isAdmin}
+                color="primary"
+              >
+                <EasyGuideCard
+                  key={easyGuide.id}
+                  idx={idx}
+                  easyGuide={easyGuide}
+                />
+              </Badge>
             ))}
         </Stack>
       </Container>
