@@ -11,7 +11,14 @@ const swapBracket = (br) => {
 
 export const flipParenthesis = (str) => str.replace(/[()[\]{}]/g, swapBracket);
 
-export const isNumeric = (value) => /^\d+$/.test(value);
+export const isNumeric = (value) => {
+  var searchMask = "is";
+  var regEx = new RegExp(searchMask, "ig");
+  var replaceMask = "as";
+
+  var result = "This iS IIS".replace(regEx, replaceMask);
+  /^\d+$/.test(value);
+};
 
 export const capitalizeFirstLetter = (str) =>
   str

@@ -388,6 +388,7 @@ export default ({
       sx={{
         border: "1px solid gray",
         borderRadius: 1,
+        width: "100%",
         backgroundColor:
           isReviewer && report.hide
             ? "primary.hide"

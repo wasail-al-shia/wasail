@@ -42,13 +42,15 @@ export const generatePlainText = (report) => {
     ?.map((text) => [text.textArb, "", text.textEng, ""])
     .flat(Infinity);
 
-  const comment =
-    report.comments.length > 0
-      ? `Comment: ${report.comments[0].commentEng}`
-      : null;
+  const comment1 =
+    report.comments.length > 0 ? `${report.comments[0].commentEng}` : null;
+
+  const comment2 =
+    report.comments.length > 1 ? `${report.comments[1].commentEng}` : null;
 
   return [...texts]
-    .concat(comment ? [comment, ""] : [])
+    .concat(comment1 ? [comment1, ""] : [])
+    .concat(comment2 ? [comment2, ""] : [])
     .concat([generateReference(report), generateReportHyperLink(report)])
     .join("\n");
 };

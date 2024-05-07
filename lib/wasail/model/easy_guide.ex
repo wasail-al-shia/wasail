@@ -39,6 +39,7 @@ defmodule Wasail.EasyGuide do
       :easy_guide_category_id,
       :title,
       :abbreviated,
+      :hide,
       :eg_seq_no
     ])
     |> Ecto.Changeset.validate_required([

@@ -57,6 +57,7 @@ export default () => {
       label: "Description",
       type: "text",
       size: "small",
+      rules: { required: true },
       fullWidth: true,
       multiline: true,
       rows: 3,
@@ -114,9 +115,13 @@ export default () => {
     <Spinner open={isFetching}>
       <Box sx={{ height: `calc(1 * ${HEADER_HEIGHT})` }} />
       <Container maxWidth="lg">
-        <Stack sx={{ marginTop: 5 }} spacing={3}>
-          <Typography variant="h4" align="center">
-            Easy Guide To Islamic Practices
+        <Stack sx={{ marginTop: 10 }} spacing={3}>
+          <Typography
+            sx={{ color: "primary.dark2" }}
+            variant="h4"
+            align="center"
+          >
+            EASY GUIDE TO ISLAMIC PRACTICES
           </Typography>
           <Typography variant="h6">
             Each guide is a curated collection of hadith that concisely covers

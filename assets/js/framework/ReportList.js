@@ -139,8 +139,9 @@ export default () => {
     egFragDataQueryKey,
     fetchEasyGuideReportFragments
   );
+  const allEgDataQueryKey = ["allEasyGuides"];
   const { data: allEasyGuides = [] } = useQuery(
-    ["allEasyGuides"],
+    allEgDataQueryKey,
     fetchAllEasyGuides
   );
   const nextSeqNo =
@@ -318,7 +319,11 @@ export default () => {
                   openDialog("dataEntry", {
                     key: report.id,
                     title: "Update report",
-                    dataQueryKeys: [reportsDataQueryKey, egFragDataQueryKey],
+                    dataQueryKeys: [
+                      reportsDataQueryKey,
+                      allEgDataQueryKey,
+                      egFragDataQueryKey,
+                    ],
                     fields: reportFields,
                     mutationApi: "updateReport",
                     defaultValues: {

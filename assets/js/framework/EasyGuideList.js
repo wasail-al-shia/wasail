@@ -124,7 +124,7 @@ export default () => {
     <Stack
       sx={{
         width: "100%",
-        backgroundColor: "primary.header3",
+        backgroundColor: easyGuide.hide ? "primary.hide" : "primary.header3",
         borderRadius: 1,
         padding: 5,
         "&:hover": {
@@ -136,7 +136,7 @@ export default () => {
       direction="column"
     >
       <Typography
-        sx={{ color: easyGuide.hide ? "#D04405" : null }}
+        sx={{ color: easyGuide.hide ? "secondary.dark" : null }}
         variant="h6"
       >
         {`${idx + 1}. ${easyGuide.title}`}
@@ -160,6 +160,16 @@ export default () => {
       <Container maxWidth="lg">
         <Stack alignItems="center" spacing={3}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+          <Typography
+            sx={{ color: "primary.dark2" }}
+            variant="h4"
+            align="center"
+          >
+            EASY GUIDE TO
+          </Typography>
+          <Typography variant="h5" align="center">
+            {easyGuideCategory.name}
+          </Typography>
           {easyGuides
             .filter((r) => isReviewer || !r.hide)
             .map((easyGuide, idx) => (

@@ -35,7 +35,7 @@ export default function SearchInput({ onEnter, clearOnEnter = false }) {
           }
         }}
         sx={{ mt: 1, ml: 1, flex: 1 }}
-        placeholder="Search"
+        placeholder="Search or type Hadith #"
       />
     </Box>
   );
