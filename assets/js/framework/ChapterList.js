@@ -254,6 +254,13 @@ export default () => {
       <Container maxWidth="lg">
         <Stack alignItems="center" spacing={3}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+          <Heading4>{section.book && bookName(section.book)}</Heading4>
+          <Heading5>{sectionName(section)}</Heading5>
+          {chapters
+            .filter((c) => isReviewer || anyUnhidden(c))
+            .map((chapter) => (
+              <ChapterCard key={chapter.id} chapter={chapter} />
+            ))}
           {isAdmin && (
             <Button
               variant="contained"
@@ -279,13 +286,6 @@ export default () => {
               + chapter
             </Button>
           )}
-          <Heading4>{section.book && bookName(section.book)}</Heading4>
-          <Heading5>{sectionName(section)}</Heading5>
-          {chapters
-            .filter((c) => isReviewer || anyUnhidden(c))
-            .map((chapter) => (
-              <ChapterCard key={chapter.id} chapter={chapter} />
-            ))}
         </Stack>
       </Container>
       {isAdmin && (
@@ -319,7 +319,7 @@ export default () => {
           }}
         >
           <AddIcon sx={{ mr: 1 }} />
-          Batch
+          Chapter # Hadith
         </Fab>
       )}
     </Spinner>
