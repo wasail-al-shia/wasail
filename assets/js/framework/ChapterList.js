@@ -25,6 +25,7 @@ import {
 } from "../utils/app";
 import { capitalizeFirstLetter } from "../utils/string";
 import { replace } from "../utils/obj";
+import { Heading4, Heading5 } from "../kmui/Heading";
 
 const fetchSection = ({ queryKey: [_, sectionId] }) =>
   request(`{
@@ -278,12 +279,8 @@ export default () => {
               + chapter
             </Button>
           )}
-          <Typography align="center" variant="h5">
-            {section.book && bookName(section.book)}
-          </Typography>
-          <Typography align="center" variant="h5">
-            {sectionName(section)}
-          </Typography>
+          <Heading4>{section.book && bookName(section.book)}</Heading4>
+          <Heading5>{sectionName(section)}</Heading5>
           {chapters
             .filter((c) => isReviewer || anyUnhidden(c))
             .map((chapter) => (

@@ -2,8 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import parse from "html-react-parser";
 import Box from "@mui/material/Box";
 import Report from "./Report";
@@ -15,10 +13,11 @@ import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
 import { navEasyGuideCatLink } from "../utils/app";
-import Container from "@mui/material/Container";
 import Badge from "@mui/material/Badge";
 import { randomHue } from "../utils/sys";
 import truncate from "lodash/truncate";
+import ContentWrapper from "../kmui/ContentWrapper";
+import { Heading4, Heading5 } from "../kmui/Heading";
 
 const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
   request(`{
@@ -153,66 +152,49 @@ export default () => {
   return (
     <Spinner open={fetchingEasyGuide}>
       <BreadCrumbs crumbDefs={crumbDefs} />
-      <Container maxWidth="lg">
-        <Stack sx={{ backgroundColor: "primary.paper" }} spacing={7}>
-          <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
-          <Typography
-            sx={{ color: "primary.dark2" }}
-            variant="h4"
-            align="center"
-          >
-            EASY GUIDE
-          </Typography>
-          <Typography variant="h5" align="center">
-            {easyGuide.title}
-          </Typography>
-          <Stack
-            sx={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 10 }}
-            spacing={5}
-          >
-            {easyGuide.easyGuideFragments?.map((f) => {
-              return (
-                <Badge
+      <ContentWrapper>
+        <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+
+        <Heading4>EASY GUIDE</Heading4>
+        <Heading5>{easyGuide.title}</Heading5>
+        {easyGuide.easyGuideFragments?.map((f) => {
+          return (
+            <Badge
+              key={f.id}
+              badgeContent={f.fragSeqNo}
+              invisible={!isAdmin}
+              color="primary"
+            >
+              {f.report ? (
+                <Report
                   key={f.id}
-                  badgeContent={f.fragSeqNo}
-                  invisible={!isAdmin}
-                  color="primary"
-                >
-                  {f.report ? (
-                    <Report
-                      key={f.id}
-                      hue={hue}
-                      lightness={96}
-                      report={{ ...f.report, chapter: f.report.chapter }}
-                      dataQueryKeys={["easyGuide"]}
-                      onFragmentEdit={() => {
+                  hue={hue}
+                  lightness={96}
+                  report={{ ...f.report, chapter: f.report.chapter }}
+                  dataQueryKeys={["easyGuide"]}
+                  onFragmentEdit={() => {
+                    openDialog("dataEntry", updateFragmentDialogProps(f));
+                  }}
+                />
+              ) : (
+                <Box key={f.id}>
+                  {parse(f.html)}
+                  {isAdmin && (
+                    <EditNoteIcon
+                      sx={{ marginRight: 3 }}
+                      size="small"
+                      onClick={(e) => {
                         openDialog("dataEntry", updateFragmentDialogProps(f));
+                        e.stopPropagation();
                       }}
                     />
-                  ) : (
-                    <Box key={f.id}>
-                      {parse(f.html)}
-                      {isAdmin && (
-                        <EditNoteIcon
-                          sx={{ marginRight: 3 }}
-                          size="small"
-                          onClick={(e) => {
-                            openDialog(
-                              "dataEntry",
-                              updateFragmentDialogProps(f)
-                            );
-                            e.stopPropagation();
-                          }}
-                        />
-                      )}
-                    </Box>
                   )}
-                </Badge>
-              );
-            })}
-          </Stack>
-        </Stack>
-      </Container>
+                </Box>
+              )}
+            </Badge>
+          );
+        })}
+      </ContentWrapper>
       <FabAddButton
         buttonText="Fragment"
         dataEntryProps={{

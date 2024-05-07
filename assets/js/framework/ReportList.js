@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
@@ -27,6 +26,7 @@ import { flipParenthesis } from "../utils/string";
 import { randomHue } from "../utils/sys";
 import groupBy from "lodash/groupBy";
 import maxBy from "lodash/maxBy";
+import { Heading4, Heading5 } from "../kmui/Heading";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -298,14 +298,18 @@ export default () => {
     <Spinner open={fetchingChapter || fetchingReports}>
       <BreadCrumbs crumbDefs={crumbDefs} />
       <Container maxWidth="lg">
-        <Stack spacing={3}>
+        <Stack
+          spacing={5}
+          sx={{
+            backgroundColor: "primary.paper",
+            paddingLeft: "0.875rem",
+            paddingRight: "0.875rem",
+            paddingBottom: "0.875rem",
+          }}
+        >
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
-          <Typography align="center" variant="h5">
-            {sectionName(chapter.section)}
-          </Typography>
-          <Typography align="center" variant="h5">
-            {chapterName(chapter)}
-          </Typography>
+          <Heading4>{sectionName(chapter.section)}</Heading4>
+          <Heading5>{chapterName(chapter)}</Heading5>
           {reports
             .filter((r) => isReviewer || !r.hide)
             .map((report) => (

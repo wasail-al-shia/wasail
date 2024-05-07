@@ -14,6 +14,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { bookName, sectionName, navSectionLink } from "../utils/app";
 import Container from "@mui/material/Container";
+import { Heading4 } from "../kmui/Heading";
 import { HEADER_HEIGHT } from "../consts";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
@@ -218,9 +219,7 @@ export default () => {
       <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
       <Container maxWidth="lg">
         <Stack sx={{ marginTop: 5 }} spacing={3}>
-          <Typography align="center" variant="h5">
-            {bookName(book)}
-          </Typography>
+          <Heading4>{bookName(book)}</Heading4>
           {sections.map((section) => (
             <SectionCard key={section.id} section={section} />
           ))}
