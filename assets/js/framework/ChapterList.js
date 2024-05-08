@@ -194,7 +194,7 @@ export default () => {
     const rangeRec = reportRange.find((r) => r.entityId == chapterId);
     return rangeRec ? (
       <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
-        {`(Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo})`}
+        {`Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo}`}
       </Typography>
     ) : null;
   };
@@ -218,7 +218,7 @@ export default () => {
       onClick={() => navigate(navChapterLink(chapter.id))}
       direction="column"
     >
-      <Typography variant="h6">
+      <Typography variant="h5">
         {chapter.chapterNo ? (
           <span
             style={{

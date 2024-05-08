@@ -169,12 +169,17 @@ export default () => {
     },
   });
 
-  const ReportRangeSection = ({ sectionId }) => {
-    const rangeRec = reportRange.find((r) => r.entityId == sectionId);
+  const ReportRangeSection = ({ section }) => {
+    const rangeRec = reportRange.find((r) => r.entityId == section.id);
     return rangeRec ? (
-      <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
-        {`(Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo})`}
-      </Typography>
+      <>
+        <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
+          {`Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo}`}
+        </Typography>
+        <Typography sx={{ color: "primary.dark2" }} variant="footer">
+          {`(${section.chapters.length} Chapters)`}
+        </Typography>
+      </>
     ) : null;
   };
 
@@ -206,7 +211,7 @@ export default () => {
           />
         )}
       </Typography>
-      {section.sectionNo ? <ReportRangeSection sectionId={section.id} /> : null}
+      {section.sectionNo ? <ReportRangeSection section={section} /> : null}
       <Typography dir="rtl" variant="h6a">
         {section.nameArb}
       </Typography>

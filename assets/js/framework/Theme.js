@@ -81,8 +81,8 @@ const Theme = createTheme({
       fontWeight: 300,
     },
     reportRange: {
-      fontSize: "0.9rem",
-      fontWeight: 300,
+      fontSize: "1.0rem",
+      fontWeight: 400,
     },
     termsOfUse: {
       fontSize: "0.7rem",
