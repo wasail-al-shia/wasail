@@ -11,13 +11,13 @@ const swapBracket = (br) => {
 
 export const flipParenthesis = (str) => str.replace(/[()[\]{}]/g, swapBracket);
 
-export const isNumeric = (value) => {
-  var searchMask = "is";
-  var regEx = new RegExp(searchMask, "ig");
-  var replaceMask = "as";
+export const extractFirstNumber = (text) => {
+  const regex = /[-+]?(\d*\.?\d+)/; // Regular expression to match numbers
+  const match = text.match(regex);
+  console.log("match=", match);
 
-  var result = "This iS IIS".replace(regEx, replaceMask);
-  /^\d+$/.test(value);
+  //extract the first matched group
+  return match ? parseFloat(match[1]) : null;
 };
 
 export const capitalizeFirstLetter = (str) =>

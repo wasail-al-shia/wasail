@@ -16,7 +16,7 @@ import { DialogContext } from "../context/DialogContext";
 import { useContactDialogProps } from "../utils/contact";
 import { backend } from "../utils/axiosConfig";
 import SearchInput from "../kmui/SearchInput";
-import { isNumeric } from "../utils/string";
+import { extractFirstNumber } from "../utils/string";
 import { navSearchResultsLink, navWsReportLink } from "../utils/app";
 import { Link } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu";
@@ -148,16 +148,16 @@ function NavBar() {
             </Stack>
             <Stack spacing={5} direction="row" alignItems="center">
               <SearchInput
-                onEnter={(searchStr) =>
-                  isNumeric(searchStr) &&
-                  Number(searchStr) <= mostRecentReport.id
-                    ? navigate(navWsReportLink(Number(searchStr)), {
+                onEnter={(searchStr) => {
+                  const h = extractFirstNumber(searchStr);
+                  h && h <= mostRecentReport.reportNo
+                    ? navigate(navWsReportLink(h), {
                         state: { showBackButton: true },
                       })
                     : navigate(navSearchResultsLink(searchStr), {
                         state: { searchStr },
-                      })
-                }
+                      });
+                }}
               />
             </Stack>
             <Stack spacing={5} direction="row" alignItems="center">

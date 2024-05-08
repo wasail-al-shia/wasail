@@ -18,7 +18,7 @@ config :wasail,
     "115106629340710687706"
   ],
   admin_emails: ["wasail.al.shia@gmail.com"],
-  bcc_emails: ["shuaybi@gmail.com"],
+  bcc_emails: [""],
   ses_verified_identity_for_smtp: {"Wasail Al Shia", "wasail.al.shia@gmail.com"},
   ip_info_url: "http://ipinfo.io/",
   ws_query_url: "https://wasail-al-shia.net/query",
