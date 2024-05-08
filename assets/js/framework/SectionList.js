@@ -176,8 +176,8 @@ export default () => {
         <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
           {`Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo}`}
         </Typography>
-        <Typography sx={{ color: "primary.dark2" }} variant="footer">
-          {`(${section.chapters.length} Chapters)`}
+        <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
+          {`${section.chapters.length} Chapters`}
         </Typography>
       </>
     ) : null;

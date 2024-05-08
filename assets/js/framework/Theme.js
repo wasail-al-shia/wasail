@@ -68,7 +68,7 @@ const Theme = createTheme({
       fontWeight: 400,
     },
     h6a: {
-      fontSize: "1.5rem",
+      fontSize: "1.4rem",
       fontWeight: 400,
       fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
     },
@@ -81,8 +81,8 @@ const Theme = createTheme({
       fontWeight: 300,
     },
     reportRange: {
-      fontSize: "1.0rem",
-      fontWeight: 400,
+      fontSize: "1rem",
+      fontWeight: 500,
     },
     termsOfUse: {
       fontSize: "0.7rem",
