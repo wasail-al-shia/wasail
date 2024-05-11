@@ -59,18 +59,23 @@ const Theme = createTheme({
       fontSize: "1.1rem",
       fontWeight: 500,
     },
-    h6: {
-      fontSize: "1.0rem",
+    h5a: {
+      fontSize: "1.55rem",
       fontWeight: 500,
+      fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
+    },
+    h6: {
+      fontSize: "1.05rem",
+      fontWeight: 500,
+    },
+    h6a: {
+      fontSize: "1.4rem",
+      fontWeight: 500,
+      fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
     },
     h7: {
       fontSize: "0.9rem",
       fontWeight: 400,
-    },
-    h6a: {
-      fontSize: "1.4rem",
-      fontWeight: 400,
-      fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
     },
     breadcrumb: {
       fontSize: "1.0rem",

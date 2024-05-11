@@ -22,8 +22,15 @@ import { Link } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu";
 
 function NavBar() {
-  const { name, avatarUrl, logout, isAdmin, isReviewer, mostRecentReport } =
-    React.useContext(SessionContext);
+  const {
+    name,
+    avatarUrl,
+    logout,
+    isAdmin,
+    isReviewer,
+    onPhone,
+    mostRecentReport,
+  } = React.useContext(SessionContext);
   const { openDialog } = React.useContext(DialogContext);
   const contactDialogProps = useContactDialogProps();
   const navigate = useNavigate();
@@ -148,6 +155,7 @@ function NavBar() {
             </Stack>
             <Stack spacing={5} direction="row" alignItems="center">
               <SearchInput
+                onPhone={onPhone}
                 onEnter={(searchStr) => {
                   const h = extractFirstNumber(searchStr);
                   h && h <= mostRecentReport.reportNo

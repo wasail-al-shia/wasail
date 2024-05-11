@@ -111,7 +111,7 @@ export default function ({
         // onSubmit={handleSubmit(console.log)}
         onKeyDown={blockFormSubmitOnEnterKey}
       >
-        <DialogTitle>Batch Reports</DialogTitle>
+        <DialogTitle>Chapter + Reports</DialogTitle>
         <DialogContent>
           <Stack sx={{ mt: 3 }} spacing={7}>
             <Stack direction="row" spacing={5}>
@@ -163,7 +163,7 @@ export default function ({
             <DynamicInput
               control={control}
               name="textArb"
-              label="Text Arabic"
+              label="Arabic Reports"
               type="text"
               size="small"
               inputProps={{
@@ -182,7 +182,7 @@ export default function ({
             <DynamicInput
               control={control}
               name="textEng"
-              label="Text English"
+              label="English Reports"
               type="text"
               size="small"
               fullWidth={true}

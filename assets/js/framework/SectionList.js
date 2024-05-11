@@ -174,10 +174,10 @@ export default () => {
     return rangeRec ? (
       <>
         <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
-          {`Reports: ${rangeRec.startReportNo} - ${rangeRec.endReportNo}`}
+          {`${section.chapters.length} Chapters`}
         </Typography>
         <Typography sx={{ color: "primary.dark2" }} variant="reportRange">
-          {`${section.chapters.length} Chapters`}
+          {`Hadith: ${rangeRec.startReportNo} - ${rangeRec.endReportNo}`}
         </Typography>
       </>
     ) : null;
@@ -212,7 +212,7 @@ export default () => {
         )}
       </Typography>
       {section.sectionNo ? <ReportRangeSection section={section} /> : null}
-      <Typography dir="rtl" variant="h6a">
+      <Typography dir="rtl" variant="h5a">
         {section.nameArb}
       </Typography>
     </Stack>

@@ -14,7 +14,7 @@ config :wasail, WasailWeb.Endpoint,
   check_origin: false
 
 config :logger, :console,
-  level: :info,
+  level: :warn,
   format: "$time [$level] <$metadata> $message\n",
   metadata: [:module, :function]
 
