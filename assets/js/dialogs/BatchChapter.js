@@ -136,15 +136,6 @@ export default function ({
             </Stack>
             <DynamicInput
               control={control}
-              name="chapterNameEng"
-              label="Chapter Name Eng"
-              type="text"
-              size="small"
-              rules={{ required: true }}
-              fullWidth={true}
-            />
-            <DynamicInput
-              control={control}
               name="chapterNameArb"
               label="Chapter Name Arb"
               type="text"
@@ -159,6 +150,15 @@ export default function ({
                   fontFamily: "Noto Naskh Arabic Variable",
                 },
               }}
+            />
+            <DynamicInput
+              control={control}
+              name="chapterNameEng"
+              label="Chapter Name Eng"
+              type="text"
+              size="small"
+              rules={{ required: true }}
+              fullWidth={true}
             />
             <DynamicInput
               control={control}

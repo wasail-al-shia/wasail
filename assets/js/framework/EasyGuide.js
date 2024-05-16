@@ -157,43 +157,50 @@ export default () => {
 
         <Heading4>EASY GUIDE</Heading4>
         <Heading5>{easyGuide.title}</Heading5>
-        {easyGuide.easyGuideFragments?.map((f) => {
-          return (
-            <Badge
-              key={f.id}
-              badgeContent={f.fragSeqNo}
-              invisible={!isAdmin}
-              color="primary"
-            >
-              {f.report ? (
-                <Report
-                  key={f.id}
-                  hue={hue}
-                  lightness={96}
-                  report={{ ...f.report, chapter: f.report.chapter }}
-                  dataQueryKeys={["easyGuide"]}
-                  onFragmentEdit={() => {
-                    openDialog("dataEntry", updateFragmentDialogProps(f));
-                  }}
-                />
-              ) : (
-                <Box key={f.id}>
-                  {parse(f.html)}
-                  {isAdmin && (
-                    <EditNoteIcon
-                      sx={{ marginRight: 3 }}
-                      size="small"
-                      onClick={(e) => {
-                        openDialog("dataEntry", updateFragmentDialogProps(f));
-                        e.stopPropagation();
-                      }}
-                    />
-                  )}
-                </Box>
-              )}
-            </Badge>
-          );
-        })}
+        <Box sx={{ padding: 5 }}>
+          {easyGuide.easyGuideFragments?.map((f) => {
+            return (
+              <Badge
+                key={f.id}
+                badgeContent={f.fragSeqNo}
+                invisible={!isAdmin}
+                color="primary"
+              >
+                {f.report ? (
+                  <Report
+                    key={f.id}
+                    hue={hue}
+                    lightness={95}
+                    report={{ ...f.report, chapter: f.report.chapter }}
+                    dataQueryKeys={["easyGuide"]}
+                    onFragmentEdit={() => {
+                      openDialog("dataEntry", updateFragmentDialogProps(f));
+                    }}
+                  />
+                ) : (
+                  <Box
+                    sx={{
+                      padding: 5,
+                    }}
+                    key={f.id}
+                  >
+                    {parse(f.html)}
+                    {isAdmin && (
+                      <EditNoteIcon
+                        sx={{ marginRight: 3 }}
+                        size="small"
+                        onClick={(e) => {
+                          openDialog("dataEntry", updateFragmentDialogProps(f));
+                          e.stopPropagation();
+                        }}
+                      />
+                    )}
+                  </Box>
+                )}
+              </Badge>
+            );
+          })}
+        </Box>
       </ContentWrapper>
       <FabAddButton
         buttonText="Fragment"

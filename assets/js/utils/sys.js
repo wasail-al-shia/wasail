@@ -9,9 +9,9 @@ export const randomHue = () => {
 
   if (rangeChoice === 0) {
     // Generate number between 0 and 60
-    return Math.floor(Math.random() * 61); // 0 to 60 inclusive
+    return Math.floor(Math.random() * 15) + 20; // 0 to 60 inclusive
   } else {
     // Generate number between 250 and 360
-    return Math.floor(Math.random() * 61) + 0; //150; // 230 to 360 inclusive
+    return Math.floor(Math.random() * 15) + 20; //150; // 230 to 360 inclusive
   }
 };

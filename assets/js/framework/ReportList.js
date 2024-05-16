@@ -11,6 +11,7 @@ import { SessionContext } from "../context/SessionContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
+import ShareIconButton from "../kmui/ShareIconButton";
 import {
   bookName,
   sectionName,
@@ -19,6 +20,7 @@ import {
   chapterCrumb,
   navBookLink,
   navSectionLink,
+  generateChapterReference,
 } from "../utils/app";
 import Container from "@mui/material/Container";
 import { replace } from "../utils/obj";
@@ -309,7 +311,14 @@ export default () => {
         >
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
           <Heading4>{sectionName(chapter.section)}</Heading4>
-          <Heading5>{chapterName(chapter)}</Heading5>
+          <Heading5>
+            {chapterName(chapter)}
+            <ShareIconButton
+              title="Share Chapter"
+              retrieveTextToCopy={() => generateChapterReference(chapter)}
+              snackMessage="Chapter link copied to clipboard"
+            />
+          </Heading5>
           {reports
             .filter((r) => isReviewer || !r.hide)
             .map((report) => (
@@ -317,6 +326,7 @@ export default () => {
                 key={report.id}
                 dataQueryKeys={[reportsDataQueryKey, egFragDataQueryKey]}
                 hue={hue}
+                lightness={96}
                 report={{ ...report, chapter }}
                 easyGuideFragments={easyGuideReportFragments[report.id]}
                 onEdit={() =>

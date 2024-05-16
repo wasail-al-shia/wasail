@@ -122,17 +122,16 @@ export default () => {
             variant="h4"
             align="center"
           >
-            EASY GUIDE TO ISLAMIC PRACTICES
+            EASY GUIDE TO WASAIL AL SHIA
           </Typography>
           <Typography variant="h6">
-            Each guide is a curated collection of hadith that concisely covers
-            essential areas of fiqh in an accessible yet comprehensive way
-            providing quick access to the most crucial and practical knowledge
-            relevant to everyday life without being overwhelmed by the sheer
-            number of narrations. While this guide covers the most common
-            situations and scenarios, we encourage you to explore the more
-            extensive collection of hadith for less frequent or unique
-            circumstances.
+            Each guide is a curated collection of hadith from Wasail Al Shia
+            that concisely covers essential areas of fiqh in an accessible yet
+            comprehensive way providing quick access to the most crucial and
+            practical knowledge relevant to everyday life. While this guide
+            covers the most common situations and scenarios, we encourage you to
+            explore the more extensive collection of hadith for less frequent or
+            unique circumstances.
           </Typography>
           {categories.map((category, idx) => (
             <Badge

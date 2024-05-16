@@ -27,6 +27,21 @@ export const generateReference = (report) => {
   }, ${report.headingEng}`;
 };
 
+export const generateChapterReference = (chapter) => {
+  const bookNm = bookName(chapter.section.book);
+  const sectionNm = chapter.section.nameEng;
+  const chapterNm = chapter.nameEng;
+  const chapterNo = chapter.chapterNo;
+  const sectionNo = chapter.section.sectionNo;
+  const hyperLink = generateChapterHyperLink(chapter);
+  return [
+    bookNm,
+    `Section ${sectionNo}: ${sectionNm}`,
+    `Chapter ${chapterNo}: ${chapterNm}`,
+    hyperLink,
+  ].join("\n");
+};
+
 export const isBookOfHadith = (code) => [BK_CD_WS].includes(code);
 
 const generateReportHyperLink = (report) => {
@@ -35,6 +50,12 @@ const generateReportHyperLink = (report) => {
   return report.chapter.section.book.code == BK_CD_WS
     ? `${p}//${h}/h/${report.reportNo}`
     : `${p}//${h}/r/${report.id}`;
+};
+
+const generateChapterHyperLink = (chapter) => {
+  const p = window.location.protocol;
+  const h = window.location.hostname;
+  return `${p}//${h}/c/${chapter.id}`;
 };
 
 export const generatePlainText = (report) => {
