@@ -337,6 +337,7 @@ export default () => {
                       reportsDataQueryKey,
                       allEgDataQueryKey,
                       egFragDataQueryKey,
+                      ["easyGuide"], //defined in EasyGuide.js
                     ],
                     fields: reportFields,
                     mutationApi: "updateReport",

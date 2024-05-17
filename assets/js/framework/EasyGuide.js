@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import parse from "html-react-parser";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -77,8 +78,7 @@ const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
 
 export default () => {
   const { openDialog } = React.useContext(DialogContext);
-  const { isAdmin, onPhone, onTablet, onDesktop } =
-    React.useContext(SessionContext);
+  const { isAdmin, onPhone, onTablet } = React.useContext(SessionContext);
   const { guideId } = useParams();
   const { data: easyGuide = {}, isFetching: fetchingEasyGuide } = useQuery(
     ["easyGuide", guideId],
@@ -157,7 +157,7 @@ export default () => {
 
         <Heading4>EASY GUIDE</Heading4>
         <Heading5>{easyGuide.title}</Heading5>
-        <Box sx={{ padding: 5 }}>
+        <Stack spacing={3} sx={{ padding: 5 }}>
           {easyGuide.easyGuideFragments?.map((f) => {
             return (
               <Badge
@@ -165,6 +165,7 @@ export default () => {
                 badgeContent={f.fragSeqNo}
                 invisible={!isAdmin}
                 color="primary"
+                sx={{ width: "100%" }}
               >
                 {f.report ? (
                   <Report
@@ -180,7 +181,7 @@ export default () => {
                 ) : (
                   <Box
                     sx={{
-                      padding: 5,
+                      padding: 2,
                     }}
                     key={f.id}
                   >
@@ -200,7 +201,7 @@ export default () => {
               </Badge>
             );
           })}
-        </Box>
+        </Stack>
       </ContentWrapper>
       <FabAddButton
         buttonText="Fragment"
