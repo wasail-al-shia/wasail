@@ -33,10 +33,12 @@ defmodule Wasail.Search do
           String.split(query_str, " ")
           |> Enum.map(fn x -> String.trim(x) end)
           |> Enum.reject(fn x -> String.length(x) == 0 end)
-          |> Enum.join("+")
-          |> Kernel.<>(":*")
+          |> Enum.map(fn x -> x <> ":*" end)
+          |> Enum.join(" & ")
 
-        # Logger.info("search_term: #{inspect(search_term)}")
+        # 'the:* | food:* | bar:*')
+
+        Logger.info("search_term: #{inspect(search_term)}")
 
         query =
           from(t in Wasail.Schema.Text,
