@@ -366,6 +366,8 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:approved, :boolean)
       arg(:review, :boolean)
       arg(:hide, :boolean)
+      arg(:easy_guide_id, :integer)
+      arg(:easy_guide_frag_no, :integer)
       middleware(WasailWeb.Graphql.RequireAdmin)
       resolve(&ReportResolver.add_report/2)
     end
@@ -379,6 +381,8 @@ defmodule WasailWeb.Graphql.Schema do
       arg(:approved, :boolean)
       arg(:review, :boolean)
       arg(:hide, :boolean)
+      arg(:easy_guide_id, :integer)
+      arg(:easy_guide_frag_no, :integer)
       arg(:text_eng, non_null(:string))
       arg(:text_arb, non_null(:string))
       middleware(WasailWeb.Graphql.RequireAdmin)
