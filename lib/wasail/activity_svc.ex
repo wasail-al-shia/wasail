@@ -19,7 +19,7 @@ defmodule Wasail.ActivitySvc do
         end
 
       rec ->
-        # Logger.warning("retrieving ip info from db")
+        # Logger.notice("retrieving ip info from db")
         rec
     end
   end

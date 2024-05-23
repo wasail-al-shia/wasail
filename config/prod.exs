@@ -13,8 +13,17 @@ config :wasail, WasailWeb.Endpoint,
   debug_errors: true,
   check_origin: false
 
+# supported log levels in order of importance:
+# :emergency - when system is unusable, panics
+# :alert - for alerts, actions that must be taken immediately, ex. corrupted database
+# :critical - for critical conditions
+# :error - for errors
+# :warning - for warnings
+# :notice - for normal, but significant, messages
+# :info - for information of any kind
+# :debug - for debug-related messages
 config :logger, :console,
-  level: :warn,
+  level: :notice,
   format: "$time [$level] <$metadata> $message\n",
   metadata: [:module, :function]
 

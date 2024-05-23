@@ -34,7 +34,7 @@ defmodule Wasail.Util.Http do
       |> maybe_decode_json()
     end
 
-    Logger.warning("#{command} : #{url} : #{inspect(payload)} : #{inspect(headers)}")
+    Logger.notice("#{command} : #{url} : #{inspect(payload)} : #{inspect(headers)}")
     final_fn.()
   end
 

@@ -8,6 +8,14 @@ mark {
   background-color:#f6f671;
 }
 
+egheading {
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+}
+
 @media (width <=900px) {
   html {
     font-size: 14px;

@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import Box from "@mui/material/Box";
 import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
 import BookCover from "../kmui/BookCover";
@@ -95,14 +96,22 @@ export default () => {
 
   return (
     <Spinner open={isFetching}>
-      <Container sx={{ marginTop: HEADER_HEIGHT }} maxWidth="lg">
+      <Box sx={{ height: `calc(${HEADER_HEIGHT})` }} />
+      <Typography
+        variant="h6"
+        sx={{ mt: 5, padding: 5, xbackgroundColor: "primary.header2" }}
+        align="center"
+      >
+        Wasail Al Shia is a 30-volume collection. The following volumes are
+        currently available in translation:
+      </Typography>
+      <Container maxWidth="lg">
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="center"
           spacing={10}
-          sx={{ marginTop: 5 }}
         >
           {books.map((b) => (
             <Grid key={b.id}>
@@ -128,11 +137,8 @@ export default () => {
             </Grid>
           ))}
         </Grid>
-        <Typography
-          align="center"
-          sx={{ margin: 10, fontSize: "0.9rem", fontWeight: 300 }}
-        >
-          (Site Last Updated On:&nbsp;
+        <Typography align="center" sx={{ margin: 10 }}>
+          (New translations last added on&nbsp;
           {formatIsoStrToLocal(mostRecentReport.insertedAt)})
         </Typography>
         <FabAddButton
