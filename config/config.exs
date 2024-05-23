@@ -1,6 +1,7 @@
 import Config
 
 config :wasail,
+  env: Mix.env(),
   ecto_repos: [Wasail.Repo],
   bk_cd_ws: "ws",
   admin_uids: [
@@ -45,14 +46,14 @@ config :wasail, Wasail.Mailer, adapter: Swoosh.Adapters.Local
 config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
-config :esbuild,
-  version: "0.14.0",
-  default: [
-    args:
-      ~w(js/index.js --bundle --target=es2017 --loader:.js=jsx --loader:.woff=file --loader:.woff2=file --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
+# config :esbuild,
+#   version: "0.14.0",
+#   default: [
+#     args:
+#       ~w(js/index.js --bundle --target=es2017 --loader:.js=jsx --loader:.woff=file --loader:.woff2=file --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+#     cd: Path.expand("../assets", __DIR__),
+#     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+#   ]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

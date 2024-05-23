@@ -25,8 +25,8 @@ config :wasail, WasailWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "JKsC/H0NHR5Sng9LoceeSXr9gOfq+FL7yGLhTxfFQGIkzITFTR8DbMtAegpTHaHE",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    node: ["esbuild.js", "--watch", "--node_env=dev", cd: Path.expand("../assets", __DIR__)]
+    # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # Watch static and templates for browser reloading.

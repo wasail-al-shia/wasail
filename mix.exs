@@ -48,7 +48,6 @@ defmodule Wasail.MixProject do
       {:phoenix_view, "~> 2.0"},
       {:phoenix_live_view, "~> 0.19.5"},
       {:phoenix_live_dashboard, "~> 0.8"},
-      {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.11"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
@@ -83,11 +82,17 @@ defmodule Wasail.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
+      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm install"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.install": [
+        "cmd --cd assets npm install"
+      ],
+      "assets.deploy": [
+        "cmd --cd assets node esbuild.js --deploy --node_env=#{Mix.env() |> to_string()}",
+        "phx.digest"
+      ]
     ]
   end
 end
