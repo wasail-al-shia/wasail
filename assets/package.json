@@ -1,35 +1,36 @@
 {
-    "scripts": {
-        "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild"
-    },
     "dependencies": {
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.11.0",
-        "@fontsource-variable/noto-naskh-arabic": "^5.0.18",
-        "@fontsource-variable/overpass": "^5.0.17",
-        "@fontsource-variable/radio-canada": "^5.0.19",
-        "@mui/icons-material": "^5.14.11",
-        "@mui/material": "^5.14.5",
-        "axios": "^1.5.1",
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
+        "@fontsource-variable/noto-naskh-arabic": "^5.0.21",
+        "@fontsource-variable/overpass": "^5.0.19",
+        "@fontsource-variable/radio-canada": "^5.0.21",
+        "@mui/icons-material": "^5.15.18",
+        "@mui/material": "^5.15.18",
+        "@react-pdf/renderer": "^3.4.4",
+        "axios": "^1.7.1",
+        "buffer": "^6.0.3",
         "copy-to-clipboard": "^3.3.3",
-        "html-react-parser": "^5.1.1",
+        "file-saver": "^2.0.5",
+        "html-react-parser": "^5.1.10",
         "json-to-graphql-query": "^2.2.5",
         "lodash": "^4.17.21",
-        "material-ui-popup-state": "^5.1.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-hook-form": "^7.49.2",
+        "material-ui-popup-state": "^5.1.1",
+        "pdfkit": "^0.15.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-hook-form": "^7.51.4",
         "react-hotkeys-hook": "^4.5.0",
-        "react-number-format": "^5.3.1",
+        "react-number-format": "^5.3.4",
         "react-query": "^3.39.3",
-        "react-router-dom": "^6.16.0",
+        "react-router-dom": "^6.23.1",
         "stemmer": "^2.0.1",
         "ua-parser-js": "^1.0.37"
     },
     "devDependencies": {
-        "esbuild": "^0.15.14",
-        "esbuild-plugin-svgr": "^1.0.1",
+        "esbuild": "^0.21.3",
+        "esbuild-plugins-node-modules-polyfill": "^1.6.4",
         "eslint": "^8.54.0",
-        "eslint-plugin-react": "^7.33.2"
+        "eslint-plugin-react": "^7.34.1"
     }
 }

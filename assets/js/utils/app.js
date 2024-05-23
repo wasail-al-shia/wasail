@@ -84,3 +84,12 @@ export const navWsReportLink = (reportNo) => `/h/${reportNo}`;
 export const navSearchResultsLink = (queryStr) => `/q/${queryStr}`;
 export const navEasyGuideCatLink = (categoryId) => `/eg/${categoryId}`;
 export const navEasyGuideLink = (guideId) => `/g/${guideId}`;
+
+export const dwnldChapterName = (chapter) => {
+  const book = chapter.section.book;
+  const bookNm =
+    book.volumeNo == 0 ? book.nameEng : `${book.nameEng} Vol ${book.volumeNo}`;
+  const sectionNo = chapter.section.sectionNo;
+  const chapterNo = chapter.chapterNo;
+  return [bookNm, `Section ${sectionNo}`, `Chapter ${chapterNo}`].join(" ");
+};

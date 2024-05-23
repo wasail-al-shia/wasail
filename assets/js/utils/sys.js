@@ -1,3 +1,6 @@
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
+
 // https://github.com/react-hook-form/react-hook-form/discussions/2549
 export const blockFormSubmitOnEnterKey = (e) => {
   if (e.code === "Enter") e.preventDefault();
@@ -14,4 +17,9 @@ export const randomHue = () => {
     // Generate number between 250 and 360
     return Math.floor(Math.random() * 15) + 20; //150; // 230 to 360 inclusive
   }
+};
+
+export const saveAsPdf = async (doc, filename) => {
+  const blob = await pdf(doc).toBlob();
+  saveAs(blob, filename + ".pdf");
 };

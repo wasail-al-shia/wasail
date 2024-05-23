@@ -11,7 +11,10 @@ import { SessionContext } from "../context/SessionContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
+import IconButton from "@mui/material/IconButton";
 import ShareIconButton from "../kmui/ShareIconButton";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { PDFViewer } from "@react-pdf/renderer";
 import {
   bookName,
   sectionName,
@@ -21,14 +24,16 @@ import {
   navBookLink,
   navSectionLink,
   generateChapterReference,
+  dwnldChapterName,
 } from "../utils/app";
 import Container from "@mui/material/Container";
 import { replace } from "../utils/obj";
 import { flipParenthesis } from "../utils/string";
-import { randomHue } from "../utils/sys";
+import { saveAsPdf, randomHue } from "../utils/sys";
 import groupBy from "lodash/groupBy";
 import maxBy from "lodash/maxBy";
 import { Heading4, Heading5 } from "../kmui/Heading";
+import ChapterPdf from "../pdf/ChapterPdf";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -318,6 +323,19 @@ export default () => {
               retrieveTextToCopy={() => generateChapterReference(chapter)}
               snackMessage="Chapter link copied to clipboard"
             />
+            {isAdmin && (
+              <IconButton
+                size="small"
+                variant="contained"
+                sx={{ color: "primary.dark2" }}
+                onClick={() => {
+                  const doc = <ChapterPdf chapter={{ ...chapter, reports }} />;
+                  saveAsPdf(doc, dwnldChapterName(chapter));
+                }}
+              >
+                <PictureAsPdfIcon size="small" />
+              </IconButton>
+            )}
           </Heading5>
           {reports
             .filter((r) => isReviewer || !r.hide)

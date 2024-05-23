@@ -19,6 +19,9 @@ import EasyGuideCategoryList from "./framework/EasyGuideCategoryList";
 import EasyGuideList from "./framework/EasyGuideList";
 import EasyGuide from "./framework/EasyGuide";
 
+// without this react-pdf errors out with: ReferenceError: Buffer is not defined
+window.Buffer = window.Buffer || require("buffer").Buffer;
+
 const router = createBrowserRouter([
   {
     path: "/",
