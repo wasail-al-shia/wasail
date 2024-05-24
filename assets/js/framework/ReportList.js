@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import { DialogContext } from "../context/DialogContext";
@@ -12,6 +13,7 @@ import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
 import ShareIconButton from "../kmui/ShareIconButton";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import {
   bookName,
   sectionName,
@@ -29,6 +31,7 @@ import { randomHue } from "../utils/sys";
 import groupBy from "lodash/groupBy";
 import maxBy from "lodash/maxBy";
 import { Heading4, Heading5 } from "../kmui/Heading";
+import { chapterPdf } from "../utils/pdf";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -148,6 +151,7 @@ export default () => {
   );
   const nextSeqNo =
     reports.length > 0 ? Math.max(...reports.map((r) => r.reportNo)) + 1 : null;
+  const [srcStream, setSrcStream] = useState("");
 
   const reportFields = [
     {
@@ -318,7 +322,18 @@ export default () => {
               retrieveTextToCopy={() => generateChapterReference(chapter)}
               snackMessage="Chapter link copied to clipboard"
             />
+            {isAdmin && (
+              <IconButton
+                size="small"
+                variant="contained"
+                sx={{ color: "primary.dark2" }}
+                onClick={() => chapterPdf(chapter, reports, setSrcStream)}
+              >
+                <PictureAsPdfIcon size="small" />
+              </IconButton>
+            )}
           </Heading5>
+          {/* <iframe width="880" height="1210" src={srcStream} /> */}
           {reports
             .filter((r) => isReviewer || !r.hide)
             .map((report) => (

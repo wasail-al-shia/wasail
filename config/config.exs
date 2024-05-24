@@ -49,7 +49,7 @@ config :esbuild,
   version: "0.14.0",
   default: [
     args:
-      ~w(js/index.js --bundle --target=es2017 --loader:.js=jsx --loader:.woff=file --loader:.woff2=file --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/index.js --bundle --target=es2017 --loader:.js=jsx --loader:.woff=file --loader:.woff2=file --loader:.ttf=file --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
