@@ -6,6 +6,7 @@ import parse from "html-react-parser";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Report from "./Report";
+import EgReport from "./EgReport";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { DialogContext } from "../context/DialogContext";
@@ -168,20 +169,15 @@ export default () => {
                 sx={{ width: "100%" }}
               >
                 {f.report ? (
-                  <Report
+                  <EgReport
                     key={f.id}
-                    hue={hue}
-                    lightness={95}
                     report={{ ...f.report, chapter: f.report.chapter }}
-                    dataQueryKeys={["easyGuide"]}
-                    onFragmentEdit={() => {
-                      openDialog("dataEntry", updateFragmentDialogProps(f));
-                    }}
                   />
                 ) : (
                   <Box
                     sx={{
                       padding: 2,
+                      fontSize: "1.1rem",
                     }}
                     key={f.id}
                   >

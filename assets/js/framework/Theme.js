@@ -32,11 +32,6 @@ const Theme = createTheme({
     },
   },
   typography: {
-    allVariants: {
-      fontFamily: "Overpass Variable",
-      fontSize: "1.075rem",
-      fontWeight: 400,
-    },
     fontFamily: [
       "Overpass Variable",
       "Radio Canada Variable",
