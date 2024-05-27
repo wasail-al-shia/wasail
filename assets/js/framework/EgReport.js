@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import ReportHeader from "../kmui/ReportHeader";
-import { generateReference } from "../utils/app";
+import { generateEgReference } from "../utils/app";
 
 export default ({ report }) => {
   const Fragment = ({ text }) => (
@@ -47,7 +47,7 @@ export default ({ report }) => {
           <Comment key={comment.id} comment={comment} />
         ))}
         <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
-          ({generateReference(report)})
+          {parse(generateEgReference(report))}
         </Typography>
       </Stack>
     </Stack>

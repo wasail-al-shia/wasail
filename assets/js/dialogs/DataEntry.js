@@ -141,6 +141,12 @@ export default ({
             <Fields fields={finalFields} control={control} />
           </DialogContent>
           <DialogActions>
+            {deleteApi && (
+              <Button onClick={deleteRec} color="error" disabled={processing}>
+                Delete
+              </Button>
+            )}
+            <div style={{ flex: "1 0 0" }} />
             <Button
               type="submit"
               color="primary"
@@ -150,11 +156,6 @@ export default ({
             >
               {btnText}
             </Button>
-            {deleteApi && (
-              <Button onClick={deleteRec} color="error" disabled={processing}>
-                Delete
-              </Button>
-            )}
             <Button onClick={onClose} color="secondary" disabled={processing}>
               Cancel
             </Button>

@@ -27,6 +27,15 @@ export const generateReference = (report) => {
   }, ${report.headingEng}`;
 };
 
+export const generateEgReference = (report) => {
+  const chapter = report.chapter;
+  const section = chapter.section;
+  const book = section.book;
+  return `<a href="/c/${chapter.id}">${bookName(book)}, Section ${
+    section.sectionNo
+  }, Chapter ${chapter.chapterNo}`;
+};
+
 export const generateChapterReference = (chapter) => {
   const bookNm = bookName(chapter.section.book);
   const sectionNm = chapter.section.nameEng;

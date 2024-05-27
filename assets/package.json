@@ -30,6 +30,7 @@
         "react-query": "^3.39.3",
         "react-router-dom": "^6.16.0",
         "stemmer": "^2.0.1",
+        "svg-to-pdfkit": "^0.1.8",
         "ua-parser-js": "^1.0.37",
         "uglify-js": "^3.17.4"
     },

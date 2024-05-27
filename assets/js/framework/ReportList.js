@@ -31,7 +31,7 @@ import { randomHue } from "../utils/sys";
 import groupBy from "lodash/groupBy";
 import maxBy from "lodash/maxBy";
 import { Heading4, Heading5 } from "../kmui/Heading";
-import { chapterPdf } from "../utils/pdf";
+import { generateChapterPdf } from "../utils/pdf";
 
 const fetchChapter = ({ queryKey: [, chapterId] }) =>
   request(`{
@@ -327,13 +327,15 @@ export default () => {
                 size="small"
                 variant="contained"
                 sx={{ color: "primary.dark2" }}
-                onClick={() => chapterPdf(chapter, reports, setSrcStream)}
+                onClick={() =>
+                  generateChapterPdf(chapter, reports, setSrcStream)
+                }
               >
                 <PictureAsPdfIcon size="small" />
               </IconButton>
             )}
           </Heading5>
-          {/* <iframe width="880" height="1210" src={srcStream} /> */}
+          <iframe width="970" height="1330" src={srcStream} />
           {reports
             .filter((r) => isReviewer || !r.hide)
             .map((report) => (

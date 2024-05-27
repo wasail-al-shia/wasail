@@ -150,14 +150,22 @@ export default () => {
           <Typography variant="h5">Translation Notes</Typography>
           <Typography>
             This site presents a translation of this important work in order to
-            make it accessible to the english speaking audience. We endeavor to
-            carefully translate each hadith such that the translation is as
-            faithful as possible in conveying the original meaning. Arabic is an
-            eloquent language and for many words it is often impossible to find
-            the best equivalent word in english. When the word is popularly
-            known we resort to a direct transliteration (e.g. wilayah, ibaadah,
-            aql, kufr, etc). In other cases, we offer more than one applicable
-            meanings in parenthesis.
+            make it accessible to the english speaking audience. For the arabic
+            source we used the second edition of the Beirut publication of&nbsp;
+            <i>Wasa'il al-Shi-ah</i>, printed by&nbsp;
+            <i>Mu'assissat Al-al-Bayt li Ihya al-Turath</i> in 1994 (1414AH).
+            The electronic copies can be downloaded from the front page of the
+            website.
+          </Typography>
+
+          <Typography>
+            We endeavor to carefully translate each hadith such that the
+            translation is as faithful as possible in conveying the original
+            meaning. Arabic is an eloquent language and for many words it is
+            often impossible to find the best equivalent word in english. When
+            the word is popularly known we resort to a direct transliteration
+            (e.g. wilayah, ibaadah, aql, kufr, etc). In other cases, we offer
+            more than one applicable meanings in parenthesis.
           </Typography>
           <Typography>
             In addition, vivid imagery and expressions are often used to make a
