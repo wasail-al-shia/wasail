@@ -1,19 +1,17 @@
 import PDFDocument from "./pdfkit.js";
 import blobStream from "./blob-stream.js";
 import { saveAs } from "file-saver";
-import {
-  bookName,
-  chapterName,
-  dwnldSectionName,
-  dwnldChapterName,
-} from "./app.js";
+import { bookName, dwnldSectionName, dwnldChapterName } from "./app.js";
 import { flipParenthesis } from "./string.js";
 import truncate from "lodash/truncate";
 import SVGtoPDF from "svg-to-pdfkit";
 import { todayFormatted } from "./date.js";
 import { backend } from "../utils/axiosConfig";
+import { request } from "../utils/graph-ql";
 
 const FOOTER_TEXT = `(Generated on ${todayFormatted()}. Visit http://wasail-al-shia.net for the most up to date version.)`;
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const fontDef = [
   {
@@ -87,7 +85,7 @@ const addHorizontalRule = (doc, width = 400) => {
   return doc;
 };
 
-const addHeaderFooter = (doc, book, section, chapter, startPage, endPage) => {
+const addHeader = (doc, book, section, chapter, startPage, endPage) => {
   doc.fontSize(fs(0.9));
   for (let i = startPage - 1; i < endPage; i++) {
     doc.switchToPage(i);
@@ -128,6 +126,13 @@ const addHeaderFooter = (doc, book, section, chapter, startPage, endPage) => {
       );
     }
     doc.page.margins.top = oldTopMargin; // ReProtect top margin
+  }
+};
+
+const addFooter = (doc, startPage, endPage) => {
+  doc.fontSize(fs(0.9));
+  for (let i = startPage - 1; i < endPage; i++) {
+    doc.switchToPage(i);
 
     //Footer: Add page number
     let oldBottomMargin = doc.page.margins.bottom;
@@ -149,7 +154,112 @@ const addHeaderFooter = (doc, book, section, chapter, startPage, endPage) => {
   }
 };
 
-export const generateSectionPdf = async (section) => {
+const fetchSectionWithReports = (sectionId) =>
+  request(`{
+    sectionWithReports(sectionId: ${sectionId}) {
+      id
+      sectionNo
+      nameEng
+      book {
+        id
+        nameEng
+        code
+        volumeNo
+      }
+      chapters {
+        id
+        chapterNo
+        nameEng
+        reports {
+          id
+          reportNo
+          headingEng
+          texts {
+            id
+            textEng
+            textArb
+          }
+          comments {
+            id
+            commentEng
+          }
+        }
+      }
+    }
+  }`).then(({ sectionWithReports }) => sectionWithReports);
+
+const fetchChapter = (chapterId) =>
+  request(`{
+    chapter(chapterId: ${chapterId}) {
+      id
+      chapterNo
+      nameEng
+      nameArb
+      descEng
+      descArb
+      section {
+        id
+        sectionNo
+        nameEng
+        book {
+          id
+          nameEng
+          code
+          volumeNo
+        }
+      }
+      reports {
+        id
+        reportNo
+        headingEng
+        texts {
+          id
+          textEng
+          textArb
+        }
+        comments {
+          id
+          commentEng
+        }
+      }
+    }
+  }`).then(({ chapter }) => chapter);
+
+const addSectionIndex = (doc, section) => {
+  var startPage = doc.bufferedPageRange().count;
+  doc
+    .font(ENG_REG)
+    .fontSize(fs(1.1))
+    .text(bookName(section.book), { align: "center" });
+  addVerticalSpace(doc, 0.1);
+  doc
+    .font(ENG_REG)
+    .fontSize(fs(1.2))
+    .text(`Section ${section.sectionNo}: ${section.nameEng}`, {
+      align: "center",
+    });
+  addVerticalSpace(doc, 0.5);
+  section.chapters.forEach((chapter) => {
+    const hadithStart = Math.min(...chapter.reports.map((r) => r.reportNo));
+    const hadithEnd = Math.max(...chapter.reports.map((r) => r.reportNo));
+    doc
+      .font(ENG_BOLD)
+      .fontSize(fs(0.9))
+      .text(`Chapter ${chapter.chapterNo}: `, {
+        continued: true,
+      })
+      .font(ENG_REG)
+      .text(`(Hadith ${hadithStart} - ${hadithEnd}) ${chapter.nameEng}`);
+    addVerticalSpace(doc, 0.15);
+  });
+  var endPage = doc.bufferedPageRange().count;
+  addFooter(doc, startPage, endPage);
+  doc.addPage();
+};
+
+export const generateSectionPdf = async (sectionId) => {
+  //await delay(5000);
+  const section = await fetchSectionWithReports(sectionId);
   var doc = new PDFDocument({
     bufferPages: true,
   });
@@ -157,11 +267,13 @@ export const generateSectionPdf = async (section) => {
     return SVGtoPDF(this, svg, x, y, options), this;
   };
   await registerFonts(doc);
+  addSectionIndex(doc, section);
   section.chapters.forEach((chapter, idx) => {
     var startPage = doc.bufferedPageRange().count;
     addChapter(doc, chapter, chapter.reports);
     var endPage = doc.bufferedPageRange().count;
-    addHeaderFooter(doc, section.book, section, chapter, startPage, endPage);
+    addHeader(doc, section.book, section, chapter, startPage, endPage);
+    addFooter(doc, startPage, endPage);
     if (idx < section.chapters.length - 1) doc.addPage();
   });
   doc.end();
@@ -170,7 +282,8 @@ export const generateSectionPdf = async (section) => {
   backend.post(url, { section_id: section.id });
 };
 
-export const generateChapterPdf = async (chapter, reports, setSrcStream) => {
+export const generateChapterPdf = async (chapterId, setSrcStream) => {
+  const chapter = await fetchChapter(chapterId);
   var doc = new PDFDocument({
     bufferPages: true,
   });
@@ -180,10 +293,10 @@ export const generateChapterPdf = async (chapter, reports, setSrcStream) => {
   await registerFonts(doc);
 
   const startPage = doc.bufferedPageRange().count;
-  addChapter(doc, chapter, reports);
+  addChapter(doc, chapter, chapter.reports);
   const endPage = doc.bufferedPageRange().count;
 
-  addHeaderFooter(
+  addHeader(
     doc,
     chapter.section.book,
     chapter.section,
@@ -191,6 +304,7 @@ export const generateChapterPdf = async (chapter, reports, setSrcStream) => {
     startPage,
     endPage
   );
+  addFooter(doc, startPage, endPage);
   doc.end();
 
   savePdf(doc, dwnldChapterName(chapter));
@@ -213,7 +327,7 @@ export const addChapter = (doc, chapter, reports) => {
   }
   doc.font(ENG_REG);
   doc.fontSize(fs(1.2)).text(chapter.nameEng, { align: "center" });
-  addVerticalSpace(doc, 1);
+  addVerticalSpace(doc, 0.7);
   if (hadithStart > 0) {
     doc
       .fontSize(fs(1.2))
@@ -245,13 +359,14 @@ export const addChapter = (doc, chapter, reports) => {
         .font(ENG_REG)
         .fontSize(fs(1))
         .text(text.textEng.trim(), { lineGap: -1, align: "justify" });
+      addVerticalSpace(doc);
     });
     report.comments.map((c) => {
       addVerticalSpace(doc);
       doc
         .font(ENG_REG)
         .fontSize(fs(0.8))
-        .fillColor("#555")
+        .fillColor("#444")
         .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
     });
     addHorizontalRule(doc, idx == reports.length - 1 ? 400 : 150);
@@ -261,6 +376,46 @@ export const addChapter = (doc, chapter, reports) => {
   doc.fillColor("#000");
   doc.text(FOOTER_TEXT, { align: "center" });
   return doc;
+};
+
+export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
+  var doc = new PDFDocument({
+    bufferPages: true,
+  });
+  await registerFonts(doc);
+  doc.font(ENG_BOLD).fontSize(fs(1.1)).text("EASY GUIDE");
+  addVerticalSpace(doc, 0.1);
+  doc.font(ENG_REG).fontSize(fs(1.2)).text(easyGuide.title);
+  addVerticalSpace(doc, 0.1);
+
+  easyGuide.easyGuideFragments.map((egFragment, idx) => {
+    if (egFragment.report) {
+      egFragment.report.texts.map((text) => {
+        doc
+          .font(ENG_REG)
+          .fontSize(fs(1))
+          .text(text.textEng.trim(), { lineGap: -1, align: "justify" });
+        addVerticalSpace(doc);
+      });
+      egFragment.report.comments.map((c) => {
+        addVerticalSpace(doc);
+        doc
+          .font(ENG_REG)
+          .fontSize(fs(0.8))
+          .fillColor("#444")
+          .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
+      });
+    } else {
+      doc.font(ENG_REG).fontSize(fs(1)).text(egFragment.html);
+    }
+  });
+
+  doc.end();
+
+  savePdf(doc, "eg");
+  //refreshIframe(doc, setSrcStream);
+  // const url = "/rest/record_dwnld_easyguide";
+  // backend.post(url, { easy_guide_id: easyGuide.id });
 };
 
 // const addSvgDivider = (doc, svg) => {

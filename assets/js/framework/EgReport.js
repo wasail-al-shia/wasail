@@ -1,10 +1,11 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
+import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import parse from "html-react-parser";
 import Divider from "@mui/material/Divider";
 import ReportHeader from "../kmui/ReportHeader";
-import { generateEgReference } from "../utils/app";
+import { navChapterLink, generateEgReference } from "../utils/app";
 
 export default ({ report }) => {
   const Fragment = ({ text }) => (
@@ -46,8 +47,20 @@ export default ({ report }) => {
         {report.comments?.map((comment) => (
           <Comment key={comment.id} comment={comment} />
         ))}
-        <Typography sx={{ marginTop: 3 }} align="right" variant="footer">
-          {parse(generateEgReference(report))}
+        <Typography
+          sx={{
+            marginTop: 3,
+            color: "primary.dark2",
+            "&:hover": { fontWeight: 500 },
+          }}
+          to={navChapterLink(report.chapter.id)}
+          state={{ showBackButton: true }}
+          underline={"hover"}
+          component={Link}
+          align="right"
+          variant="footer"
+        >
+          {generateEgReference(report)}
         </Typography>
       </Stack>
     </Stack>

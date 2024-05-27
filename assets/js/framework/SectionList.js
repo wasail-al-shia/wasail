@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { DialogContext } from "../context/DialogContext";
 import FabAddButton from "../kmui/FabAddButton";
@@ -19,6 +20,7 @@ import { HEADER_HEIGHT } from "../consts";
 import IconButton from "@mui/material/IconButton";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { generateSectionPdf } from "../utils/pdf";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -65,6 +67,7 @@ export default () => {
   const { bookId } = useParams();
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin } = React.useContext(SessionContext);
+  const [downloading, setDownloading] = React.useState(0);
   const { data: sections = [], isFetching: fetchingSections } = useQuery(
     ["sections", bookId],
     fetchSections
@@ -213,15 +216,28 @@ export default () => {
             }}
           />
         )}
-        {isAdmin && (
-          <IconButton
-            size="small"
-            variant="contained"
-            sx={{ color: "primary.dark2" }}
-            onClick={() => generateSectionPdf(section)}
-          >
-            <PictureAsPdfIcon size="small" />
-          </IconButton>
+        {downloading == section.id ? (
+          <CircularProgress size="1.2rem" />
+        ) : (
+          <Tooltip title="Download Section">
+            <IconButton
+              size="small"
+              variant="contained"
+              sx={{ color: "primary.dark2" }}
+              onClick={(e) => {
+                if (!downloading) {
+                  setDownloading(section.id);
+                  setTimeout(async () => {
+                    await generateSectionPdf(section.id);
+                    setDownloading(0);
+                  }, 0);
+                }
+                e.stopPropagation();
+              }}
+            >
+              <PictureAsPdfIcon size="small" />
+            </IconButton>
+          </Tooltip>
         )}
       </Typography>
       {section.sectionNo ? <ReportRangeSection section={section} /> : null}

@@ -82,6 +82,12 @@ defmodule WasailWeb.Graphql.Schema do
       resolve(&SectionResolver.section_by_id/2)
     end
 
+    @desc "Get section with reports"
+    field :section_with_reports, non_null(:section) do
+      arg(:section_id, non_null(:integer))
+      resolve(&SectionResolver.section_with_reports_by_id/2)
+    end
+
     @desc "Get chapters"
     field :chapters, non_null(list_of(non_null(:chapter))) do
       arg(:section_id, non_null(:integer))

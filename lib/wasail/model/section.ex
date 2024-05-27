@@ -7,6 +7,11 @@ defmodule Wasail.Section do
   def get(id),
     do:
       Repo.get(Section, id)
+      |> Repo.preload([:book, :chapters])
+
+  def get_with_reports(id),
+    do:
+      Repo.get(Section, id)
       |> Repo.preload([:book, [chapters: [reports: [:texts, :comments]]]])
 
   def all(book_id) do

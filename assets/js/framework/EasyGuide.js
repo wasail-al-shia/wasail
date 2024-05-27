@@ -5,7 +5,6 @@ import { request } from "../utils/graph-ql";
 import parse from "html-react-parser";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import Report from "./Report";
 import EgReport from "./EgReport";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -20,6 +19,10 @@ import { randomHue } from "../utils/sys";
 import truncate from "lodash/truncate";
 import ContentWrapper from "../kmui/ContentWrapper";
 import { Heading4, Heading5 } from "../kmui/Heading";
+import IconButton from "@mui/material/IconButton";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import Tooltip from "@mui/material/Tooltip";
+import { generateEasyGuidePdf } from "../utils/pdf";
 
 const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
   request(`{
@@ -157,7 +160,21 @@ export default () => {
         <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
 
         <Heading4>EASY GUIDE</Heading4>
-        <Heading5>{easyGuide.title}</Heading5>
+        <Heading5>
+          {easyGuide.title}
+          {isAdmin && (
+            <Tooltip title="Download Easy Guide">
+              <IconButton
+                size="small"
+                variant="contained"
+                sx={{ color: "primary.dark2" }}
+                onClick={() => generateEasyGuidePdf(easyGuide)}
+              >
+                <PictureAsPdfIcon size="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Heading5>
         <Stack spacing={3} sx={{ padding: 5 }}>
           {easyGuide.easyGuideFragments?.map((f) => {
             return (

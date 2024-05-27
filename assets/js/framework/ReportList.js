@@ -5,7 +5,6 @@ import { request } from "../utils/graph-ql";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import { DialogContext } from "../context/DialogContext";
@@ -14,7 +13,10 @@ import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
 import ShareIconButton from "../kmui/ShareIconButton";
+import IconButton from "@mui/material/IconButton";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import BackButton from "../kmui/BackButton";
+import { useLocation } from "react-router-dom";
 import {
   bookName,
   sectionName,
@@ -123,6 +125,7 @@ const fetchAllEasyGuides = () =>
   );
 
 export default () => {
+  const { state } = useLocation();
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin, isReviewer } = React.useContext(SessionContext);
   const { chapterId } = useParams();
@@ -315,6 +318,11 @@ export default () => {
           }}
         >
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
+          {state?.showBackButton && (
+            <Box sx={{ width: "100%" }}>
+              <BackButton />
+            </Box>
+          )}
           <Heading4>{sectionName(chapter.section)}</Heading4>
           <Heading5>
             {chapterName(chapter)}
@@ -323,22 +331,18 @@ export default () => {
               retrieveTextToCopy={() => generateChapterReference(chapter)}
               snackMessage="Chapter link copied to clipboard"
             />
-            {isAdmin && (
-              <Tooltip title="Download as PDF">
-                <IconButton
-                  size="small"
-                  variant="contained"
-                  sx={{ color: "primary.dark2" }}
-                  onClick={() =>
-                    generateChapterPdf(chapter, reports, setSrcStream)
-                  }
-                >
-                  <PictureAsPdfIcon size="small" />
-                </IconButton>
-              </Tooltip>
-            )}
+            <Tooltip title="Download Chapter">
+              <IconButton
+                size="small"
+                variant="contained"
+                sx={{ color: "primary.dark2" }}
+                onClick={() => generateChapterPdf(chapter.id, setSrcStream)}
+              >
+                <PictureAsPdfIcon size="small" />
+              </IconButton>
+            </Tooltip>
           </Heading5>
-          <iframe width="970" height="1330" src={srcStream} />
+          {/* <iframe width="970" height="1330" src={srcStream} /> */}
           {reports
             .filter((r) => isReviewer || !r.hide)
             .map((report) => (

@@ -18,6 +18,7 @@ import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import CircularProgress from "@mui/material/CircularProgress";
 import AddIcon from "@mui/icons-material/Add";
 import {
   navBookLink,
@@ -29,7 +30,7 @@ import {
 import { capitalizeFirstLetter } from "../utils/string";
 import { replace } from "../utils/obj";
 import { Heading4, Heading5 } from "../kmui/Heading";
-import { generateSectionPdf } from "../utils/pdf";
+import { generateChapterPdf, generateSectionPdf } from "../utils/pdf";
 
 const fetchSection = ({ queryKey: [_, sectionId] }) =>
   request(`{
@@ -48,24 +49,6 @@ const fetchSection = ({ queryKey: [_, sectionId] }) =>
         chapterNo
         nameEng
         nameArb
-        reports {
-          id
-          reportNo
-          headingEng
-          hide
-          review
-          texts {
-            id
-            fragmentNo
-            textEng
-            textArb
-          }
-          comments {
-            id
-            commentSeqNo
-            commentEng
-          }
-        }
       }
     }
   }`).then(({ section }) => section);
@@ -83,17 +66,6 @@ const fetchChapters = ({ queryKey: [_, sectionId] }) =>
         headingEng
         hide
         review
-        texts {
-          id
-          fragmentNo
-          textEng
-          textArb
-        }
-        comments {
-          id
-          commentSeqNo
-          commentEng
-        }
       }
     }
   }`).then(({ chapters }) => chapters);
@@ -113,6 +85,7 @@ export default () => {
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin, isReviewer, mostRecentReport } =
     React.useContext(SessionContext);
+  const [downloading, setDownloading] = React.useState(false);
   const queryClient = useQueryClient();
   const { data: chapters = [], isFetching: fetchingChapters } = useQuery(
     ["chapters", sectionId],
@@ -267,6 +240,19 @@ export default () => {
           </span>
         ) : null}
         {chapter.nameEng}
+        <Tooltip title="Download Chapter">
+          <IconButton
+            size="small"
+            variant="contained"
+            sx={{ color: "primary.dark2" }}
+            onClick={(e) => {
+              generateChapterPdf(chapter.id);
+              e.stopPropagation();
+            }}
+          >
+            <PictureAsPdfIcon size="small" />
+          </IconButton>
+        </Tooltip>
         {isAdmin && (
           <EditNoteIcon
             sx={{ marginRight: 3 }}
@@ -294,13 +280,24 @@ export default () => {
           <Heading4>{section.book && bookName(section.book)}</Heading4>
           <Heading5>
             {sectionName(section)}
-            {isAdmin && (
-              <Tooltip title="Download as PDF">
+            {downloading ? (
+              <CircularProgress size="1.2rem" />
+            ) : (
+              <Tooltip title="Download Entire Section">
                 <IconButton
                   size="small"
                   variant="contained"
                   sx={{ color: "primary.dark2" }}
-                  onClick={() => generateSectionPdf(section)}
+                  onClick={(e) => {
+                    if (!downloading) {
+                      setDownloading(true);
+                      setTimeout(async () => {
+                        await generateSectionPdf(section.id);
+                        setDownloading(false);
+                      }, 0);
+                    }
+                    e.stopPropagation();
+                  }}
                 >
                   <PictureAsPdfIcon size="small" />
                 </IconButton>

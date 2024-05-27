@@ -5,7 +5,11 @@ defmodule Wasail.Chapter do
   alias Wasail.Schema.Chapter, as: Chapter
   alias Wasail.Util.Query, as: QueryUtil
 
-  def get(id), do: Repo.get(Chapter, id) |> Repo.preload(section: [:book])
+  def get(id),
+    do:
+      Repo.get(Chapter, id)
+      |> Repo.preload(section: [:book])
+      |> Repo.preload(reports: [:texts, :comments])
 
   def get_by_section_id(section_id) do
     Chapter

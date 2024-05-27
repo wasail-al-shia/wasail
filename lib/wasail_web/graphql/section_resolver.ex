@@ -10,6 +10,10 @@ defmodule WasailWeb.Graphql.SectionResolver do
     {:ok, Section.get(section_id)}
   end
 
+  def section_with_reports_by_id(%{section_id: section_id}, _info) do
+    {:ok, Section.get_with_reports(section_id)}
+  end
+
   def add_section(%{book_id: _book_id, section_no: _section_no} = params, _info) do
     case Section.insert(params) do
       {:error, changeset} ->

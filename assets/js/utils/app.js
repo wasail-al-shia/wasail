@@ -31,9 +31,12 @@ export const generateEgReference = (report) => {
   const chapter = report.chapter;
   const section = chapter.section;
   const book = section.book;
-  return `<a target="blank" href="/c/${chapter.id}">${bookName(
-    book
-  )}, Section ${section.sectionNo}, Chapter ${chapter.chapterNo}`;
+  return `${bookName(book)}, Section ${section.sectionNo}, Chapter ${
+    chapter.chapterNo
+  }`;
+  // return `<a target="blank" href="/c/${chapter.id}">${bookName(
+  //   book
+  // )}, Section ${section.sectionNo}, Chapter ${chapter.chapterNo}`;
 };
 
 export const generateChapterReference = (chapter) => {
