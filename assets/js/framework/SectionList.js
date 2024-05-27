@@ -16,6 +16,9 @@ import { bookName, sectionName, navSectionLink } from "../utils/app";
 import Container from "@mui/material/Container";
 import { Heading4 } from "../kmui/Heading";
 import { HEADER_HEIGHT } from "../consts";
+import IconButton from "@mui/material/IconButton";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { generateSectionPdf } from "../utils/pdf";
 
 const fetchBook = ({ queryKey: [_, bookId] }) =>
   request(`{
@@ -209,6 +212,16 @@ export default () => {
               e.stopPropagation();
             }}
           />
+        )}
+        {isAdmin && (
+          <IconButton
+            size="small"
+            variant="contained"
+            sx={{ color: "primary.dark2" }}
+            onClick={() => generateSectionPdf(section)}
+          >
+            <PictureAsPdfIcon size="small" />
+          </IconButton>
         )}
       </Typography>
       {section.sectionNo ? <ReportRangeSection section={section} /> : null}

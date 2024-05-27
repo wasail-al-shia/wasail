@@ -9,12 +9,15 @@ import { DialogContext } from "../context/DialogContext";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import Spinner from "../kmui/Spinner";
 import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import Container from "@mui/material/Container";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { SessionContext } from "../context/SessionContext";
 import { HEADER_HEIGHT } from "../consts";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import AddIcon from "@mui/icons-material/Add";
 import {
   navBookLink,
@@ -26,6 +29,7 @@ import {
 import { capitalizeFirstLetter } from "../utils/string";
 import { replace } from "../utils/obj";
 import { Heading4, Heading5 } from "../kmui/Heading";
+import { generateSectionPdf } from "../utils/pdf";
 
 const fetchSection = ({ queryKey: [_, sectionId] }) =>
   request(`{
@@ -42,6 +46,26 @@ const fetchSection = ({ queryKey: [_, sectionId] }) =>
       chapters {
         id
         chapterNo
+        nameEng
+        nameArb
+        reports {
+          id
+          reportNo
+          headingEng
+          hide
+          review
+          texts {
+            id
+            fragmentNo
+            textEng
+            textArb
+          }
+          comments {
+            id
+            commentSeqNo
+            commentEng
+          }
+        }
       }
     }
   }`).then(({ section }) => section);
@@ -55,8 +79,21 @@ const fetchChapters = ({ queryKey: [_, sectionId] }) =>
       nameArb
       reports {
         id
+        reportNo
+        headingEng
         hide
         review
+        texts {
+          id
+          fragmentNo
+          textEng
+          textArb
+        }
+        comments {
+          id
+          commentSeqNo
+          commentEng
+        }
       }
     }
   }`).then(({ chapters }) => chapters);
@@ -255,7 +292,21 @@ export default () => {
         <Stack alignItems="center" spacing={3}>
           <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
           <Heading4>{section.book && bookName(section.book)}</Heading4>
-          <Heading5>{sectionName(section)}</Heading5>
+          <Heading5>
+            {sectionName(section)}
+            {isAdmin && (
+              <Tooltip title="Download as PDF">
+                <IconButton
+                  size="small"
+                  variant="contained"
+                  sx={{ color: "primary.dark2" }}
+                  onClick={() => generateSectionPdf(section)}
+                >
+                  <PictureAsPdfIcon size="small" />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Heading5>
           {chapters
             .filter((c) => isReviewer || anyUnhidden(c))
             .map((chapter) => (

@@ -4,7 +4,10 @@ defmodule Wasail.Section do
   alias Wasail.Schema.{Book, Section, Chapter, Report}
   alias Wasail.Util.Query, as: QueryUtil
 
-  def get(id), do: Repo.get(Section, id) |> Repo.preload([:book, :chapters])
+  def get(id),
+    do:
+      Repo.get(Section, id)
+      |> Repo.preload([:book, [chapters: [reports: [:texts, :comments]]]])
 
   def all(book_id) do
     Section
@@ -12,6 +15,8 @@ defmodule Wasail.Section do
     |> QueryUtil.put_sort(asc: :section_no)
     |> Repo.all()
     |> Repo.preload(:chapters)
+
+    # |> Repo.preload(chapters: [reports: [:texts, :comments]])
   end
 
   def report_range_book(book_id) do

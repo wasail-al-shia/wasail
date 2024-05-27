@@ -1,11 +1,17 @@
 import PDFDocument from "./pdfkit.js";
 import blobStream from "./blob-stream.js";
 import { saveAs } from "file-saver";
-import { bookName, chapterName, dwnldChapterName } from "./app.js";
+import {
+  bookName,
+  chapterName,
+  dwnldSectionName,
+  dwnldChapterName,
+} from "./app.js";
 import { flipParenthesis } from "./string.js";
 import truncate from "lodash/truncate";
 import SVGtoPDF from "svg-to-pdfkit";
 import { todayFormatted } from "./date.js";
+import { backend } from "../utils/axiosConfig";
 
 const FOOTER_TEXT = `(Generated on ${todayFormatted()}. Visit http://wasail-al-shia.net for the most up to date version.)`;
 
@@ -29,7 +35,7 @@ const ENG_REG = fontDef[1].name;
 const ENG_BOLD = fontDef[2].name;
 
 // LETTER: 612 X 792
-const DOC_WIDTH = 792;
+//const DOC_WIDTH = 792;
 
 const fs = (n) => n * 12;
 
@@ -67,24 +73,6 @@ const addVerticalSpace = (doc, space = 0.25) => {
   return doc;
 };
 
-const addHorizontalRule2 = (
-  doc,
-  spaceFromEdge = 0,
-  linesAboveAndBelow = 0.5
-) => {
-  doc.moveDown(linesAboveAndBelow);
-
-  doc
-    .lineWidth(0.5)
-    .moveTo(0 + spaceFromEdge, doc.y)
-    .lineTo(doc.page.width - spaceFromEdge, doc.y)
-    .stroke();
-
-  doc.moveDown(linesAboveAndBelow);
-
-  return doc;
-};
-
 const addHorizontalRule = (doc, width = 400) => {
   doc.moveDown(0.5);
 
@@ -99,60 +87,44 @@ const addHorizontalRule = (doc, width = 400) => {
   return doc;
 };
 
-const addSvgDivider = (doc, svg) => {
-  doc.moveDown(0.5);
-  doc.addSVG(svg, DOC_WIDTH / 2 - 200 + 10, doc.y, {
-    width: 200,
-    height: 10,
-    assumePt: true,
-  });
-  doc.moveDown(0.5);
-  return doc;
-};
-
-const getCurrentPageNumber = (doc) => {
-  const pages = doc.bufferedPageRange();
-  const currentPage = doc.page;
-  let currentPageNumber = null;
-  pages.forEach((page, i) => {
-    if (page === currentPage) {
-      currentPageNumber = i;
-    }
-  });
-  if (currentPageNumber === null) {
-    throw new Error("Unable to get current page number");
-  }
-  return currentPageNumber;
-};
-
-const addHeaderFooter = (doc, pageMap) => {
-  const pages = doc.bufferedPageRange();
+const addHeaderFooter = (doc, book, section, chapter, startPage, endPage) => {
   doc.fontSize(fs(0.9));
-  for (let i = 0; i < pages.count; i++) {
+  for (let i = startPage - 1; i < endPage; i++) {
     doc.switchToPage(i);
+    const even = (i + 1) % 2 == 0;
+    const odd = !even;
 
     //Header: Add page number
     let oldTopMargin = doc.page.margins.top;
     doc.page.margins.top = 0; //Dumb: Have to remove top margin in order to write into it
-    const topMarginLeft = `${pageMap[i + 1].bookName}, Section: ${
-      pageMap[i + 1].sectionNo
-    }`;
-    const topMarginRight = truncate(
-      `Chapter ${pageMap[i + 1].chapterNo}: ${pageMap[i + 1].chapterName}`,
-      { length: 60 }
-    );
-    doc.text(
-      topMarginLeft,
-      70,
-      oldTopMargin / 2, // Centered vertically in top margin
-      { align: i == 0 ? "center" : "left" }
-    );
-    if (i > 0) {
+
+    if (i == startPage - 1) {
+      const topMargin = `${bookName(book)}, Section: ${section.sectionNo}`;
       doc.text(
-        topMarginRight,
-        0,
+        topMargin,
+        70,
         oldTopMargin / 2, // Centered vertically in top margin
-        { align: "right" }
+        { align: "center", oblique: true }
+      );
+    } else if (odd && chapter.chapterNo > 0) {
+      const topMargin = `${bookName(book)}, Section: ${
+        section.sectionNo
+      }, Chapter: ${chapter.chapterNo}`;
+      doc.text(
+        topMargin,
+        70,
+        oldTopMargin / 2, // Centered vertically in top margin
+        { align: "left", oblique: true }
+      );
+    } else {
+      const topMargin = truncate(`${chapter.nameEng}`, {
+        length: 70,
+      });
+      doc.text(
+        topMargin,
+        70,
+        oldTopMargin / 2, // Centered vertically in top margin
+        { align: "center", oblique: true }
       );
     }
     doc.page.margins.top = oldTopMargin; // ReProtect top margin
@@ -177,7 +149,7 @@ const addHeaderFooter = (doc, pageMap) => {
   }
 };
 
-export const generateSectionPdf = async (section, setSrcStream) => {
+export const generateSectionPdf = async (section) => {
   var doc = new PDFDocument({
     bufferPages: true,
   });
@@ -185,15 +157,17 @@ export const generateSectionPdf = async (section, setSrcStream) => {
     return SVGtoPDF(this, svg, x, y, options), this;
   };
   await registerFonts(doc);
-  const pageMap = {};
-  section.chapters.forEach((chapter) => {
-    addChapter(doc, chapter, chapter.reports, pageMap);
-    doc.addPage();
+  section.chapters.forEach((chapter, idx) => {
+    var startPage = doc.bufferedPageRange().count;
+    addChapter(doc, chapter, chapter.reports);
+    var endPage = doc.bufferedPageRange().count;
+    addHeaderFooter(doc, section.book, section, chapter, startPage, endPage);
+    if (idx < section.chapters.length - 1) doc.addPage();
   });
-  addHeaderFooter(doc, pageMap);
   doc.end();
-  //savePdf(doc, dwnldChapterName(chapter));
-  refreshIframe(doc, setSrcStream);
+  savePdf(doc, dwnldSectionName(section.book, section));
+  const url = "/rest/record_dwnld_section";
+  backend.post(url, { section_id: section.id });
 };
 
 export const generateChapterPdf = async (chapter, reports, setSrcStream) => {
@@ -205,18 +179,27 @@ export const generateChapterPdf = async (chapter, reports, setSrcStream) => {
   };
   await registerFonts(doc);
 
-  const pageMap = {};
-  await addChapter(doc, chapter, reports, pageMap);
-  console.log("pageMap=", pageMap);
+  const startPage = doc.bufferedPageRange().count;
+  addChapter(doc, chapter, reports);
+  const endPage = doc.bufferedPageRange().count;
 
-  addHeaderFooter(doc, pageMap);
+  addHeaderFooter(
+    doc,
+    chapter.section.book,
+    chapter.section,
+    chapter,
+    startPage,
+    endPage
+  );
   doc.end();
 
   savePdf(doc, dwnldChapterName(chapter));
   //refreshIframe(doc, setSrcStream);
+  const url = "/rest/record_dwnld_chapter";
+  backend.post(url, { chapter_id: chapter.id });
 };
 
-export const addChapter = async (doc, chapter, reports, pageMap) => {
+export const addChapter = (doc, chapter, reports) => {
   const hadithStart = Math.min(...reports.map((r) => r.reportNo));
   const hadithEnd = Math.max(...reports.map((r) => r.reportNo));
 
@@ -230,17 +213,15 @@ export const addChapter = async (doc, chapter, reports, pageMap) => {
   }
   doc.font(ENG_REG);
   doc.fontSize(fs(1.2)).text(chapter.nameEng, { align: "center" });
-  addVerticalSpace(doc, 2);
-  doc
-    .fontSize(fs(1.2))
-    .fillColor("#773e16")
-    .text(`[ Hadith ${hadithStart} to ${hadithEnd}]`, { align: "center" })
-    .fillColor("#000");
-  addVerticalSpace(doc, 2);
-  var svg1 = await fetch("/images/svg2.svg").then((resp) => {
-    return resp.text();
-  });
-  addVerticalSpace(doc, 0.5);
+  addVerticalSpace(doc, 1);
+  if (hadithStart > 0) {
+    doc
+      .fontSize(fs(1.2))
+      .fillColor("#773e16")
+      .text(`[ Hadith ${hadithStart} to ${hadithEnd} ]`, { align: "center" })
+      .fillColor("#000");
+  }
+  addVerticalSpace(doc, 4);
 
   reports.map((report, idx) => {
     if (doc.y > 650) doc.addPage();
@@ -255,7 +236,7 @@ export const addChapter = async (doc, chapter, reports, pageMap) => {
       doc
         .font(ARB_REG)
         .fontSize(fs(1.1))
-        .text(flipParenthesis(text.textArb), {
+        .text(flipParenthesis(text.textArb).trim(), {
           align: "right",
           features: ["rtla"],
         });
@@ -263,19 +244,65 @@ export const addChapter = async (doc, chapter, reports, pageMap) => {
       doc
         .font(ENG_REG)
         .fontSize(fs(1))
-        .text(text.textEng, { lineGap: -1, align: "justify" });
+        .text(text.textEng.trim(), { lineGap: -1, align: "justify" });
+    });
+    report.comments.map((c) => {
+      addVerticalSpace(doc);
+      doc
+        .font(ENG_REG)
+        .fontSize(fs(0.8))
+        .fillColor("#555")
+        .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
     });
     addHorizontalRule(doc, idx == reports.length - 1 ? 400 : 150);
     addVerticalSpace(doc, 0.5);
-    //console.log("page =", doc.bufferedPageRange().count);
-    pageMap[doc.bufferedPageRange().count] = {
-      chapterNo: chapter.chapterNo,
-      chapterName: chapter.nameEng,
-      sectionNo: chapter.section.sectionNo,
-      bookName: bookName(chapter.section.book),
-    };
   });
   doc.fontSize(fs(0.9));
+  doc.fillColor("#000");
   doc.text(FOOTER_TEXT, { align: "center" });
-  return pageMap;
+  return doc;
 };
+
+// const addSvgDivider = (doc, svg) => {
+//   doc.moveDown(0.5);
+//   doc.addSVG(svg, DOC_WIDTH / 2 - 200 + 10, doc.y, {
+//     width: 200,
+//     height: 10,
+//     assumePt: true,
+//   });
+//   doc.moveDown(0.5);
+//   return doc;
+// };
+
+// const getCurrentPageNumber = (doc) => {
+//   const pages = doc.bufferedPageRange();
+//   const currentPage = doc.page;
+//   let currentPageNumber = null;
+//   pages.forEach((page, i) => {
+//     if (page === currentPage) {
+//       currentPageNumber = i;
+//     }
+//   });
+//   if (currentPageNumber === null) {
+//     throw new Error("Unable to get current page number");
+//   }
+//   return currentPageNumber;
+// };
+
+// const addHorizontalRule2 = (
+//   doc,
+//   spaceFromEdge = 0,
+//   linesAboveAndBelow = 0.5
+// ) => {
+//   doc.moveDown(linesAboveAndBelow);
+
+//   doc
+//     .lineWidth(0.5)
+//     .moveTo(0 + spaceFromEdge, doc.y)
+//     .lineTo(doc.page.width - spaceFromEdge, doc.y)
+//     .stroke();
+
+//   doc.moveDown(linesAboveAndBelow);
+
+//   return doc;
+// };

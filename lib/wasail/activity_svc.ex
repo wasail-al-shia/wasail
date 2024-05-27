@@ -101,6 +101,28 @@ defmodule Wasail.ActivitySvc do
     })
   end
 
+  def record_dwnld_chapter_activity(ip, user_agent, chapter_id) do
+    ip_rec = get_ip_info(ip)
+
+    Wasail.Activity.insert(%{
+      ip_info_id: ip_rec.id,
+      user_agent: user_agent,
+      activity_type: "dwnld_chapter",
+      chapter_id: chapter_id
+    })
+  end
+
+  def record_dwnld_section_activity(ip, user_agent, section_id) do
+    ip_rec = get_ip_info(ip)
+
+    Wasail.Activity.insert(%{
+      ip_info_id: ip_rec.id,
+      user_agent: user_agent,
+      activity_type: "dwnld_section",
+      chapter_id: section_id
+    })
+  end
+
   def record_login(ip, user_agent, email, uid) do
     ip_rec = get_ip_info(ip)
 

@@ -31,9 +31,9 @@ export const generateEgReference = (report) => {
   const chapter = report.chapter;
   const section = chapter.section;
   const book = section.book;
-  return `<a href="/c/${chapter.id}">${bookName(book)}, Section ${
-    section.sectionNo
-  }, Chapter ${chapter.chapterNo}`;
+  return `<a target="blank" href="/c/${chapter.id}">${bookName(
+    book
+  )}, Section ${section.sectionNo}, Chapter ${chapter.chapterNo}`;
 };
 
 export const generateChapterReference = (chapter) => {
@@ -101,4 +101,11 @@ export const dwnldChapterName = (chapter) => {
   const sectionNo = chapter.section.sectionNo;
   const chapterNo = chapter.chapterNo;
   return [bookNm, `Section ${sectionNo}`, `Chapter ${chapterNo}`].join(" ");
+};
+
+export const dwnldSectionName = (book, section) => {
+  const bookNm =
+    book.volumeNo == 0 ? book.nameEng : `${book.nameEng} Vol ${book.volumeNo}`;
+  const sectionNo = section.sectionNo;
+  return [bookNm, `Section ${sectionNo}`].join(" ");
 };

@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { request } from "../utils/graph-ql";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Report from "./Report";
 import BreadCrumbs from "../kmui/BreadCrumbs";
@@ -323,16 +324,18 @@ export default () => {
               snackMessage="Chapter link copied to clipboard"
             />
             {isAdmin && (
-              <IconButton
-                size="small"
-                variant="contained"
-                sx={{ color: "primary.dark2" }}
-                onClick={() =>
-                  generateChapterPdf(chapter, reports, setSrcStream)
-                }
-              >
-                <PictureAsPdfIcon size="small" />
-              </IconButton>
+              <Tooltip title="Download as PDF">
+                <IconButton
+                  size="small"
+                  variant="contained"
+                  sx={{ color: "primary.dark2" }}
+                  onClick={() =>
+                    generateChapterPdf(chapter, reports, setSrcStream)
+                  }
+                >
+                  <PictureAsPdfIcon size="small" />
+                </IconButton>
+              </Tooltip>
             )}
           </Heading5>
           <iframe width="970" height="1330" src={srcStream} />

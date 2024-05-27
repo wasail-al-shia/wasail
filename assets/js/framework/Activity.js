@@ -12,6 +12,7 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import {
   navChapterLink,
   navReportLink,
+  navSectionLink,
   navSearchResultsLink,
   navEasyGuideLink,
 } from "../utils/app";
@@ -53,6 +54,18 @@ const columns = [
             <Link
               to={navChapterLink(rowData.chapterId)}
             >{`chapter: ${rowData.chapterId}`}</Link>
+          );
+        case "dwnld_chapter":
+          return (
+            <Link
+              to={navChapterLink(rowData.chapterId)}
+            >{`dwnld_chapter: ${rowData.chapterId}`}</Link>
+          );
+        case "dwnld_section":
+          return (
+            <Link
+              to={navSectionLink(rowData.chapterId)}
+            >{`dwnld_section: ${rowData.chapterId}`}</Link>
           );
         case "view_report":
           return (

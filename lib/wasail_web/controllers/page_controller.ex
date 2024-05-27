@@ -39,6 +39,44 @@ defmodule WasailWeb.PageController do
     end
   end
 
+  def record_dwnld_chapter(conn, %{"chapter_id" => chapter_id}) do
+    ip = conn.remote_ip |> Tuple.to_list() |> Enum.join(".")
+    user_agent = get_req_header(conn, "user-agent") |> List.first()
+    session = get_session(conn)
+    user_info = session["user_info"]
+
+    case user_info do
+      %{is_admin: true} ->
+        json(conn, %{status: :ok, desc: "skipping record dwnld for admin"})
+
+      %{is_reviewer: true} ->
+        json(conn, %{status: :ok, desc: "skipping record dwnled for reviewer"})
+
+      _ ->
+        Wasail.ActivitySvc.record_dwnld_chapter_activity(ip, user_agent, chapter_id)
+        json(conn, %{status: :ok, desc: "recorded dwnld activity"})
+    end
+  end
+
+  def record_dwnld_section(conn, %{"section_id" => section_id}) do
+    ip = conn.remote_ip |> Tuple.to_list() |> Enum.join(".")
+    user_agent = get_req_header(conn, "user-agent") |> List.first()
+    session = get_session(conn)
+    user_info = session["user_info"]
+
+    case user_info do
+      %{is_admin: true} ->
+        json(conn, %{status: :ok, desc: "skipping record dwnld for admin"})
+
+      %{is_reviewer: true} ->
+        json(conn, %{status: :ok, desc: "skipping record dwnled for reviewer"})
+
+      _ ->
+        Wasail.ActivitySvc.record_dwnld_section_activity(ip, user_agent, section_id)
+        json(conn, %{status: :ok, desc: "recorded dwnld activity"})
+    end
+  end
+
   def get_file(conn, %{"bucket" => bucket, "filename" => filename}) do
     content =
       ExAws.S3.download_file("wasail.#{bucket}", filename, :memory)
