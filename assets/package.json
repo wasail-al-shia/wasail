@@ -5,6 +5,7 @@
     "dependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
+        "@fontsource-variable/markazi-text": "^5.0.18",
         "@fontsource-variable/noto-naskh-arabic": "^5.0.18",
         "@fontsource-variable/overpass": "^5.0.17",
         "@fontsource-variable/radio-canada": "^5.0.19",

@@ -62,7 +62,9 @@ const Theme = createTheme({
     h5a: {
       fontSize: "1.55rem",
       fontWeight: 500,
-      fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
+      fontFamily: ["Noto Naskh Arabic Variable", "Markazi Text Variable"].join(
+        ", "
+      ),
     },
     h6: {
       fontSize: "1.05rem",
@@ -71,7 +73,9 @@ const Theme = createTheme({
     h6a: {
       fontSize: "1.4rem",
       fontWeight: 500,
-      fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
+      fontFamily: ["Noto Naskh Arabic Variable", "Markazi Text Variable"].join(
+        ", "
+      ),
     },
     h7: {
       fontSize: "0.9rem",
@@ -104,7 +108,9 @@ const Theme = createTheme({
       fontWeight: 300,
     },
     textArb: {
-      fontFamily: ["Noto Naskh Arabic Variable"].join(", "),
+      fontFamily: ["Noto Naskh Arabic Variable", "Markazi Text Variable"].join(
+        ", "
+      ),
       fontSize: "1.4rem",
       fontWeight: 400,
     },

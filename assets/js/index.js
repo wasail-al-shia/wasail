@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@fontsource-variable/noto-naskh-arabic";
 import "@fontsource-variable/overpass";
 import "@fontsource-variable/radio-canada";
+import "@fontsource-variable/markazi-text";
 import "../css/index.css";
 import Main from "./framework/Main";
 import Library from "./framework/Library";
