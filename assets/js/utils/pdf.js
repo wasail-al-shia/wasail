@@ -31,6 +31,7 @@ const fontDef = [
 const ARB_REG = fontDef[0].name;
 const ENG_REG = fontDef[1].name;
 const ENG_BOLD = fontDef[2].name;
+const COMMENT = fontDef[0].name;
 
 // LETTER: 612 X 792
 //const DOC_WIDTH = 792;
@@ -364,9 +365,9 @@ export const addChapter = (doc, chapter, reports) => {
     report.comments.map((c) => {
       addVerticalSpace(doc);
       doc
-        .font(ENG_REG)
-        .fontSize(fs(0.8))
-        .fillColor("#444")
+        .font(COMMENT)
+        .fontSize(fs(1))
+        .fillColor("#555")
         .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
     });
     addHorizontalRule(doc, idx == reports.length - 1 ? 400 : 150);
