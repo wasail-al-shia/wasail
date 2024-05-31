@@ -398,6 +398,7 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
         doc
           .font(ENG_REG)
           .fontSize(fs(1))
+          .fillColor("#000")
           .text(text.textEng.trim(), { lineGap: -1, align: "justify" });
         addVerticalSpace(doc);
       });
@@ -410,7 +411,34 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
           .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
       });
     } else {
-      doc.font(ENG_REG).fontSize(fs(1)).text(egFragment.html);
+      if (egFragment.heading) {
+        doc
+          .font(ENG_REG)
+          .fontSize(fs(1))
+          .fillColor("#000")
+          .text(egFragment.heading);
+      }
+      if (egFragment.html)
+        doc.font(ENG_REG).fontSize(fs(1)).text(egFragment.html);
+      if (egFragment.list) {
+        const firstIndent = doc.x;
+        doc
+          .font(ENG_REG)
+          .fontSize(fs(1))
+          .fillColor("#000")
+          .list(
+            egFragment.list.split("\n").filter((x) => x.trim().length > 0),
+            doc.page.margins.left + 10,
+            doc.y,
+            {
+              textIndent: 10,
+              listType: egFragment.numberedList ? "numbered" : "bullet",
+              bulletRadius: 2,
+            }
+          );
+        //Dumb: have to reset the indent after using the list api
+        doc.text("", firstIndent);
+      }
     }
   });
 

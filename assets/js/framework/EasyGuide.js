@@ -262,14 +262,22 @@ export default () => {
                             p: 0,
                           }}
                         >
-                          {f.list.split("\n").map((line, idx) => (
-                            <ListItem
-                              key={idx + f.id}
-                              sx={{ padding: 0, display: "list-item" }}
-                            >
-                              <ListItemText primary={line} />
-                            </ListItem>
-                          ))}
+                          {f.list
+                            .split("\n")
+                            .filter((x) => x.trim().length > 0)
+                            .map((line, idx) => (
+                              <ListItem
+                                key={idx + f.id}
+                                sx={{ padding: 0, display: "list-item" }}
+                              >
+                                <ListItemText
+                                  primaryTypographyProps={{
+                                    variant: "textEng",
+                                  }}
+                                  primary={line}
+                                />
+                              </ListItem>
+                            ))}
                         </List>
                       </Box>
                     )}
