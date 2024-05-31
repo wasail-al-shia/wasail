@@ -421,23 +421,21 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
       if (egFragment.html)
         doc.font(ENG_REG).fontSize(fs(1)).text(egFragment.html);
       if (egFragment.list) {
-        const firstIndent = doc.x;
         doc
           .font(ENG_REG)
           .fontSize(fs(1))
           .fillColor("#000")
           .list(
             egFragment.list.split("\n").filter((x) => x.trim().length > 0),
-            doc.page.margins.left + 10,
-            doc.y,
             {
+              indent: 10,
+              bulletIndent: 10,
               textIndent: 10,
+              align: "left",
               listType: egFragment.numberedList ? "numbered" : "bullet",
               bulletRadius: 2,
             }
           );
-        //Dumb: have to reset the indent after using the list api
-        doc.text("", firstIndent);
       }
     }
   });
