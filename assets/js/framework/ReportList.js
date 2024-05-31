@@ -350,7 +350,7 @@ export default () => {
                 key={report.id}
                 dataQueryKeys={[reportsDataQueryKey, egFragDataQueryKey]}
                 hue={hue}
-                lightness={96}
+                lightness={95}
                 report={{ ...report, chapter }}
                 easyGuideFragments={easyGuideReportFragments[report.id]}
                 onEdit={() =>

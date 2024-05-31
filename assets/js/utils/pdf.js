@@ -31,6 +31,7 @@ const fontDef = [
 const ARB_REG = fontDef[0].name;
 const ENG_REG = fontDef[1].name;
 const ENG_BOLD = fontDef[2].name;
+// some comments have arabic text in them
 const COMMENT = fontDef[0].name;
 
 // LETTER: 612 X 792
@@ -373,9 +374,11 @@ export const addChapter = (doc, chapter, reports) => {
     addHorizontalRule(doc, idx == reports.length - 1 ? 400 : 150);
     addVerticalSpace(doc, 0.5);
   });
-  doc.fontSize(fs(0.9));
-  doc.fillColor("#000");
-  doc.text(FOOTER_TEXT, { align: "center" });
+  doc
+    .font(ENG_REG)
+    .fontSize(fs(0.9))
+    .fillColor("#000")
+    .text(FOOTER_TEXT, { align: "center" });
   return doc;
 };
 

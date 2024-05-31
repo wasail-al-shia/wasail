@@ -352,7 +352,7 @@ export default ({
   const Comment = ({ comment }) => (
     <Stack
       sx={{
-        backgroundColor: `hsl(${hue}, 55%, ${lightness - 1}%)`,
+        backgroundColor: `hsl(${hue}, 55%, ${lightness - 3}%)`,
         padding: 5,
       }}
       spacing={5}
