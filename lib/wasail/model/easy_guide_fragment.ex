@@ -42,13 +42,15 @@ defmodule Wasail.EasyGuideFragment do
       :easy_guide_id,
       :frag_seq_no,
       :report_id,
-      :html
+      :html,
+      :heading,
+      :list,
+      :numbered_list
     ])
     |> Ecto.Changeset.validate_required([
       :easy_guide_id,
       :frag_seq_no
     ])
-    |> validate_unless_other_present(:report_id, :html)
   end
 
   def delete(id) do

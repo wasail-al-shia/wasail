@@ -6,6 +6,9 @@ defmodule Wasail.Schema.EasyGuideFragment do
     belongs_to :report, Wasail.Schema.Report
     field :frag_seq_no, :integer
     field :html, :string
+    field :heading, :string
+    field :list, :string
+    field :numbered_list, :boolean
     timestamps()
   end
 end

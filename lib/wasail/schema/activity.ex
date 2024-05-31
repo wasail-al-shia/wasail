@@ -6,6 +6,7 @@ defmodule Wasail.Schema.Activity do
     field :user_agent, :string
     field :report_id, :integer
     field :chapter_id, :integer
+    field :entity_id, :integer
     field :easy_guide_id, :integer
     field :search_str, :string
     field :activity_type, :string

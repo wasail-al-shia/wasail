@@ -5,6 +5,10 @@ import { request } from "../utils/graph-ql";
 import parse from "html-react-parser";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 import EgReport from "./EgReport";
 import BreadCrumbs from "../kmui/BreadCrumbs";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -23,6 +27,7 @@ import IconButton from "@mui/material/IconButton";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Tooltip from "@mui/material/Tooltip";
 import { generateEasyGuidePdf } from "../utils/pdf";
+import { replace } from "../utils/obj";
 
 const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
   request(`{
@@ -34,6 +39,9 @@ const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
         id
         fragSeqNo
         html
+        heading
+        list
+        numberedList
         reportId
         report {
           id
@@ -107,6 +115,14 @@ export default () => {
       md: 4,
     },
     {
+      name: "heading",
+      label: "Heading",
+      type: "text",
+      size: "small",
+      md: 12,
+      fullWidth: true,
+    },
+    {
       name: "html",
       label: "HTML",
       size: "small",
@@ -116,7 +132,37 @@ export default () => {
         style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
       },
       multiline: true,
-      rows: 12,
+      rows: 4,
+      md: 12,
+    },
+    {
+      name: "numberedList",
+      label: "Numbered List?",
+      type: "radio",
+      defaultValue: "no",
+      md: 4,
+      options: [
+        {
+          value: "yes",
+          label: "Yes",
+        },
+        {
+          value: "no",
+          label: "No",
+        },
+      ],
+    },
+    {
+      name: "list",
+      label: "List (one item per line)",
+      size: "small",
+      type: "text",
+      fullWidth: true,
+      inputProps: {
+        style: { fontSize: "1.0rem", fontFamily: "Overpass Variable" },
+      },
+      multiline: true,
+      rows: 4,
       md: 12,
     },
   ];
@@ -145,9 +191,13 @@ export default () => {
     dataQueryKeys: ["easyGuide"],
     fields: fragmentFields,
     mutationApi: "updateEasyGuideFragment",
-    defaultValues: fragment,
+    defaultValues: {
+      ...fragment,
+      numberedList: fragment.numberedList ? "yes" : "no",
+    },
     basePayload: { id: fragment.id },
     deleteApi: "deleteEasyGuideFragment",
+    transformPayload,
     deletePayload: {
       id: fragment.id,
     },
@@ -198,7 +248,31 @@ export default () => {
                     }}
                     key={f.id}
                   >
+                    {f.heading && (
+                      <Typography sx={{ mb: 3 }} variant="h5">
+                        {f.heading}
+                      </Typography>
+                    )}
                     {parse(f.html)}
+                    {f.list && (
+                      <Box sx={{ pl: "2rem" }}>
+                        <List
+                          sx={{
+                            listStyle: f.numberedList ? "decimal" : "disc",
+                            p: 0,
+                          }}
+                        >
+                          {f.list.split("\n").map((line, idx) => (
+                            <ListItem
+                              key={idx + f.id}
+                              sx={{ padding: 0, display: "list-item" }}
+                            >
+                              <ListItemText primary={line} />
+                            </ListItem>
+                          ))}
+                        </List>
+                      </Box>
+                    )}
                     {isAdmin && (
                       <EditNoteIcon
                         sx={{ marginRight: 3 }}
@@ -226,8 +300,18 @@ export default () => {
           onlyDirty: false,
           mutationApi: "addEasyGuideFragment",
           basePayload: { easyGuideId: easyGuide.id },
+          transformPayload,
         }}
       />
     </Spinner>
   );
+};
+
+const transformPayload = (payload) => {
+  return replace(payload, [
+    {
+      key: "numberedList",
+      value: payload.numberedList == "yes" ? true : false,
+    },
+  ]);
 };

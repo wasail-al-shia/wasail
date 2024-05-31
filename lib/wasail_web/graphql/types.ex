@@ -40,6 +40,9 @@ defmodule WasailWeb.Graphql.Types do
     field :easy_guide_id, non_null(:integer)
     field :frag_seq_no, non_null(:integer)
     field :html, :string
+    field :heading, :string
+    field :list, :string
+    field :numbered_list, :boolean
     field :report_id, :integer
     field :report, :report
     field :easy_guide, :easy_guide
@@ -150,6 +153,7 @@ defmodule WasailWeb.Graphql.Types do
     field :city, :string
     field :chapter_id, :integer
     field :report_id, :integer
+    field :entity_id, :integer
     field :easy_guide_id, :integer
     field :search_str, :string
     field :desc, :string
