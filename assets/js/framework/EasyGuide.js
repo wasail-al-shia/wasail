@@ -278,7 +278,7 @@ export default () => {
                         {f.heading}
                       </Typography>
                     )}
-                    {parse(f.html)}
+                    {f.html && parse(f.html)}
                     {f.list && (
                       <Box sx={{ pl: "2rem" }}>
                         <List
