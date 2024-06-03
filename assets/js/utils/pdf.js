@@ -9,7 +9,7 @@ import { todayFormatted } from "./date.js";
 import { backend } from "../utils/axiosConfig";
 import { request } from "../utils/graph-ql";
 
-const FOOTER_TEXT = `(Generated on ${todayFormatted()}. Visit http://wasail-al-shia.net for the most up to date version.)`;
+const FOOTER_TEXT = `(Generated on ${todayFormatted()} from http://wasail-al-shia.net)`;
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
