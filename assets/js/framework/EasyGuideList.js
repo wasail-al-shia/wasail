@@ -116,7 +116,14 @@ export default () => {
     defaultValues: { ...easyGuide, hide: easyGuide.hide ? "yes" : "no" },
     basePayload: { id: easyGuide.id },
     deleteApi: "deleteEasyGuide",
-    transformPayload,
+    transformPayload: (payload) => {
+      return replace(payload, [
+        {
+          key: "hide",
+          value: payload.hide == "yes" ? true : false,
+        },
+      ]);
+    },
     deletePayload: {
       id: easyGuide.id,
     },

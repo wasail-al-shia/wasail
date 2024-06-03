@@ -306,17 +306,17 @@ export default () => {
                         </List>
                       </Box>
                     )}
-                    {isAdmin && (
-                      <EditNoteIcon
-                        sx={{ marginRight: 3 }}
-                        size="small"
-                        onClick={(e) => {
-                          openDialog("dataEntry", updateFragmentDialogProps(f));
-                          e.stopPropagation();
-                        }}
-                      />
-                    )}
                   </Box>
+                )}
+                {isAdmin && (
+                  <EditNoteIcon
+                    sx={{ marginRight: 3 }}
+                    size="small"
+                    onClick={(e) => {
+                      openDialog("dataEntry", updateFragmentDialogProps(f));
+                      e.stopPropagation();
+                    }}
+                  />
                 )}
               </Badge>
             );
