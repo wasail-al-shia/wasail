@@ -1,6 +1,6 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
-import ShareIcon from "@mui/icons-material/Share";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ToolTip from "@mui/material/Tooltip";
 import { SnackContext } from "../context/SnackContext";
 import copy from "copy-to-clipboard";
@@ -28,7 +28,7 @@ export default function ({
         variant="contained"
         onClick={handleClick}
       >
-        <ShareIcon size="small" />
+        <ShareOutlinedIcon size="small" />
       </IconButton>
     </ToolTip>
   );

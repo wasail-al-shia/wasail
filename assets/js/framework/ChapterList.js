@@ -17,7 +17,7 @@ import { HEADER_HEIGHT } from "../consts";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
 import AddIcon from "@mui/icons-material/Add";
 import {
@@ -250,7 +250,7 @@ export default () => {
               e.stopPropagation();
             }}
           >
-            <PictureAsPdfIcon size="small" />
+            <PictureAsPdfOutlinedIcon size="small" />
           </IconButton>
         </Tooltip>
         {isAdmin && (
@@ -299,7 +299,7 @@ export default () => {
                     e.stopPropagation();
                   }}
                 >
-                  <PictureAsPdfIcon size="small" />
+                  <PictureAsPdfOutlinedIcon size="small" />
                 </IconButton>
               </Tooltip>
             )}

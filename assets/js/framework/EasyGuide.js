@@ -25,7 +25,7 @@ import truncate from "lodash/truncate";
 import ContentWrapper from "../kmui/ContentWrapper";
 import { Heading4, Heading5 } from "../kmui/Heading";
 import IconButton from "@mui/material/IconButton";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import Tooltip from "@mui/material/Tooltip";
 import { generateEasyGuidePdf } from "../utils/pdf";
@@ -224,7 +224,7 @@ export default () => {
                 sx={{ color: "primary.dark2" }}
                 onClick={() => generateEasyGuidePdf(easyGuide)}
               >
-                <PictureAsPdfIcon size="small" />
+                <PictureAsPdfOutlinedIcon size="small" />
               </IconButton>
             </Tooltip>
           )}

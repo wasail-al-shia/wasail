@@ -14,7 +14,7 @@ import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
 import ShareIconButton from "../kmui/ShareIconButton";
 import IconButton from "@mui/material/IconButton";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import BackButton from "../kmui/BackButton";
 import { useLocation } from "react-router-dom";
 import {
@@ -326,11 +326,6 @@ export default () => {
           <Heading4>{sectionName(chapter.section)}</Heading4>
           <Heading5>
             {chapterName(chapter)}
-            <ShareIconButton
-              title="Share Chapter"
-              retrieveTextToCopy={() => generateChapterReference(chapter)}
-              snackMessage="Chapter link copied to clipboard"
-            />
             <Tooltip title="Download Chapter">
               <IconButton
                 size="small"
@@ -338,9 +333,14 @@ export default () => {
                 sx={{ color: "primary.dark2" }}
                 onClick={() => generateChapterPdf(chapter.id, setSrcStream)}
               >
-                <PictureAsPdfIcon size="small" />
+                <PictureAsPdfOutlinedIcon size="small" />
               </IconButton>
             </Tooltip>
+            <ShareIconButton
+              title="Share Link To Chapter"
+              retrieveTextToCopy={() => generateChapterReference(chapter)}
+              snackMessage="Chapter link copied to clipboard"
+            />
           </Heading5>
           {/* <iframe width="970" height="1330" src={srcStream} /> */}
           {reports

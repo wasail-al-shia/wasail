@@ -18,7 +18,7 @@ import Container from "@mui/material/Container";
 import { Heading4 } from "../kmui/Heading";
 import { HEADER_HEIGHT } from "../consts";
 import IconButton from "@mui/material/IconButton";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import { generateSectionPdf } from "../utils/pdf";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -235,7 +235,7 @@ export default () => {
                 e.stopPropagation();
               }}
             >
-              <PictureAsPdfIcon size="small" />
+              <PictureAsPdfOutlinedIcon size="small" />
             </IconButton>
           </Tooltip>
         )}
