@@ -174,7 +174,7 @@ export default () => {
             variant="h4"
             align="center"
           >
-            EASY GUIDE TO
+            EASY GUIDE
           </Typography>
           <Typography variant="h5" align="center">
             {easyGuideCategory.name}

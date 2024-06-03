@@ -84,7 +84,7 @@ export default () => {
     <Stack
       sx={{
         width: "100%",
-        padding: "0.5rem",
+        padding: "1rem",
         backgroundColor: "primary.header2",
         borderRadius: 1,
         "&:hover": {
@@ -95,7 +95,7 @@ export default () => {
       onClick={() => navigate(navEasyGuideCatLink(category.id))}
       direction="column"
     >
-      <Typography variant="h5">
+      <Typography variant="h4">
         {`${idx + 1}. ${category.name}`}
         {isAdmin && (
           <EditNoteIcon
@@ -108,7 +108,6 @@ export default () => {
           />
         )}
       </Typography>
-      <Typography>{category.description}</Typography>
     </Stack>
   );
 
