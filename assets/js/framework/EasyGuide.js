@@ -14,6 +14,7 @@ import BreadCrumbs from "../kmui/BreadCrumbs";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { DialogContext } from "../context/DialogContext";
 import { SessionContext } from "../context/SessionContext";
+import { SnackContext } from "../context/SnackContext";
 import FabAddButton from "../kmui/FabAddButton";
 import Spinner from "../kmui/Spinner";
 import { HEADER_HEIGHT } from "../consts";
@@ -25,9 +26,11 @@ import ContentWrapper from "../kmui/ContentWrapper";
 import { Heading4, Heading5 } from "../kmui/Heading";
 import IconButton from "@mui/material/IconButton";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import Tooltip from "@mui/material/Tooltip";
 import { generateEasyGuidePdf } from "../utils/pdf";
 import { replace } from "../utils/obj";
+import copy from "copy-to-clipboard";
 
 const fetchEasyGuide = ({ queryKey: [, guideId] }) =>
   request(`{
@@ -92,6 +95,7 @@ export default () => {
   const { openDialog } = React.useContext(DialogContext);
   const { isAdmin, onPhone, onTablet } = React.useContext(SessionContext);
   const { guideId } = useParams();
+  const { createSnack } = React.useContext(SnackContext);
   const { data: easyGuide = {}, isFetching: fetchingEasyGuide } = useQuery(
     ["easyGuide", guideId],
     fetchEasyGuide
@@ -223,6 +227,27 @@ export default () => {
                 <PictureAsPdfIcon size="small" />
               </IconButton>
             </Tooltip>
+          )}
+          {isAdmin && (
+            <IconButton
+              size="small"
+              variant="contained"
+              sx={{ color: "primary.dark2" }}
+              onClick={() => {
+                const copyText = easyGuide.easyGuideFragments
+                  .map((f) =>
+                    f.report
+                      ? f.report.texts.map((t) => t.textEng).join(" ")
+                      : null
+                  )
+                  .filter((x) => x)
+                  .join("\n\n");
+                copy(copyText);
+                createSnack("Hadith text copied to clipboard");
+              }}
+            >
+              <AssignmentIcon size="small" />
+            </IconButton>
           )}
         </Heading5>
         <Stack spacing={3} sx={{ padding: 5 }}>
