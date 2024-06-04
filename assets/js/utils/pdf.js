@@ -139,7 +139,7 @@ const addHeader = (doc, book, section, chapter, startPage, endPage) => {
     doc.page.margins.top = 0; //Dumb: Have to remove top margin in order to write into it
 
     if (i == startPage - 1) {
-      const topMargin = `${bookName(book)}, Section: ${section.sectionNo}`;
+      const topMargin = `${bookName(book)}, Section ${section.sectionNo}`;
       doc.text(
         topMargin,
         70,
@@ -147,9 +147,9 @@ const addHeader = (doc, book, section, chapter, startPage, endPage) => {
         { align: "center", oblique: true }
       );
     } else if (odd && chapter.chapterNo > 0) {
-      const topMargin = `${bookName(book)}, Section: ${
+      const topMargin = `${bookName(book)}, Section ${
         section.sectionNo
-      }, Chapter: ${chapter.chapterNo}`;
+      }, Chapter ${chapter.chapterNo}`;
       doc.text(
         topMargin,
         70,
