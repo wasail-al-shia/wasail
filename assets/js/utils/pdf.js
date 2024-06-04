@@ -400,10 +400,10 @@ export const addChapter = (doc, chapter, reports) => {
   reports.map((report, idx) => {
     if (doc.y > 650) doc.addPage();
     doc
-      .font(ENG_REG)
-      .fontSize(fs(1))
+      .font(ENG_BOLD)
+      .fontSize(fs(1.1))
       .fillColor("#773e16")
-      .text(report.headingEng, { align: "center" })
+      .text(report.headingEng, { align: "left" })
       .fillColor("#000");
     addVerticalSpace(doc);
     report.texts.map((text) => {
@@ -429,14 +429,13 @@ export const addChapter = (doc, chapter, reports) => {
         .fillColor("#555")
         .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
     });
-    addHorizontalRule(doc, idx == reports.length - 1 ? 400 : 150);
     addVerticalSpace(doc, 0.5);
   });
   doc
     .font(ENG_REG)
     .fontSize(fs(0.9))
     .fillColor("#000")
-    .text(FOOTER_TEXT, { align: "center" });
+    .text(FOOTER_TEXT, { align: "left", oblique: true });
   return doc;
 };
 
@@ -490,7 +489,8 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
           .text(egFragment.heading)
           .fillColor("#000");
       }
-      if (egFragment.html) doc.fontSize(fs(1)).text(egFragment.html);
+      if (egFragment.html)
+        doc.fontSize(fs(1)).text(egFragment.html.replace(/<[^>]*>?/gm, ""));
       if (egFragment.list) {
         doc
           .fontSize(fs(1))
@@ -508,14 +508,14 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
           );
       }
     }
-    addVerticalSpace(doc, 1);
+    if (idx < easyGuide.easyGuideFragments.length - 1) addVerticalSpace(doc, 1);
   });
-  addHorizontalRule(doc, 400);
+  addVerticalSpace(doc, 1);
   doc
     .font(ENG_REG)
     .fontSize(fs(0.9))
     .fillColor("#000")
-    .text(FOOTER_TEXT, { align: "center" });
+    .text(FOOTER_TEXT, { align: "left", oblique: true });
 
   var endPage = doc.bufferedPageRange().count;
   addEgHeader(doc, easyGuide.title, startPage, endPage);
