@@ -33,6 +33,7 @@ defmodule WasailWeb.Router do
     post "/record_page_view", PageController, :record_page_view
     post "/record_dwnld_chapter", PageController, :record_dwnld_chapter
     post "/record_dwnld_section", PageController, :record_dwnld_section
+    post "/record_dwnld_eg", PageController, :record_dwnld_eg
     get "/book_stats/:book_id", PageController, :book_stats
   end
 

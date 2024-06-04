@@ -41,6 +41,7 @@ function NavBar() {
       name: "easy guide",
       link: "/egc",
       sx: { color: "secondary.light", fontWeight: 700 },
+      hide: !isAdmin && !isReviewer,
     },
     {
       name: "about",

@@ -87,6 +87,40 @@ const addHorizontalRule = (doc, width = 400) => {
   return doc;
 };
 
+const addEgHeader = (doc, title, startPage, endPage) => {
+  doc.fontSize(fs(0.9)).fillColor("#000");
+  for (let i = startPage - 1; i < endPage; i++) {
+    doc.switchToPage(i);
+    const even = (i + 1) % 2 == 0;
+    const odd = !even;
+
+    //Header: Add page number
+    let oldTopMargin = doc.page.margins.top;
+    doc.page.margins.top = 0; //Dumb: Have to remove top margin in order to write into it
+
+    if (odd) {
+      const topMargin = "Easy Guide To Wasail Al Shia";
+      doc.text(
+        topMargin,
+        70,
+        oldTopMargin / 2, // Centered vertically in top margin
+        { align: "center", oblique: true }
+      );
+    } else {
+      const topMargin = truncate(`${title}`, {
+        length: 70,
+      });
+      doc.text(
+        topMargin,
+        70,
+        oldTopMargin / 2, // Centered vertically in top margin
+        { align: "center", oblique: true }
+      );
+    }
+    doc.page.margins.top = oldTopMargin; // ReProtect top margin
+  }
+};
+
 const addHeader = (doc, book, section, chapter, startPage, endPage) => {
   doc.fontSize(fs(0.9));
   for (let i = startPage - 1; i < endPage; i++) {
@@ -133,6 +167,31 @@ const addHeader = (doc, book, section, chapter, startPage, endPage) => {
 
 const addFooter = (doc, startPage, endPage) => {
   doc.fontSize(fs(0.9));
+  for (let i = startPage - 1; i < endPage; i++) {
+    doc.switchToPage(i);
+
+    //Footer: Add page number
+    let oldBottomMargin = doc.page.margins.bottom;
+    doc.page.margins.bottom = 0; //Dumb: Have to remove bottom margin in order to write into it
+    doc.text(
+      "http://wasail-al-shia.net",
+      70,
+      doc.page.height - oldBottomMargin / 2, // Centered vertically in bottom margin
+      { align: "left" }
+    );
+    doc.text(
+      //`Page: ${i + 1} of ${pages.count}`,
+      i + 1,
+      0,
+      doc.page.height - oldBottomMargin / 2, // Centered vertically in bottom margin
+      { align: "right" }
+    );
+    doc.page.margins.bottom = oldBottomMargin; // ReProtect bottom margin
+  }
+};
+
+const addEgFooter = (doc, startPage, endPage) => {
+  doc.fontSize(fs(0.9)).fillColor("#000");
   for (let i = startPage - 1; i < endPage; i++) {
     doc.switchToPage(i);
 
@@ -319,7 +378,6 @@ export const addChapter = (doc, chapter, reports) => {
   const hadithStart = Math.min(...reports.map((r) => r.reportNo));
   const hadithEnd = Math.max(...reports.map((r) => r.reportNo));
 
-  doc.font(ENG_REG);
   if (chapter.chapterNo > 0) {
     doc
       .font(ENG_BOLD)
@@ -387,16 +445,30 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
     bufferPages: true,
   });
   await registerFonts(doc);
-  doc.font(ENG_BOLD).fontSize(fs(1.1)).text("EASY GUIDE");
+  var startPage = doc.bufferedPageRange().count;
+  doc
+    .font(ENG_BOLD)
+    .fontSize(fs(1.2))
+    .fillColor("#000")
+    .text(easyGuide.easyGuideCategory.name, { align: "center" });
   addVerticalSpace(doc, 0.1);
-  doc.font(ENG_REG).fontSize(fs(1.2)).text(easyGuide.title);
-  addVerticalSpace(doc, 0.1);
+  doc
+    .font(ENG_REG)
+    .fillColor("#222")
+    .fontSize(fs(1.2))
+    .text(easyGuide.title, { align: "center" })
+    .fillColor("#000");
+  addVerticalSpace(doc, 2);
 
   easyGuide.easyGuideFragments.map((egFragment, idx) => {
     if (egFragment.report) {
+      doc
+        .fontSize(fs(1.1))
+        .fillColor("#773e16")
+        .text(egFragment.report.headingEng)
+        .fillColor("#000");
       egFragment.report.texts.map((text) => {
         doc
-          .font(ENG_REG)
           .fontSize(fs(1))
           .fillColor("#000")
           .text(text.textEng.trim(), { lineGap: -1, align: "justify" });
@@ -405,24 +477,22 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
       egFragment.report.comments.map((c) => {
         addVerticalSpace(doc);
         doc
-          .font(ENG_REG)
           .fontSize(fs(0.8))
           .fillColor("#444")
-          .text(c.commentEng.trim(), { lineGap: -1, align: "justify" });
+          .text(c.commentEng.trim(), { lineGap: -1, align: "justify" })
+          .fillColor("#000");
       });
     } else {
       if (egFragment.heading) {
         doc
-          .font(ENG_REG)
-          .fontSize(fs(1))
-          .fillColor("#000")
-          .text(egFragment.heading);
+          .fontSize(fs(1.1))
+          .fillColor("#773e16")
+          .text(egFragment.heading)
+          .fillColor("#000");
       }
-      if (egFragment.html)
-        doc.font(ENG_REG).fontSize(fs(1)).text(egFragment.html);
+      if (egFragment.html) doc.fontSize(fs(1)).text(egFragment.html);
       if (egFragment.list) {
         doc
-          .font(ENG_REG)
           .fontSize(fs(1))
           .fillColor("#000")
           .list(
@@ -438,14 +508,25 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
           );
       }
     }
+    addVerticalSpace(doc, 1);
   });
+  addHorizontalRule(doc, 400);
+  doc
+    .font(ENG_REG)
+    .fontSize(fs(0.9))
+    .fillColor("#000")
+    .text(FOOTER_TEXT, { align: "center" });
+
+  var endPage = doc.bufferedPageRange().count;
+  addEgHeader(doc, easyGuide.title, startPage, endPage);
+  addEgFooter(doc, startPage, endPage);
 
   doc.end();
 
-  savePdf(doc, "eg");
+  savePdf(doc, `Easy Guide - ${easyGuide.title}`);
   //refreshIframe(doc, setSrcStream);
-  // const url = "/rest/record_dwnld_easyguide";
-  // backend.post(url, { easy_guide_id: easyGuide.id });
+  const url = "/rest/record_dwnld_eg";
+  backend.post(url, { easy_guide_id: easyGuide.id });
 };
 
 // const addSvgDivider = (doc, svg) => {

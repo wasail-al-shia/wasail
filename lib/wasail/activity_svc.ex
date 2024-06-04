@@ -123,6 +123,17 @@ defmodule Wasail.ActivitySvc do
     })
   end
 
+  def record_dwnld_eg_activity(ip, user_agent, easy_guide_id) do
+    ip_rec = get_ip_info(ip)
+
+    Wasail.Activity.insert(%{
+      ip_info_id: ip_rec.id,
+      user_agent: user_agent,
+      activity_type: "dwnld_eg",
+      easy_guide_id: easy_guide_id
+    })
+  end
+
   def record_login(ip, user_agent, email, uid) do
     ip_rec = get_ip_info(ip)
 

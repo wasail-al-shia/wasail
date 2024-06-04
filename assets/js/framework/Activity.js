@@ -67,6 +67,12 @@ const columns = [
               to={navSectionLink(rowData.chapterId)}
             >{`dwnld_section: ${rowData.chapterId}`}</Link>
           );
+        case "dwnld_eg":
+          return (
+            <Link
+              to={navEasyGuideLink(rowData.easyGuideId)}
+            >{`dwnld_eg: ${rowData.easyGuideId}`}</Link>
+          );
         case "view_report":
           return (
             <Link

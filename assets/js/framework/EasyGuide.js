@@ -100,6 +100,7 @@ export default () => {
     ["easyGuide", guideId],
     fetchEasyGuide
   );
+  const [srcStream, setSrcStream] = React.useState("");
   const fragmentFields = [
     {
       name: "fragSeqNo",
@@ -213,7 +214,7 @@ export default () => {
       <ContentWrapper>
         <Box sx={{ height: `calc(2 * ${HEADER_HEIGHT})` }} />
 
-        <Heading4>EASY GUIDE</Heading4>
+        <Heading4>{`Easy Guide - ${easyGuide.easyGuideCategory?.name}`}</Heading4>
         <Heading5>
           {easyGuide.title}
           {isAdmin && (
@@ -222,7 +223,7 @@ export default () => {
                 size="small"
                 variant="contained"
                 sx={{ color: "primary.dark2" }}
-                onClick={() => generateEasyGuidePdf(easyGuide)}
+                onClick={() => generateEasyGuidePdf(easyGuide, setSrcStream)}
               >
                 <PictureAsPdfOutlinedIcon size="small" />
               </IconButton>
@@ -250,6 +251,7 @@ export default () => {
             </IconButton>
           )}
         </Heading5>
+        {/* <iframe width="970" height="1330" src={srcStream} /> */}
         <Stack spacing={3} sx={{ padding: 5 }}>
           {easyGuide.easyGuideFragments?.map((f) => {
             return (
