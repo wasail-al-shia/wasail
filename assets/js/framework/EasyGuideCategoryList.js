@@ -115,7 +115,7 @@ export default () => {
     <Spinner open={isFetching}>
       <Box sx={{ height: `calc(1 * ${HEADER_HEIGHT})` }} />
       <Container maxWidth="lg">
-        <Stack sx={{ marginTop: 10 }} spacing={3}>
+        <Stack sx={{ marginTop: 10 }} spacing={5}>
           <Typography
             sx={{ color: "primary.dark2" }}
             variant="h4"
@@ -142,6 +142,10 @@ export default () => {
               <CategoryCard key={category.id} idx={idx} category={category} />
             </Badge>
           ))}
+          <Typography>
+            (More guides will be added as the translation work makes progress
+            towards completion, God willing.)
+          </Typography>
         </Stack>
         <FabAddButton
           buttonText="Category"

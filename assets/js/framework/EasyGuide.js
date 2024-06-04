@@ -217,18 +217,16 @@ export default () => {
         <Heading4>{`Easy Guide - ${easyGuide.easyGuideCategory?.name}`}</Heading4>
         <Heading5>
           {easyGuide.title}
-          {isAdmin && (
-            <Tooltip title="Download Easy Guide">
-              <IconButton
-                size="small"
-                variant="contained"
-                sx={{ color: "primary.dark2" }}
-                onClick={() => generateEasyGuidePdf(easyGuide, setSrcStream)}
-              >
-                <PictureAsPdfOutlinedIcon size="small" />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Tooltip title="Download Easy Guide">
+            <IconButton
+              size="small"
+              variant="contained"
+              sx={{ color: "primary.dark2" }}
+              onClick={() => generateEasyGuidePdf(easyGuide, setSrcStream)}
+            >
+              <PictureAsPdfOutlinedIcon size="small" />
+            </IconButton>
+          </Tooltip>
           {isAdmin && (
             <IconButton
               size="small"

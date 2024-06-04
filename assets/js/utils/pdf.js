@@ -1,7 +1,12 @@
 import PDFDocument from "./pdfkit.js";
 import blobStream from "./blob-stream.js";
 import { saveAs } from "file-saver";
-import { bookName, dwnldSectionName, dwnldChapterName } from "./app.js";
+import {
+  bookName,
+  generateEgReference,
+  dwnldSectionName,
+  dwnldChapterName,
+} from "./app.js";
 import { flipParenthesis } from "./string.js";
 import truncate from "lodash/truncate";
 import SVGtoPDF from "svg-to-pdfkit";
@@ -10,6 +15,7 @@ import { backend } from "../utils/axiosConfig";
 import { request } from "../utils/graph-ql";
 
 const FOOTER_TEXT = `(Generated on ${todayFormatted()} from http://wasail-al-shia.net)`;
+const BROWN = "#773e16";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -391,7 +397,7 @@ export const addChapter = (doc, chapter, reports) => {
   if (hadithStart > 0) {
     doc
       .fontSize(fs(1.2))
-      .fillColor("#773e16")
+      .fillColor(BROWN)
       .text(`[ Hadith ${hadithStart} to ${hadithEnd} ]`, { align: "center" })
       .fillColor("#000");
   }
@@ -402,7 +408,7 @@ export const addChapter = (doc, chapter, reports) => {
     doc
       .font(ENG_BOLD)
       .fontSize(fs(1.1))
-      .fillColor("#773e16")
+      .fillColor(BROWN)
       .text(report.headingEng, { align: "left" })
       .fillColor("#000");
     addVerticalSpace(doc);
@@ -463,7 +469,7 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
     if (egFragment.report) {
       doc
         .fontSize(fs(1.1))
-        .fillColor("#773e16")
+        .fillColor(BROWN)
         .text(egFragment.report.headingEng)
         .fillColor("#000");
       egFragment.report.texts.map((text) => {
@@ -476,16 +482,23 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
       egFragment.report.comments.map((c) => {
         addVerticalSpace(doc);
         doc
-          .fontSize(fs(0.8))
-          .fillColor("#444")
+          .font(COMMENT)
+          .fontSize(fs(1))
+          .fillColor("#555")
           .text(c.commentEng.trim(), { lineGap: -1, align: "justify" })
           .fillColor("#000");
       });
+      doc
+        .font(ENG_REG)
+        .fontSize(fs(0.8))
+        .fillColor("#555")
+        .text(`(${generateEgReference(egFragment.report)})`, { align: "right" })
+        .fillColor("#000");
     } else {
       if (egFragment.heading) {
         doc
           .fontSize(fs(1.1))
-          .fillColor("#773e16")
+          .fillColor(BROWN)
           .text(egFragment.heading)
           .fillColor("#000");
       }
@@ -524,7 +537,7 @@ export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
   doc.end();
 
   savePdf(doc, `Easy Guide - ${easyGuide.title}`);
-  //refreshIframe(doc, setSrcStream);
+  // refreshIframe(doc, setSrcStream);
   const url = "/rest/record_dwnld_eg";
   backend.post(url, { easy_guide_id: easyGuide.id });
 };
