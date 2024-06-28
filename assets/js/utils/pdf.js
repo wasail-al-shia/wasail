@@ -329,6 +329,8 @@ export const generateSectionPdf = async (sectionId) => {
   const section = await fetchSectionWithReports(sectionId);
   var doc = new PDFDocument({
     bufferPages: true,
+    modifying: false,
+    printing: "lowResolution",
   });
   PDFDocument.prototype.addSVG = function (svg, x, y, options) {
     return SVGtoPDF(this, svg, x, y, options), this;
@@ -353,6 +355,8 @@ export const generateChapterPdf = async (chapterId, setSrcStream) => {
   const chapter = await fetchChapter(chapterId);
   var doc = new PDFDocument({
     bufferPages: true,
+    modifying: false,
+    printing: "lowResolution",
   });
   PDFDocument.prototype.addSVG = function (svg, x, y, options) {
     return SVGtoPDF(this, svg, x, y, options), this;
@@ -448,6 +452,8 @@ export const addChapter = (doc, chapter, reports) => {
 export const generateEasyGuidePdf = async (easyGuide, setSrcStream) => {
   var doc = new PDFDocument({
     bufferPages: true,
+    modifying: false,
+    printing: "lowResolution",
   });
   await registerFonts(doc);
   var startPage = doc.bufferedPageRange().count;
